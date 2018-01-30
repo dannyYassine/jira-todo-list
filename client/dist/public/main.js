@@ -8233,7 +8233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-let clientApp = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, 'jira.app']);
+let clientApp = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-client', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, 'jira.app', 'jira.login']);
 
 /***/ }),
 /* 54 */
@@ -45139,7 +45139,10 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(79);
+
+
 
 
 
@@ -45174,7 +45177,40 @@ module.exports = {
 /* 81 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <h1>JIRA</h1>\n</div>";
+module.exports = "<div>\n    <h1>JIRA</h1>\n    <login-component></login-component>\n</div>";
+
+/***/ }),
+/* 82 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_component__);
+
+
+
+
+
+let loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component___default.a);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+module.exports = {
+    template: __webpack_require__(84)
+};
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input type=\"text\" placeholder=\"Email\">\n    <label>Password</label>\n    <input type=\"text\" placeholder=\"Password\">\n\n</div>";
 
 /***/ })
 /******/ ]);

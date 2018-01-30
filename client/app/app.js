@@ -4,10 +4,11 @@ import uiRouter from '@uirouter/angularjs';
 
 import './modules';
 
-let clientApp = angular.module('jira',
+let clientApp = angular.module('jira-client',
     [
         uiRouter,
 
 
-        'jira.app'
+        'jira.app',
+        'jira.login'
     ]);
