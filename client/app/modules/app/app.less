@@ -1,4 +1,6 @@
 
+@leftFrameWidth: 250px;
+
 .margin-paddgin-zero {
 	margin: 0;
 	padding: 20px;
@@ -8,8 +10,9 @@ div#left-frame {
 	.margin-paddgin-zero();
 	float:left;
 	display: inline-block;
-	background: #00ffcc;
-	width: 300px;
+	background: #edeef0;
+	width: @leftFrameWidth;
+	border-right: solid #edeef0 2px;
 	height: 100vh;
 }
 
@@ -18,6 +21,6 @@ div#right-frame {
 	float:left;
 	display: inline-block;
 	background: #f8f8f8;
-	width: calc(~'100% - 300px');
+	width: calc(~'100% - @{leftFrameWidth}');
 	height: 100vh;
 }

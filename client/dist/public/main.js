@@ -991,11 +991,11 @@ __export(__webpack_require__(6));
  */ /** */
 Object.defineProperty(exports, "__esModule", { value: true });
 var predicates_1 = __webpack_require__(1);
-var rejectFactory_1 = __webpack_require__(10);
+var rejectFactory_1 = __webpack_require__(11);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
 var transition_1 = __webpack_require__(15);
-var resolvable_1 = __webpack_require__(12);
+var resolvable_1 = __webpack_require__(13);
 /**
  * Returns a string shortened to a maximum length
  *
@@ -1394,6 +1394,14 @@ exports.trace = trace;
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(54);
+module.exports = angular;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1413,7 +1421,7 @@ var TransitionHookScope;
 //# sourceMappingURL=interface.js.map
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1568,7 +1576,7 @@ exports.TargetState = TargetState;
 //# sourceMappingURL=targetState.js.map
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1774,7 +1782,7 @@ exports.Param = Param;
 //# sourceMappingURL=param.js.map
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1870,7 +1878,7 @@ exports.Rejection = Rejection;
 //# sourceMappingURL=rejectFactory.js.map
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1881,15 +1889,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module transition
  */
 /** for typedoc */
-var interface_1 = __webpack_require__(7);
+var interface_1 = __webpack_require__(8);
 var common_1 = __webpack_require__(0);
 var strings_1 = __webpack_require__(5);
 var predicates_1 = __webpack_require__(1);
 var hof_1 = __webpack_require__(2);
 var trace_1 = __webpack_require__(6);
 var coreservices_1 = __webpack_require__(3);
-var rejectFactory_1 = __webpack_require__(10);
-var targetState_1 = __webpack_require__(8);
+var rejectFactory_1 = __webpack_require__(11);
+var targetState_1 = __webpack_require__(9);
 var defaultOptions = {
     current: common_1.noop,
     transition: null,
@@ -2101,7 +2109,7 @@ exports.TransitionHook = TransitionHook;
 //# sourceMappingURL=transitionHook.js.map
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2241,14 +2249,6 @@ exports.Resolvable = Resolvable;
 //# sourceMappingURL=resolvable.js.map
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(54);
-module.exports = angular;
-
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2355,13 +2355,13 @@ var strings_1 = __webpack_require__(5);
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var hof_1 = __webpack_require__(2);
-var interface_1 = __webpack_require__(7); // has or is using
-var transitionHook_1 = __webpack_require__(11);
+var interface_1 = __webpack_require__(8); // has or is using
+var transitionHook_1 = __webpack_require__(12);
 var hookRegistry_1 = __webpack_require__(22);
 var hookBuilder_1 = __webpack_require__(27);
 var pathUtils_1 = __webpack_require__(16);
-var param_1 = __webpack_require__(9);
-var resolvable_1 = __webpack_require__(12);
+var param_1 = __webpack_require__(10);
+var resolvable_1 = __webpack_require__(13);
 var resolveContext_1 = __webpack_require__(17);
 /** @hidden */
 var stateSelf = hof_1.prop('self');
@@ -2996,7 +2996,7 @@ exports.Transition = Transition;
 Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
-var targetState_1 = __webpack_require__(8);
+var targetState_1 = __webpack_require__(9);
 var pathNode_1 = __webpack_require__(23);
 /**
  * This class contains functions which convert TargetStates, Nodes and paths from one type to another.
@@ -3178,7 +3178,7 @@ var hof_1 = __webpack_require__(2);
 var trace_1 = __webpack_require__(6);
 var coreservices_1 = __webpack_require__(3);
 var interface_1 = __webpack_require__(28);
-var resolvable_1 = __webpack_require__(12);
+var resolvable_1 = __webpack_require__(13);
 var pathUtils_1 = __webpack_require__(16);
 var strings_1 = __webpack_require__(5);
 var common_2 = __webpack_require__(4);
@@ -3387,7 +3387,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
 var predicates_1 = __webpack_require__(1);
-var param_1 = __webpack_require__(9);
+var param_1 = __webpack_require__(10);
 var strings_1 = __webpack_require__(5);
 /** @hidden */
 function quoteRegExp(str, param) {
@@ -4133,7 +4133,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** for typedoc */
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var interface_1 = __webpack_require__(7); // has or is using
+var interface_1 = __webpack_require__(8); // has or is using
 var glob_1 = __webpack_require__(14);
 /**
  * Determines if the given state matches the matchCriteria
@@ -4297,7 +4297,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module path */ /** for typedoc */
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
-var param_1 = __webpack_require__(9);
+var param_1 = __webpack_require__(10);
 /**
  * @internalapi
  *
@@ -4530,7 +4530,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module transition
  */
 /** for typedoc */
-var interface_1 = __webpack_require__(7);
+var interface_1 = __webpack_require__(8);
 var transition_1 = __webpack_require__(15);
 var hookRegistry_1 = __webpack_require__(22);
 var coreResolvables_1 = __webpack_require__(62);
@@ -4542,7 +4542,7 @@ var updateGlobals_1 = __webpack_require__(67);
 var url_1 = __webpack_require__(68);
 var lazyLoad_1 = __webpack_require__(43);
 var transitionEventType_1 = __webpack_require__(44);
-var transitionHook_1 = __webpack_require__(11);
+var transitionHook_1 = __webpack_require__(12);
 var predicates_1 = __webpack_require__(1);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
@@ -4837,8 +4837,8 @@ exports.locationPluginFactory = locationPluginFactory;
 Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var interface_1 = __webpack_require__(7);
-var transitionHook_1 = __webpack_require__(11);
+var interface_1 = __webpack_require__(8);
+var transitionHook_1 = __webpack_require__(12);
 /**
  * This class returns applicable TransitionHooks for a specific Transition instance.
  *
@@ -5195,7 +5195,7 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var strings_1 = __webpack_require__(5);
 var hof_1 = __webpack_require__(2);
-var resolvable_1 = __webpack_require__(12);
+var resolvable_1 = __webpack_require__(13);
 var coreservices_1 = __webpack_require__(3);
 var parseUrl = function (url) {
     if (!predicates_1.isString(url))
@@ -5820,9 +5820,9 @@ var coreservices_1 = __webpack_require__(3);
 var pathUtils_1 = __webpack_require__(16);
 var pathNode_1 = __webpack_require__(23);
 var transitionService_1 = __webpack_require__(25);
-var rejectFactory_1 = __webpack_require__(10);
-var targetState_1 = __webpack_require__(8);
-var param_1 = __webpack_require__(9);
+var rejectFactory_1 = __webpack_require__(11);
+var targetState_1 = __webpack_require__(9);
+var param_1 = __webpack_require__(10);
 var glob_1 = __webpack_require__(14);
 var resolveContext_1 = __webpack_require__(17);
 var lazyLoad_1 = __webpack_require__(43);
@@ -6576,7 +6576,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var urlMatcher_1 = __webpack_require__(18);
-var param_1 = __webpack_require__(9);
+var param_1 = __webpack_require__(10);
 var paramTypes_1 = __webpack_require__(29);
 /**
  * Factory for [[UrlMatcher]] instances.
@@ -6709,7 +6709,7 @@ var predicates_1 = __webpack_require__(1);
 var urlMatcher_1 = __webpack_require__(18);
 var hof_1 = __webpack_require__(2);
 var urlRule_1 = __webpack_require__(39);
-var targetState_1 = __webpack_require__(8);
+var targetState_1 = __webpack_require__(9);
 var common_2 = __webpack_require__(4);
 /** @hidden */
 function appendBasePath(url, isHtml5, absolute, baseHref) {
@@ -7760,7 +7760,7 @@ exports.lazyLoadState = lazyLoadState;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var transitionHook_1 = __webpack_require__(11);
+var transitionHook_1 = __webpack_require__(12);
 /**
  * This class defines a type of hook, such as `onBefore` or `onEnter`.
  * Plugins can define custom hook types, such as sticky states does for `onInactive`.
@@ -8222,12 +8222,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_modules__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_modules__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules__ = __webpack_require__(82);
 
 
 
@@ -42509,7 +42509,7 @@ $provide.value("$locale", {
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 (function (global, factory) {
-	 true ? factory(exports, __webpack_require__(13), __webpack_require__(56)) :
+	 true ? factory(exports, __webpack_require__(7), __webpack_require__(56)) :
 	typeof define === 'function' && define.amd ? define(['exports', 'angular', '@uirouter/core'], factory) :
 	(factory((global['@uirouter/angularjs'] = {}),global.angular,global['@uirouter/core']));
 }(this, (function (exports,ng_from_import,core) { 'use strict';
@@ -44529,7 +44529,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(9));
+__export(__webpack_require__(10));
 __export(__webpack_require__(29));
 __export(__webpack_require__(30));
 __export(__webpack_require__(24));
@@ -44562,7 +44562,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module resolve */ /** for typedoc */
 __export(__webpack_require__(28));
-__export(__webpack_require__(12));
+__export(__webpack_require__(13));
 __export(__webpack_require__(17));
 //# sourceMappingURL=index.js.map
 
@@ -44582,7 +44582,7 @@ __export(__webpack_require__(32));
 __export(__webpack_require__(33));
 __export(__webpack_require__(34));
 __export(__webpack_require__(35));
-__export(__webpack_require__(8));
+__export(__webpack_require__(9));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -44619,7 +44619,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module hooks */ /** */
 var predicates_1 = __webpack_require__(1);
 var coreservices_1 = __webpack_require__(3);
-var targetState_1 = __webpack_require__(8);
+var targetState_1 = __webpack_require__(9);
 /**
  * A [[TransitionHookFn]] that redirects to a different state or params
  *
@@ -44917,7 +44917,7 @@ exports.registerUpdateUrl = function (transitionService) {
 /** @module hooks */ /** */
 Object.defineProperty(exports, "__esModule", { value: true });
 var trace_1 = __webpack_require__(6);
-var rejectFactory_1 = __webpack_require__(10);
+var rejectFactory_1 = __webpack_require__(11);
 /**
  * A [[TransitionHookFn]] that skips a transition if it should be ignored
  *
@@ -44994,12 +44994,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @preferred
  * @module transition
  */ /** for typedoc */
-__export(__webpack_require__(7));
+__export(__webpack_require__(8));
 __export(__webpack_require__(27));
 __export(__webpack_require__(22));
-__export(__webpack_require__(10));
-__export(__webpack_require__(15));
 __export(__webpack_require__(11));
+__export(__webpack_require__(15));
+__export(__webpack_require__(12));
 __export(__webpack_require__(44));
 __export(__webpack_require__(25));
 //# sourceMappingURL=index.js.map
@@ -45141,30 +45141,34 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_loader__ = __webpack_require__(79);
 
 
 
 
+
+let sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader']);
+
+const _default = sharedModule.name;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
 
 /***/ }),
 /* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__appLoader_component__);
 
 
 
 
 
-let loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component___default.a);
-
-/* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).component('appLoader', __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default.a);
 
 /***/ }),
 /* 80 */
@@ -45179,16 +45183,61 @@ module.exports = {
 /* 81 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input type=\"text\" placeholder=\"Email\">\n    <label>Password</label>\n    <input type=\"text\" placeholder=\"Password\">\n\n</div>";
+module.exports = "<div class=\"app-loader\">\n    <div class=\"inner-spinner\">\n        <div class=\"spinner\"></div>\n    </div>\n</div>";
 
 /***/ }),
 /* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(86);
+
+
+
+
+
+/***/ }),
+/* 83 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_component__);
+
+
+
+
+
+let loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component___default.a);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+module.exports = {
+    template: __webpack_require__(85)
+};
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input type=\"text\" placeholder=\"Email\">\n    <label>Password</label>\n    <input type=\"text\" placeholder=\"Password\">\n\n</div>";
+
+/***/ }),
+/* 86 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__app_component__);
 
 
@@ -45198,22 +45247,20 @@ module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input typ
 __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.app', []).component('app', __WEBPACK_IMPORTED_MODULE_1__app_component___default.a);
 
 /***/ }),
-/* 83 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 
-let AppController = __webpack_require__(85);
+let AppController = __webpack_require__(88);
 
 module.exports = {
-    template: __webpack_require__(86),
+    template: __webpack_require__(89),
     controller: AppController,
     controllerAs: 'vm'
 };
 
 /***/ }),
-/* 84 */,
-/* 85 */
+/* 88 */
 /***/ (function(module, exports) {
 
 
@@ -45224,59 +45271,10 @@ let AppController = function () {
 module.exports = AppController;
 
 /***/ }),
-/* 86 */
+/* 89 */
 /***/ (function(module, exports) {
 
 module.exports = "<div>\n    <app-loader ng-show=\"!vm.contentLoaded\"></app-loader>\n    <div ui-view=\"login\" ng-if=\"false\"></div>\n\n    <div ui-view=\"app-modals\"></div>\n\n    <div id=\"left-frame\">\n        left frame\n    </div>\n\n    <div id=\"right-frame\">\n        right frame\n        <div ui-view></div>\n    </div>\n</div>";
-
-/***/ }),
-/* 87 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_loader__ = __webpack_require__(88);
-
-
-
-
-
-let sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader']);
-
-const _default = sharedModule.name;
-/* harmony default export */ __webpack_exports__["a"] = (_default);
-
-/***/ }),
-/* 88 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__appLoader_component__);
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).component('appLoader', __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default.a);
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-module.exports = {
-    template: __webpack_require__(90)
-};
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"app-loader\">\n    <div class=\"inner-spinner\">\n        <div class=\"spinner\"></div>\n    </div>\n</div>";
 
 /***/ })
 /******/ ]);

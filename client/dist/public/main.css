@@ -47,8 +47,9 @@ div#left-frame {
   padding: 20px;
   float: left;
   display: inline-block;
-  background: #00ffcc;
-  width: 300px;
+  background: #edeef0;
+  width: 250px;
+  border-right: solid #edeef0 2px;
   height: 100vh;
 }
 div#right-frame {
@@ -57,8 +58,27 @@ div#right-frame {
   float: left;
   display: inline-block;
   background: #f8f8f8;
-  width: calc(100% - 300px);
+  width: calc(100% - 250px);
   height: 100vh;
+}
+@media only screen and (max-width: 900px) {
+  div#left-frame {
+    width: 100px;
+  }
+  div#right-frame {
+    width: calc(100% - 100px);
+  }
+}
+@media only screen and (max-width: 500px) {
+  div#left-frame {
+    display: block;
+    height: 65px;
+    width: 100%;
+  }
+  div#right-frame {
+    display: block;
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=main.css.map*/

@@ -9,8 +9,8 @@
   "scripts": {
     "dev": "concurrently \"npm run watch\" \"npm run serve\" \"npm run sync\"",
     "watch": "webpack --watch --config webpack.config.js",
-    "serve": "nodemon server/index.js --watch client/dist/public -e css,js ",
-    "sync": "browser-sync start --proxy \"localhost:3002\" --files \"client/**/*\"",
+    "serve": "nodemon server/index.js --watch server -e html ",
+    "sync": "browser-sync start --proxy \"localhost:3002\" --files \"client/dist/**/*\"",
     "build": "webpack --config webpack.config.js",
     "nodemon": "nodemon src/server/index.js",
     "start": "forever src/server/index.js",
