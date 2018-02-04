@@ -1,5 +1,64 @@
 body {
   background-color: #f5f5f5;
 }
+div.app-loader {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #d7ffb5;
+}
+div.app-loader .inner-spinner {
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+}
+div.app-loader .spinner {
+  border: solid #DEFFD9 5px;
+  border-bottom: solid 5px;
+  border-radius: 40px;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-bottom: solid 5px;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    border-bottom: solid 5px;
+  }
+}
+.margin-paddgin-zero {
+  margin: 0;
+  padding: 20px;
+}
+div#left-frame {
+  margin: 0;
+  padding: 20px;
+  float: left;
+  display: inline-block;
+  background: #00ffcc;
+  width: 300px;
+  height: 100vh;
+}
+div#right-frame {
+  margin: 0;
+  padding: 20px;
+  float: left;
+  display: inline-block;
+  background: #f8f8f8;
+  width: calc(100% - 300px);
+  height: 100vh;
+}
 
 /*# sourceMappingURL=main.css.map*/

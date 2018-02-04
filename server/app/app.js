@@ -11,6 +11,7 @@ let nunjucks        = require('nunjucks');
  * App Configuration
  */
 app.use(express.static(path.join(__dirname, '../..', '/client/dist/public')));
+app.use(express.static(path.join(__dirname, '../..', '/client/app/vendors')));
 
 /**
  * Code Coverage

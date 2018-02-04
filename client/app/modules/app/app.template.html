@@ -1,4 +1,15 @@
 <div>
-    <h1>JIRA</h1>
-    <login-component></login-component>
+    <app-loader ng-show="!vm.contentLoaded"></app-loader>
+    <div ui-view="login" ng-if="false"></div>
+
+    <div ui-view="app-modals"></div>
+
+    <div id="left-frame">
+        left frame
+    </div>
+
+    <div id="right-frame">
+        right frame
+        <div ui-view></div>
+    </div>
 </div>

@@ -968,7 +968,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module common */ /** for typedoc */
 __export(__webpack_require__(0));
 __export(__webpack_require__(3));
-__export(__webpack_require__(13));
+__export(__webpack_require__(14));
 __export(__webpack_require__(2));
 __export(__webpack_require__(1));
 __export(__webpack_require__(21));
@@ -994,7 +994,7 @@ var predicates_1 = __webpack_require__(1);
 var rejectFactory_1 = __webpack_require__(10);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
-var transition_1 = __webpack_require__(14);
+var transition_1 = __webpack_require__(15);
 var resolvable_1 = __webpack_require__(12);
 /**
  * Returns a string shortened to a maximum length
@@ -2244,6 +2244,14 @@ exports.Resolvable = Resolvable;
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(54);
+module.exports = angular;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2330,7 +2338,7 @@ exports.Glob = Glob;
 //# sourceMappingURL=glob.js.map
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2351,10 +2359,10 @@ var interface_1 = __webpack_require__(7); // has or is using
 var transitionHook_1 = __webpack_require__(11);
 var hookRegistry_1 = __webpack_require__(22);
 var hookBuilder_1 = __webpack_require__(27);
-var pathUtils_1 = __webpack_require__(15);
+var pathUtils_1 = __webpack_require__(16);
 var param_1 = __webpack_require__(9);
 var resolvable_1 = __webpack_require__(12);
-var resolveContext_1 = __webpack_require__(16);
+var resolveContext_1 = __webpack_require__(17);
 /** @hidden */
 var stateSelf = hof_1.prop('self');
 /**
@@ -2979,7 +2987,7 @@ exports.Transition = Transition;
 //# sourceMappingURL=transition.js.map
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3157,7 +3165,7 @@ exports.PathUtils = PathUtils;
 //# sourceMappingURL=pathUtils.js.map
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3171,7 +3179,7 @@ var trace_1 = __webpack_require__(6);
 var coreservices_1 = __webpack_require__(3);
 var interface_1 = __webpack_require__(28);
 var resolvable_1 = __webpack_require__(12);
-var pathUtils_1 = __webpack_require__(15);
+var pathUtils_1 = __webpack_require__(16);
 var strings_1 = __webpack_require__(5);
 var common_2 = __webpack_require__(4);
 var whens = interface_1.resolvePolicies.when;
@@ -3365,7 +3373,7 @@ var UIInjectorImpl = /** @class */ (function () {
 //# sourceMappingURL=resolveContext.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3892,7 +3900,7 @@ exports.UrlMatcher = UrlMatcher;
 //# sourceMappingURL=urlMatcher.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3941,14 +3949,6 @@ exports.BaseLocationServices = BaseLocationServices;
 //# sourceMappingURL=baseLocationService.js.map
 
 /***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(54);
-module.exports = angular;
-
-
-/***/ }),
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3957,7 +3957,7 @@ module.exports = angular;
 Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
-var glob_1 = __webpack_require__(13);
+var glob_1 = __webpack_require__(14);
 var predicates_1 = __webpack_require__(1);
 /**
  * Internal representation of a UI-Router state.
@@ -4134,7 +4134,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var interface_1 = __webpack_require__(7); // has or is using
-var glob_1 = __webpack_require__(13);
+var glob_1 = __webpack_require__(14);
 /**
  * Determines if the given state matches the matchCriteria
  *
@@ -4531,7 +4531,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 /** for typedoc */
 var interface_1 = __webpack_require__(7);
-var transition_1 = __webpack_require__(14);
+var transition_1 = __webpack_require__(15);
 var hookRegistry_1 = __webpack_require__(22);
 var coreResolvables_1 = __webpack_require__(62);
 var redirectTo_1 = __webpack_require__(63);
@@ -5817,14 +5817,14 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var queue_1 = __webpack_require__(21);
 var coreservices_1 = __webpack_require__(3);
-var pathUtils_1 = __webpack_require__(15);
+var pathUtils_1 = __webpack_require__(16);
 var pathNode_1 = __webpack_require__(23);
 var transitionService_1 = __webpack_require__(25);
 var rejectFactory_1 = __webpack_require__(10);
 var targetState_1 = __webpack_require__(8);
 var param_1 = __webpack_require__(9);
-var glob_1 = __webpack_require__(13);
-var resolveContext_1 = __webpack_require__(16);
+var glob_1 = __webpack_require__(14);
+var resolveContext_1 = __webpack_require__(17);
 var lazyLoad_1 = __webpack_require__(43);
 var hof_1 = __webpack_require__(2);
 /**
@@ -6575,7 +6575,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** for typedoc */
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var urlMatcher_1 = __webpack_require__(17);
+var urlMatcher_1 = __webpack_require__(18);
 var param_1 = __webpack_require__(9);
 var paramTypes_1 = __webpack_require__(29);
 /**
@@ -6706,7 +6706,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** for typedoc */
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var urlMatcher_1 = __webpack_require__(17);
+var urlMatcher_1 = __webpack_require__(18);
 var hof_1 = __webpack_require__(2);
 var urlRule_1 = __webpack_require__(39);
 var targetState_1 = __webpack_require__(8);
@@ -7021,7 +7021,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @coreapi
  * @module url
  */ /** */
-var urlMatcher_1 = __webpack_require__(17);
+var urlMatcher_1 = __webpack_require__(18);
 var predicates_1 = __webpack_require__(1);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
@@ -7978,7 +7978,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 /** */
 var common_1 = __webpack_require__(4);
-var baseLocationService_1 = __webpack_require__(18);
+var baseLocationService_1 = __webpack_require__(19);
 /** A `LocationServices` that uses the browser hash "#" to get/set the current location */
 var HashLocationService = /** @class */ (function (_super) {
     __extends(HashLocationService, _super);
@@ -8024,7 +8024,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module vanilla
  */
 /** */
-var baseLocationService_1 = __webpack_require__(18);
+var baseLocationService_1 = __webpack_require__(19);
 /** A `LocationServices` that gets/sets the current location from an in-memory object */
 var MemoryLocationService = /** @class */ (function (_super) {
     __extends(MemoryLocationService, _super);
@@ -8059,7 +8059,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var baseLocationService_1 = __webpack_require__(18);
+var baseLocationService_1 = __webpack_require__(19);
 var common_1 = __webpack_require__(4);
 /**
  * A `LocationServices` that gets/sets the current location using the browser's `location` and `history` apis
@@ -8222,18 +8222,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_modules__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules__ = __webpack_require__(78);
 
 
 
 
 
 
-let clientApp = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-client', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, 'jira.app', 'jira.login']);
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-client', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, __WEBPACK_IMPORTED_MODULE_2__shared_modules__["a" /* default */], 'jira.app', 'jira.login']);
 
 /***/ }),
 /* 54 */
@@ -42507,7 +42509,7 @@ $provide.value("$locale", {
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 (function (global, factory) {
-	 true ? factory(exports, __webpack_require__(19), __webpack_require__(56)) :
+	 true ? factory(exports, __webpack_require__(13), __webpack_require__(56)) :
 	typeof define === 'function' && define.amd ? define(['exports', 'angular', '@uirouter/core'], factory) :
 	(factory((global['@uirouter/angularjs'] = {}),global.angular,global['@uirouter/core']));
 }(this, (function (exports,ng_from_import,core) { 'use strict';
@@ -44545,7 +44547,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module path */ /** for typedoc */
 __export(__webpack_require__(23));
-__export(__webpack_require__(15));
+__export(__webpack_require__(16));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -44561,7 +44563,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module resolve */ /** for typedoc */
 __export(__webpack_require__(28));
 __export(__webpack_require__(12));
-__export(__webpack_require__(16));
+__export(__webpack_require__(17));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -44591,7 +44593,7 @@ __export(__webpack_require__(8));
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module hooks */ /** */
-var transition_1 = __webpack_require__(14);
+var transition_1 = __webpack_require__(15);
 var router_1 = __webpack_require__(36);
 function addCoreResolvables(trans) {
     trans.addResolvable({ token: router_1.UIRouter, deps: [], resolveFn: function () { return trans.router; }, data: trans.router }, '');
@@ -44723,7 +44725,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** @module hooks */
 /** for typedoc */
 var common_1 = __webpack_require__(0);
-var resolveContext_1 = __webpack_require__(16);
+var resolveContext_1 = __webpack_require__(17);
 var hof_1 = __webpack_require__(2);
 exports.RESOLVE_HOOK_PRIORITY = 1000;
 /**
@@ -44996,7 +44998,7 @@ __export(__webpack_require__(7));
 __export(__webpack_require__(27));
 __export(__webpack_require__(22));
 __export(__webpack_require__(10));
-__export(__webpack_require__(14));
+__export(__webpack_require__(15));
 __export(__webpack_require__(11));
 __export(__webpack_require__(44));
 __export(__webpack_require__(25));
@@ -45012,7 +45014,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(17));
+__export(__webpack_require__(18));
 __export(__webpack_require__(37));
 __export(__webpack_require__(38));
 __export(__webpack_require__(39));
@@ -45062,7 +45064,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
-__export(__webpack_require__(18));
+__export(__webpack_require__(19));
 __export(__webpack_require__(47));
 __export(__webpack_require__(48));
 __export(__webpack_require__(49));
@@ -45139,8 +45141,8 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(82);
 
 
 
@@ -45151,18 +45153,18 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__app_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_component__);
 
 
 
 
 
-let appModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.app', []).component('app', __WEBPACK_IMPORTED_MODULE_1__app_component___default.a);
+let loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component___default.a);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (appModule);
+/* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
 
 /***/ }),
 /* 80 */
@@ -45177,40 +45179,104 @@ module.exports = {
 /* 81 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <h1>JIRA</h1>\n    <login-component></login-component>\n</div>";
+module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input type=\"text\" placeholder=\"Email\">\n    <label>Password</label>\n    <input type=\"text\" placeholder=\"Password\">\n\n</div>";
 
 /***/ }),
 /* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__app_component__);
 
 
 
 
 
-let loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component___default.a);
-
-/* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.app', []).component('app', __WEBPACK_IMPORTED_MODULE_1__app_component___default.a);
 
 /***/ }),
 /* 83 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+let AppController = __webpack_require__(85);
+
+module.exports = {
+    template: __webpack_require__(86),
+    controller: AppController,
+    controllerAs: 'vm'
+};
+
+/***/ }),
+/* 84 */,
+/* 85 */
+/***/ (function(module, exports) {
+
+
+let AppController = function () {
+    let vm = this;
+    vm.contentLoaded = true;
+};
+module.exports = AppController;
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n    <app-loader ng-show=\"!vm.contentLoaded\"></app-loader>\n    <div ui-view=\"login\" ng-if=\"false\"></div>\n\n    <div ui-view=\"app-modals\"></div>\n\n    <div id=\"left-frame\">\n        left frame\n    </div>\n\n    <div id=\"right-frame\">\n        right frame\n        <div ui-view></div>\n    </div>\n</div>";
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_loader__ = __webpack_require__(88);
+
+
+
+
+
+let sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader']);
+
+const _default = sharedModule.name;
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+
+/***/ }),
+/* 88 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__appLoader_component__);
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).component('appLoader', __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default.a);
+
+/***/ }),
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 module.exports = {
-    template: __webpack_require__(84)
+    template: __webpack_require__(90)
 };
 
 /***/ }),
-/* 84 */
+/* 90 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input type=\"text\" placeholder=\"Email\">\n    <label>Password</label>\n    <input type=\"text\" placeholder=\"Password\">\n\n</div>";
+module.exports = "<div class=\"app-loader\">\n    <div class=\"inner-spinner\">\n        <div class=\"spinner\"></div>\n    </div>\n</div>";
 
 /***/ })
 /******/ ]);

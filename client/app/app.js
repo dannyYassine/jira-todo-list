@@ -2,12 +2,14 @@
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 
+import sharedModule from './shared/modules';
 import './modules';
 
-let clientApp = angular.module('jira-client',
+angular.module('jira-client',
     [
         uiRouter,
 
+        sharedModule,
 
         'jira.app',
         'jira.login'

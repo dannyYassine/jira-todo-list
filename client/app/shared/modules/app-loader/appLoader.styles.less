@@ -1,0 +1,42 @@
+
+div.app-loader {
+
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background-color: #d7ffb5;
+
+	.inner-spinner {
+		margin: 0 auto;
+		width: 40px;
+		height: 40px;
+	}
+
+	.spinner {
+		border: solid #DEFFD9 5px;
+		border-bottom: solid 5px;
+		border-radius: 40px;
+		width: 40px;
+		height: 40px;
+		animation: spin 1s linear infinite;
+	}
+	@keyframes spin {
+		0% {
+			-webkit-transform: rotate(0deg);
+			-moz-transform: rotate(0deg);
+			-ms-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+			border-bottom: solid 5px;
+		}
+		100% {
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+			border-bottom: solid 5px;
+		}
+	}
+
+}
