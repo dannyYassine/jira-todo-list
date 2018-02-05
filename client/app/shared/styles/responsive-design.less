@@ -1,4 +1,7 @@
 
+//------------------------- TABLET ----------------------------->
+
+// APP SHELL
 @media only screen and (max-width: 900px) {
 	div#left-frame {
 		width: 100px;
@@ -8,14 +11,38 @@
 	}
 }
 
+//------------------------- MOBILE ----------------------------->
+
+// APP SHELL
 @media only screen and (max-width: 500px) {
-	div#left-frame {
+	div#mobile-header {
 		display: block;
-		height: 65px;
-		width: 100%;
+	}
+	div#left-frame {
+		z-index: 11;
+		position: absolute;
+		display: block;
+		left: -200px;
+		width: 200px;
+		transition: left 0.5s ease;
 	}
 	div#right-frame {
+		z-index: 2;
 		display: block;
 		width: 100%;
+		margin-top: 65px;
+		transition: opacity 0.5s ease;
+	}
+
+	div.left-trame-transition-right {
+		div#mobile-header {
+			opacity: 0.9;
+		}
+		div#left-frame {
+			left: 0;
+		}
+		div#right-frame {
+			opacity: 0.9;
+		}
 	}
 }

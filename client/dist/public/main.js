@@ -45267,6 +45267,17 @@ module.exports = {
 let AppController = function () {
     let vm = this;
     vm.contentLoaded = true;
+
+    vm.toggleMobileHeader = toggleMobileHeader;
+
+    function toggleMobileHeader() {
+        let leftFrame = document.getElementById('app-shell');
+        if (leftFrame.classList.contains('left-trame-transition-right')) {
+            leftFrame.classList.remove('left-trame-transition-right');
+        } else {
+            leftFrame.classList.add('left-trame-transition-right');
+        }
+    }
 };
 module.exports = AppController;
 
@@ -45274,7 +45285,7 @@ module.exports = AppController;
 /* 89 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <app-loader ng-show=\"!vm.contentLoaded\"></app-loader>\n    <div ui-view=\"login\" ng-if=\"false\"></div>\n\n    <div ui-view=\"app-modals\"></div>\n\n    <div id=\"left-frame\">\n        left frame\n    </div>\n\n    <div id=\"right-frame\">\n        right frame\n        <div ui-view></div>\n    </div>\n</div>";
+module.exports = "<div id=\"app-shell\">\n    <app-loader ng-show=\"!vm.contentLoaded\"></app-loader>\n    <div ui-view=\"login\" ng-if=\"false\"></div>\n\n    <div ui-view=\"app-modals\"></div>\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <div id=\"left-frame\">\n        left frame\n    </div>\n\n    <div id=\"right-frame\">\n        right frame\n        <div ui-view></div>\n    </div>\n</div>";
 
 /***/ })
 /******/ ]);

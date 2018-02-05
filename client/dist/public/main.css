@@ -1,5 +1,5 @@
 body {
-  background-color: #f5f5f5;
+  background-color: black;
 }
 div.app-loader {
   position: absolute;
@@ -42,6 +42,32 @@ div.app-loader .spinner {
   margin: 0;
   padding: 20px;
 }
+div#mobile-header {
+  position: fixed;
+  z-index: 10;
+  display: none;
+  height: 65px;
+  width: 100%;
+  background: #edeef0;
+}
+div.mobile-toggler {
+  display: inline;
+  float: right;
+  height: 65px;
+  width: 65px;
+  padding-top: 18px;
+}
+div.mobile-toggler .button-toggler {
+  margin: 0 auto;
+  height: 30px;
+  width: 30px;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  vertical-align: center;
+  padding-top: 2px;
+}
 div#left-frame {
   margin: 0;
   padding: 20px;
@@ -70,14 +96,32 @@ div#right-frame {
   }
 }
 @media only screen and (max-width: 500px) {
-  div#left-frame {
+  div#mobile-header {
     display: block;
-    height: 65px;
-    width: 100%;
+  }
+  div#left-frame {
+    z-index: 11;
+    position: absolute;
+    display: block;
+    left: -200px;
+    width: 200px;
+    transition: left 0.5s ease;
   }
   div#right-frame {
+    z-index: 2;
     display: block;
     width: 100%;
+    margin-top: 65px;
+    transition: opacity 0.5s ease;
+  }
+  div.left-trame-transition-right div#mobile-header {
+    opacity: 0.9;
+  }
+  div.left-trame-transition-right div#left-frame {
+    left: 0;
+  }
+  div.left-trame-transition-right div#right-frame {
+    opacity: 0.9;
   }
 }
 

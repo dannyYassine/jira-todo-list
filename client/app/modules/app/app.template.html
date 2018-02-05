@@ -1,9 +1,15 @@
-<div>
+<div id="app-shell">
     <app-loader ng-show="!vm.contentLoaded"></app-loader>
     <div ui-view="login" ng-if="false"></div>
 
     <div ui-view="app-modals"></div>
-
+    <div id="mobile-header">
+        <div class="mobile-toggler" ng-click="vm.toggleMobileHeader()">
+            <div class="button-toggler">
+                &#9776;
+            </div>
+        </div>
+    </div>
     <div id="left-frame">
         left frame
     </div>
