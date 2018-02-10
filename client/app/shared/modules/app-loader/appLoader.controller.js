@@ -1,10 +1,10 @@
 
-export default function AppLoaderController(AppService) {
+export default function AppLoaderController(AppLoaderService) {
     let vm = this;
 
     vm.$onInit = $onInit;
     
     function $onInit() {
-        AppService.launch();    
+        AppLoaderService.launch();
     }
 }

@@ -7,7 +7,7 @@ import LoginService from './login.service';
 const loginModule = angular.module('jira.login',
     [
     ])
-    .service('loginService', LoginService)
+    .service('LoginService', LoginService)
     .component('loginComponent', LoginComponent)
     .config(loginRoutes);
 export default loginModule;

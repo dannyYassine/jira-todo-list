@@ -1,8 +1,10 @@
 <div id="login">
 
-    <label>Email</label>
-    <input type="text" placeholder="Email">
-    <label>Password</label>
-    <input type="text" placeholder="Password">
-
+    <form>
+        <label>Email</label>
+        <input type="text" placeholder="Email">
+        <label>Password</label>
+        <input type="text" placeholder="Password">
+    </form>
+    <button ng-click="vm.login($event)">Login</button>
 </div>

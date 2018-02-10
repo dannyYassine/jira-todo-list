@@ -45179,12 +45179,14 @@ const _default = sharedModule.name;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__appLoader_service__ = __webpack_require__(95);
 
 
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).component('appLoader', __WEBPACK_IMPORTED_MODULE_1__appLoader_component__["a" /* default */]);
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).service('AppLoaderService', __WEBPACK_IMPORTED_MODULE_2__appLoader_service__["a" /* default */]).component('appLoader', __WEBPACK_IMPORTED_MODULE_1__appLoader_component__["a" /* default */]);
 
 /***/ }),
 /* 80 */
@@ -45195,7 +45197,7 @@ __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).
 
 
 
-__WEBPACK_IMPORTED_MODULE_0__appLoader_controller__["a" /* default */].$inject = ['AppService'];
+__WEBPACK_IMPORTED_MODULE_0__appLoader_controller__["a" /* default */].$inject = ['AppLoaderService'];
 const AppLoaderComponent = {
     template: __webpack_require__(81),
     controller: __WEBPACK_IMPORTED_MODULE_0__appLoader_controller__["a" /* default */],
@@ -45235,7 +45237,7 @@ module.exports = "<div class=\"app-loader\">\n    <div class=\"inner-spinner\">\
 
 
 
-const loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).service('loginService', __WEBPACK_IMPORTED_MODULE_2__login_service__["a" /* default */]).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component__["a" /* default */]).config(loginRoutes);
+const loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).service('LoginService', __WEBPACK_IMPORTED_MODULE_2__login_service__["a" /* default */]).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component__["a" /* default */]).config(loginRoutes);
 /* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
 
 function loginRoutes($stateProvider) {
@@ -45261,7 +45263,7 @@ function loginRoutes($stateProvider) {
 
 
 
-__WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */].$inject = ['$state'];
+__WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */].$inject = ['LoginService'];
 const Component = {
     template: __webpack_require__(86),
     controller: __WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */],
@@ -45276,15 +45278,22 @@ const Component = {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = LoginController;
 
-function LoginController($state) {
+function LoginController(LoginService) {
     let vm = this;
+
+    vm.login = login;
+
+    function login(event) {
+        event.preventDefault();
+        LoginService.login();
+    }
 };
 
 /***/ }),
 /* 86 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input type=\"text\" placeholder=\"Email\">\n    <label>Password</label>\n    <input type=\"text\" placeholder=\"Password\">\n\n</div>";
+module.exports = "<div id=\"login\">\n\n    <form>\n        <label>Email</label>\n        <input type=\"text\" placeholder=\"Email\">\n        <label>Password</label>\n        <input type=\"text\" placeholder=\"Password\">\n    </form>\n    <button ng-click=\"vm.login($event)\">Login</button>\n</div>";
 
 /***/ }),
 /* 87 */
@@ -45293,7 +45302,14 @@ module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input typ
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = LoginService;
 
-function LoginService() {}
+function LoginService($state) {
+    this.login = login;
+
+    function login() {
+        localStorage.setItem('isLoggedIn', true);
+        $state.go('app');
+    }
+}
 
 /***/ }),
 /* 88 */
@@ -45384,13 +45400,13 @@ module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <di
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = AppLoaderController;
 
-function AppLoaderController(AppService) {
+function AppLoaderController(AppLoaderService) {
     let vm = this;
 
     vm.$onInit = $onInit;
 
     function $onInit() {
-        AppService.launch();
+        AppLoaderService.launch();
     }
 }
 
@@ -45401,19 +45417,33 @@ function AppLoaderController(AppService) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = AppService;
 
-function AppService($state, $timeout) {
+function AppService($state, $timeout) {}
+
+/***/ }),
+/* 95 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppLoaderService;
+
+function AppLoaderService($state, $timeout) {
 
     this.launch = launch;
 
     function launch() {
         $state.go('launch');
         $timeout(function () {
-            _showLogin();
+            const val = localStorage.getItem('isLoggedIn');
+            val ? _showApp() : _showLogin();
         }, 2000);
     }
 
     function _showLogin() {
         $state.go('login');
+    }
+
+    function _showApp() {
+        $state.go('app');
     }
 }
 

@@ -1,7 +1,7 @@
 
 import LoginController from './login.controller';
 
-LoginController.$inject = ['$state'];
+LoginController.$inject = ['LoginService'];
 const Component = {
     template: require('./login.template.html'),
     controller: LoginController,

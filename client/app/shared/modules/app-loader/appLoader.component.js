@@ -1,7 +1,7 @@
 
 import AppLoaderController from './appLoader.controller';
 
-AppLoaderController.$inject = ['AppService'];
+AppLoaderController.$inject = ['AppLoaderService'];
 const AppLoaderComponent = {
     template: require('./template.html'),
     controller: AppLoaderController,
