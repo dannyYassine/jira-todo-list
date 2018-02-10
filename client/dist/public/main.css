@@ -78,6 +78,14 @@ div#left-frame {
   border-right: solid #edeef0 2px;
   height: 100vh;
 }
+div#left-frame-mobile-background {
+  position: fixed;
+  background-color: black;
+  opacity: 0.0;
+  left: -100vw;
+  width: 100vw;
+  height: 100vh;
+}
 div#right-frame {
   margin: 0;
   padding: 20px;
@@ -101,27 +109,31 @@ div#right-frame {
   }
   div#left-frame {
     z-index: 11;
-    position: absolute;
+    position: fixed;
     display: block;
     left: -200px;
     width: 200px;
-    transition: left 0.5s ease;
+    transition: left 0.35s ease;
+    overflow: scroll;
   }
   div#right-frame {
     z-index: 2;
     display: block;
     width: 100%;
     margin-top: 65px;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.35s ease;
   }
-  div.left-trame-transition-right div#mobile-header {
-    opacity: 0.9;
+  div#left-frame-mobile-background {
+    transition: opacity 0.35s ease;
   }
   div.left-trame-transition-right div#left-frame {
     left: 0;
   }
-  div.left-trame-transition-right div#right-frame {
-    opacity: 0.9;
+  div.left-trame-transition-right div#left-frame-mobile-background {
+    display: block;
+    left: 0;
+    opacity: 0.4;
+    z-index: 10;
   }
 }
 

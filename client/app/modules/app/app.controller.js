@@ -4,6 +4,7 @@ let AppController = function () {
     vm.contentLoaded = true;
 
     vm.toggleMobileHeader = toggleMobileHeader;
+    vm.onMobileBackgroundClick = onMobileBackgroundClick;
     
     function toggleMobileHeader () {
         let leftFrame = document.getElementById('app-shell');
@@ -12,6 +13,10 @@ let AppController = function () {
         } else {
             leftFrame.classList.add('left-trame-transition-right');
         }
+    }
+    
+    function onMobileBackgroundClick() {
+        toggleMobileHeader();
     }
 
 };
