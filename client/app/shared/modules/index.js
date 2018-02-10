@@ -3,7 +3,7 @@ import angular from 'angular';
 
 import './app-loader';
 
-let sharedModule = angular.module('shared.modules',
+const sharedModule = angular.module('shared.modules',
     [
         'shared.app-loader'
     ]);

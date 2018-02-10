@@ -1,8 +1,9 @@
 <div id="app-shell">
-    <app-loader ng-show="!vm.contentLoaded"></app-loader>
-    <div ui-view="login" ng-if="false"></div>
-
+    <!-- TOP LEVEL ROUTES -->
     <div ui-view="app-modals"></div>
+    <!-- END of TOP LEVEL ROUTES -->
+
+    <!-- MOBILE HEADER -->
     <div id="mobile-header">
         <div class="mobile-toggler" ng-click="vm.toggleMobileHeader()">
             <div class="button-toggler">
@@ -10,15 +11,22 @@
             </div>
         </div>
     </div>
+    <!-- END of MOBILE HEADER -->
+
+    <!-- LEFT NAV -->
     <div id="left-frame">
         left frame
     </div>
 
     <div id="left-frame-mobile-background" ng-click="vm.onMobileBackgroundClick()">
     </div>
+    <!-- END of LEFT NAV -->
 
+    <!-- MAIN CONTENT -->
     <div id="right-frame">
         right frame
         <div ui-view></div>
     </div>
+    <!-- END of MAIN CONTENT -->
+
 </div>

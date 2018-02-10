@@ -1,8 +1,10 @@
 
-let AppController = require('./app.controller');
+import AppController from './app.controller';
 
-module.exports = {
+AppController.$inject = ['$state', '$timeout'];
+const AppComponent = {
     template: require('./app.template.html'),
     controller: AppController,
     controllerAs: 'vm'
 };
+export default AppComponent;

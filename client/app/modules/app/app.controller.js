@@ -1,7 +1,7 @@
 
-let AppController = function () {
+export default function AppController($state, $timeout) {
     let vm = this;
-    vm.contentLoaded = true;
+    vm.contentLoaded = false;
 
     vm.toggleMobileHeader = toggleMobileHeader;
     vm.onMobileBackgroundClick = onMobileBackgroundClick;
@@ -20,4 +20,3 @@ let AppController = function () {
     }
 
 };
-module.exports = AppController;

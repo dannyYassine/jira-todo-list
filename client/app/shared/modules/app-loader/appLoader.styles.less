@@ -4,21 +4,28 @@ div.app-loader {
 	position: absolute;
 	width: 100vw;
 	height: 100vh;
-	background-color: #d7ffb5;
+	background-color: #a4a200;
 
 	.inner-spinner {
+		position: relative;
 		margin: 0 auto;
-		width: 40px;
-		height: 40px;
+		width: 100vw;
+		height: 100%;
 	}
 
 	.spinner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -50px;
+		margin-left: -50px;
+
 		border: solid #DEFFD9 5px;
 		border-bottom: solid 5px;
-		border-radius: 40px;
-		width: 40px;
-		height: 40px;
-		animation: spin 1s linear infinite;
+		border-radius: 100px;
+		width: 100px;
+		height: 100px;
+		animation: spin 1s cubic-bezier(0.89, 0.01, 0.35, 1.43) infinite;
 	}
 	@keyframes spin {
 		0% {

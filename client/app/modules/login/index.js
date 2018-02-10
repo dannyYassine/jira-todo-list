@@ -2,10 +2,28 @@
 import angular from 'angular';
 
 import LoginComponent from './login.component';
+import LoginService from './login.service';
 
-let loginModule = angular.module('jira.login',
+const loginModule = angular.module('jira.login',
     [
     ])
-    .component('loginComponent', LoginComponent);
-
+    .service('loginService', LoginService)
+    .component('loginComponent', LoginComponent)
+    .config(loginRoutes);
 export default loginModule;
+
+function loginRoutes($stateProvider) {
+    $stateProvider
+        .state('login-layout', {
+            url: '',
+            views: {
+                '': {
+                    component: 'loginComponent'
+                }
+            }
+        })
+        .state('login', {
+            parent: 'login-layout',
+            url: '/login',
+        })
+}

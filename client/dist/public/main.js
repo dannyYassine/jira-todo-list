@@ -8235,7 +8235,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-client', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, __WEBPACK_IMPORTED_MODULE_2__shared_modules__["a" /* default */], 'jira.app', 'jira.login']);
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-client', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, __WEBPACK_IMPORTED_MODULE_2__shared_modules__["a" /* default */], 'jira.app', 'jira.login']).config(configLocationProvider).config(configRouterProvider).config(appStateProvider);
+
+configLocationProvider.$inject = ['$locationProvider'];
+function configLocationProvider($locationProvider) {
+    $locationProvider.html5Mode(true);
+}
+
+configRouterProvider.$inject = ['$urlRouterProvider'];
+function configRouterProvider($urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+}
+
+appStateProvider.$inject = ['$stateProvider'];
+function appStateProvider($stateProvider) {
+    $stateProvider.state('launch', {
+        url: ''
+    });
+}
 
 /***/ }),
 /* 54 */
@@ -45149,7 +45166,7 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 
 
 
-let sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader']);
+const sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader']);
 
 const _default = sharedModule.name;
 /* harmony default export */ __webpack_exports__["a"] = (_default);
@@ -45162,22 +45179,29 @@ const _default = sharedModule.name;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__appLoader_component__);
 
 
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).component('appLoader', __WEBPACK_IMPORTED_MODULE_1__appLoader_component___default.a);
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.app-loader', []).component('appLoader', __WEBPACK_IMPORTED_MODULE_1__appLoader_component__["a" /* default */]);
 
 /***/ }),
 /* 80 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appLoader_controller__ = __webpack_require__(93);
 
 
-module.exports = {
-    template: __webpack_require__(81)
+
+__WEBPACK_IMPORTED_MODULE_0__appLoader_controller__["a" /* default */].$inject = ['AppService'];
+const AppLoaderComponent = {
+    template: __webpack_require__(81),
+    controller: __WEBPACK_IMPORTED_MODULE_0__appLoader_controller__["a" /* default */],
+    controllerAs: 'vm'
 };
+/* harmony default export */ __webpack_exports__["a"] = (AppLoaderComponent);
 
 /***/ }),
 /* 81 */
@@ -45191,8 +45215,7 @@ module.exports = "<div class=\"app-loader\">\n    <div class=\"inner-spinner\">\
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(86);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(88);
 
 
 
@@ -45205,68 +45228,130 @@ module.exports = "<div class=\"app-loader\">\n    <div class=\"inner-spinner\">\
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__login_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_service__ = __webpack_require__(87);
 
 
 
 
 
-let loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component___default.a);
 
+const loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).service('loginService', __WEBPACK_IMPORTED_MODULE_2__login_service__["a" /* default */]).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component__["a" /* default */]).config(loginRoutes);
 /* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
+
+function loginRoutes($stateProvider) {
+    $stateProvider.state('login-layout', {
+        url: '',
+        views: {
+            '': {
+                component: 'loginComponent'
+            }
+        }
+    }).state('login', {
+        parent: 'login-layout',
+        url: '/login'
+    });
+}
 
 /***/ }),
 /* 84 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login_controller__ = __webpack_require__(85);
 
 
-module.exports = {
-    template: __webpack_require__(85)
+
+__WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */].$inject = ['$state'];
+const Component = {
+    template: __webpack_require__(86),
+    controller: __WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */],
+    controllerAs: 'vm'
 };
+/* harmony default export */ __webpack_exports__["a"] = (Component);
 
 /***/ }),
 /* 85 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = LoginController;
+
+function LoginController($state) {
+    let vm = this;
+};
+
+/***/ }),
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"login\">\n\n    <label>Email</label>\n    <input type=\"text\" placeholder=\"Email\">\n    <label>Password</label>\n    <input type=\"text\" placeholder=\"Password\">\n\n</div>";
 
 /***/ }),
-/* 86 */
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = LoginService;
+
+function LoginService() {}
+
+/***/ }),
+/* 88 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__app_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(89);
 
 
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.app', []).component('app', __WEBPACK_IMPORTED_MODULE_1__app_component___default.a);
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.app', []).service('AppService', __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* default */]).component('app', __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* default */]).config(appRoutes);
+
+function appRoutes($stateProvider) {
+    $stateProvider.state('app-layout', {
+        url: '',
+        views: {
+            '': {
+                component: 'app'
+            }
+        }
+    }).state('app', {
+        parent: 'app-layout',
+        url: ''
+    });
+}
 
 /***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 89 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_controller__ = __webpack_require__(90);
 
 
-let AppController = __webpack_require__(88);
 
-module.exports = {
-    template: __webpack_require__(89),
-    controller: AppController,
+__WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */].$inject = ['$state', '$timeout'];
+const AppComponent = {
+    template: __webpack_require__(91),
+    controller: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */],
     controllerAs: 'vm'
 };
+/* harmony default export */ __webpack_exports__["a"] = (AppComponent);
 
 /***/ }),
-/* 88 */
-/***/ (function(module, exports) {
+/* 90 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppController;
 
-let AppController = function () {
+function AppController($state, $timeout) {
     let vm = this;
-    vm.contentLoaded = true;
+    vm.contentLoaded = false;
 
     vm.toggleMobileHeader = toggleMobileHeader;
     vm.onMobileBackgroundClick = onMobileBackgroundClick;
@@ -45284,13 +45369,53 @@ let AppController = function () {
         toggleMobileHeader();
     }
 };
-module.exports = AppController;
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"app-shell\">\n    <app-loader ng-show=\"!vm.contentLoaded\"></app-loader>\n    <div ui-view=\"login\" ng-if=\"false\"></div>\n\n    <div ui-view=\"app-modals\"></div>\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <div id=\"left-frame\">\n        left frame\n    </div>\n\n    <div id=\"left-frame-mobile-background\" ng-click=\"vm.onMobileBackgroundClick()\">\n    </div>\n\n    <div id=\"right-frame\">\n        right frame\n        <div ui-view></div>\n    </div>\n</div>";
+module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <div ui-view=\"app-modals\"></div>\n    <!-- END of TOP LEVEL ROUTES -->\n\n    <!-- MOBILE HEADER -->\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <!-- END of MOBILE HEADER -->\n\n    <!-- LEFT NAV -->\n    <div id=\"left-frame\">\n        left frame\n    </div>\n\n    <div id=\"left-frame-mobile-background\" ng-click=\"vm.onMobileBackgroundClick()\">\n    </div>\n    <!-- END of LEFT NAV -->\n\n    <!-- MAIN CONTENT -->\n    <div id=\"right-frame\">\n        right frame\n        <div ui-view></div>\n    </div>\n    <!-- END of MAIN CONTENT -->\n\n</div>";
+
+/***/ }),
+/* 92 */,
+/* 93 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppLoaderController;
+
+function AppLoaderController(AppService) {
+    let vm = this;
+
+    vm.$onInit = $onInit;
+
+    function $onInit() {
+        AppService.launch();
+    }
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppService;
+
+function AppService($state, $timeout) {
+
+    this.launch = launch;
+
+    function launch() {
+        $state.go('launch');
+        $timeout(function () {
+            _showLogin();
+        }, 2000);
+    }
+
+    function _showLogin() {
+        $state.go('login');
+    }
+}
 
 /***/ })
 /******/ ]);
