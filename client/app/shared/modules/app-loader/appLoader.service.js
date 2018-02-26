@@ -1,9 +1,10 @@
 
-export default function AppLoaderService($state, $timeout) {
-
+export default function AppLoaderService($state, $timeout, $location, $window) {
+    var originalUrl;
     this.launch = launch;
 
     function launch() {
+        originalUrl = $location.path();
         $state.go('launch');
         $timeout(function () {
             const val = localStorage.getItem('isLoggedIn');
@@ -18,7 +19,11 @@ export default function AppLoaderService($state, $timeout) {
     }
 
     function _showApp() {
-        $state.go('app')
+        if (originalUrl.length > 1) {
+            $location.path(originalUrl);
+        } else {
+            $state.go('board')
+        }
     }
 
 }

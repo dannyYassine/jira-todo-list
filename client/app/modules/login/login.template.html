@@ -1,10 +1,12 @@
 <div id="login">
-
-    <form>
-        <label>Email</label>
-        <input type="text" placeholder="Email">
-        <label>Password</label>
-        <input type="text" placeholder="Password">
-    </form>
-    <button ng-click="vm.login($event)">Login</button>
+    <login-background-component></login-background-component>
+    <div class="container login-content col-8 centered">
+        <div class="">
+            <form>
+                <input type="text" placeholder="Email">
+                <input type="text" placeholder="Password">
+            </form>
+            <button ng-click="vm.login($event)">Login</button>
+        </div>
+    </div>
 </div>

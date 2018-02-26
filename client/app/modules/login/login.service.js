@@ -4,6 +4,6 @@ export default function LoginService($state) {
 
     function login() {
         localStorage.setItem('isLoggedIn', true);
-        $state.go('app');
+        $state.go('board');
     }
 }

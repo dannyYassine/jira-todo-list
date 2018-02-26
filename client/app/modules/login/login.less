@@ -3,4 +3,74 @@ login-component {
 	width: 100vw;
 	height: 100vh;
 	background-color: #f8f8f8;
+
+	div#login {
+		position: relative;
+		width: 100vw;
+		height: 100vh;
+
+		login-background-component {
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+			//-webkit-transform: rotate(45deg); /* Safari */
+
+			overflow: hidden;
+
+
+			.login-background {
+				position: relative;
+				top:-25%;
+				transform: rotate(45deg) scale(1.75);
+				width: 100vw;
+				height: 100vh;
+			}
+			.box {
+				display: block;
+				float: left;
+				padding: 0 !important;
+				margin: 0 !important;
+				width: 50px;
+				height: 50px;
+				background-color: #262626;
+				border: solid #d5d5d5 1px;
+				//transition: all 100s;
+				//transform: rotateY(10deg);
+			}
+		}
+		.login-content {
+			width: 500px;
+
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 200px;
+			margin: -100px 0 0 -250px;
+		}
+		form {
+			display: block;
+
+			input {
+				display: block;
+				width: 100%;
+				height: 40px;
+				border-radius: 20px;
+				border: solid black 1px;
+				margin-bottom: 5px;
+				padding-left: 15px;
+				padding-right: 15px;
+				outline: none;
+			}
+		}
+		button {
+			display: block;
+			margin-top: 15px;
+			height: 40px;
+			width: 100%;
+			background-color: black;
+			color: white;
+			text-align: center;
+			border-radius: 20px;
+		}
+	}
 }

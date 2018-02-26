@@ -1,6 +1,8 @@
 <div id="app-shell">
     <!-- TOP LEVEL ROUTES -->
-    <div ui-view="app-modals"></div>
+    <div ui-view="app-modals">
+
+    </div>
     <!-- END of TOP LEVEL ROUTES -->
 
     <!-- MOBILE HEADER -->
@@ -15,7 +17,8 @@
 
     <!-- LEFT NAV -->
     <div id="left-frame">
-        left frame
+        left-frame
+        <side-bar-component></side-bar-component>
     </div>
 
     <div id="left-frame-mobile-background" ng-click="vm.onMobileBackgroundClick()">
@@ -24,7 +27,6 @@
 
     <!-- MAIN CONTENT -->
     <div id="right-frame">
-        right frame
         <div ui-view></div>
     </div>
     <!-- END of MAIN CONTENT -->

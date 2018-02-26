@@ -1,6 +1,7 @@
 
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
+import uiBootrap from 'angular-ui-bootstrap';
 
 import sharedModule from './shared/modules';
 import './modules';
@@ -8,11 +9,15 @@ import './modules';
 angular.module('jira-client',
     [
         uiRouter,
+        uiBootrap,
 
         sharedModule,
 
         'jira.app',
-        'jira.login'
+        'jira-board',
+        'jira.login',
+        'jira.side-bar',
+        'jira.settings'
     ])
     .config(configLocationProvider)
     .config(configRouterProvider)
