@@ -9,6 +9,7 @@
 div#app-shell {
 	position: absolute;
 	width: 100vw;
+	overflow: auto;
 }
 
 div#mobile-header {
@@ -41,7 +42,6 @@ div.mobile-toggler {
 }
 
 div#left-frame {
-	.margin-paddgin-zero();
 	float:left;
 	display: inline-block;
 	background: #edeef0;
@@ -66,4 +66,5 @@ div#right-frame {
 	background: #f8f8f8;
 	width: calc(~'100% - @{leftFrameWidth}');
 	height: 100vh;
+	overflow: auto;
 }

@@ -1,10 +1,61 @@
 <div>
-    <ul>
-        <li>
-            <a ui-sref="board">Board</a>
-        </li>
-        <li>
-            <a ui-sref="settings">Settings</a>
-        </li>
-    </ul>
+    <div class="side-title">
+        <h3>{{vm.appName}}</h3>
+    </div>
+    <div class="side-header">
+        <img ng-src="{{vm.user.image_url}}"/>
+        <h6>{{vm.user.name}}</h6>
+    </div>
+    <div class="side-body">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" ui-sref="board" ui-sref-active="active">
+                <a>Board</a>
+                <span class="badge badge-dark badge-pill">{{vm.todosCount}}</span>
+            </li>
+            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" ui-sref="settings" ui-sref-active="active">
+                <a >Settings</a>
+            </li>
+        </ul>
+    </div>
+    <div class="side-recent">
+
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#collapse1">Collapsible list group</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <ul class="list-group">
+                    <li class="list-group-item">One</li>
+                    <li class="list-group-item">Two</li>
+                    <li class="list-group-item">Three</li>
+                </ul>
+                <div class="panel-footer">Footer</div>
+            </div>
+        </div>
+    </div>
 </div>

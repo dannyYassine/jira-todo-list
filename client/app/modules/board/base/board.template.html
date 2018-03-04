@@ -1,0 +1,24 @@
+<div>
+    <modal-add-todo></modal-add-todo>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+    </button>
+    <button class="btn-success" ng-click="vm.click()">Add</button>
+    <div class="todos-section">
+        <div class="todo-section">
+            TO DO
+            <div ng-repeat="todo in vm.todos track by $index">
+                <h6>{{::todo.title}}</h6>
+            </div>
+        </div>
+        <div class="todo-section">
+            IN PROGRESS
+        </div>
+        <div class="todo-section">
+            IN REVIEW
+        </div>
+        <div class="todo-section">
+            DONE
+        </div>
+    </div>
+</div>

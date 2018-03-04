@@ -8229,7 +8229,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_ui_bootstrap__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_ui_bootstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular_ui_bootstrap__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_modules__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules__ = __webpack_require__(90);
 
 
 
@@ -8238,7 +8238,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-client', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, __WEBPACK_IMPORTED_MODULE_2_angular_ui_bootstrap___default.a, __WEBPACK_IMPORTED_MODULE_3__shared_modules__["a" /* default */], 'jira.app', 'jira-board', 'jira.login', 'jira.side-bar', 'jira.settings']).config(configLocationProvider).config(configRouterProvider).config(appStateProvider);
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-client', [__WEBPACK_IMPORTED_MODULE_1__uirouter_angularjs___default.a, __WEBPACK_IMPORTED_MODULE_2_angular_ui_bootstrap___default.a, __WEBPACK_IMPORTED_MODULE_3__shared_modules__["a" /* default */], 'jira.app', 'jira-board', 'jira.login', 'jira.side-bar', 'jira.settings']).config(configLocationProvider).config(configRouterProvider).config(appStateProvider).config(dataHubProvider);
 
 configLocationProvider.$inject = ['$locationProvider'];
 function configLocationProvider($locationProvider) {
@@ -8256,6 +8256,9 @@ function appStateProvider($stateProvider) {
         url: ''
     });
 }
+
+dataHubProvider.$inject = ['dataHubProvider'];
+function dataHubProvider(dataHubProvider) {}
 
 /***/ }),
 /* 54 */
@@ -52981,12 +52984,14 @@ angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInli
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_loader__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_hub__ = __webpack_require__(86);
 
 
 
 
 
-const sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader']);
+
+const sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader', 'shared.data-hub']);
 
 const _default = sharedModule.name;
 /* harmony default export */ __webpack_exports__["a"] = (_default);
@@ -53055,7 +53060,7 @@ module.exports = "<div class=\"app-loader\">\n    <div class=\"inner-spinner\">\
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = AppLoaderService;
 
-function AppLoaderService($state, $timeout, $location, $window) {
+function AppLoaderService($state, $timeout, $location) {
     var originalUrl;
     this.launch = launch;
 
@@ -53086,11 +53091,612 @@ function AppLoaderService($state, $timeout, $location, $window) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__side_bar__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dataHub_provider__ = __webpack_require__(87);
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.data-hub', []).provider('dataHub', __WEBPACK_IMPORTED_MODULE_1__dataHub_provider__["a" /* default */]);
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = DataHubProvider;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dataHub_service__ = __webpack_require__(88);
+
+
+
+function DataHubProvider() {
+    const provider = this;
+
+    provider.state = null;
+
+    this.setState = setState;
+    this.$get = $get;
+
+    function $get() {
+        if (provider.state) {
+            return new __WEBPACK_IMPORTED_MODULE_0__dataHub_service__["a" /* default */](provider.state);
+        } else {
+            return new __WEBPACK_IMPORTED_MODULE_0__dataHub_service__["a" /* default */]();
+        }
+    }
+
+    function setState(state) {
+        provider.state = state;
+    }
+}
+
+/***/ }),
+/* 88 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = DataHub;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter__);
+
+
+
+const initialState = {
+    app: {
+        name: 'Jira'
+    },
+    todos: [{
+        id: '1',
+        title: 'Clean stairs',
+        priority: 'high',
+        status: 'todo',
+        description: 'Don\'t forget to vaccum'
+    }],
+    currentUser: {
+        name: 'Danny',
+        image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+    },
+    ui: {}
+};
+
+function DataHub(newState = initialState) {
+    const emitter = new __WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter___default.a();
+
+    let state = newState;
+
+    this.getState = getState;
+    this.suscribe = suscribe;
+    this.unsuscribe = unsuscribe;
+    this.addTodo = addTodo;
+
+    function suscribe(cb) {
+        emitter.on('state', cb);
+    }
+
+    function unsuscribe(cb) {
+        emitter.off('state', cb);
+    }
+
+    function getState() {
+        return state;
+    }
+
+    function addTodo(todo) {
+        let newState = Object.assign({}, state);
+        newState.todos.push(todo);
+        state = Object.assign(state, newState);
+        _emit();
+    }
+
+    function _emit() {
+        emitter.emitEvent('state', [state]);
+    }
+}
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * EventEmitter v5.2.4 - git.io/ee
+ * Unlicense - http://unlicense.org/
+ * Oliver Caldwell - http://oli.me.uk/
+ * @preserve
+ */
+
+;(function (exports) {
+    'use strict';
+
+    /**
+     * Class for managing events.
+     * Can be extended to provide event functionality in other classes.
+     *
+     * @class EventEmitter Manages event registering and emitting.
+     */
+    function EventEmitter() {}
+
+    // Shortcuts to improve speed and size
+    var proto = EventEmitter.prototype;
+    var originalGlobalValue = exports.EventEmitter;
+
+    /**
+     * Finds the index of the listener for the event in its storage array.
+     *
+     * @param {Function[]} listeners Array of listeners to search through.
+     * @param {Function} listener Method to look for.
+     * @return {Number} Index of the specified listener, -1 if not found
+     * @api private
+     */
+    function indexOfListener(listeners, listener) {
+        var i = listeners.length;
+        while (i--) {
+            if (listeners[i].listener === listener) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Alias a method while keeping the context correct, to allow for overwriting of target method.
+     *
+     * @param {String} name The name of the target method.
+     * @return {Function} The aliased method
+     * @api private
+     */
+    function alias(name) {
+        return function aliasClosure() {
+            return this[name].apply(this, arguments);
+        };
+    }
+
+    /**
+     * Returns the listener array for the specified event.
+     * Will initialise the event object and listener arrays if required.
+     * Will return an object if you use a regex search. The object contains keys for each matched event. So /ba[rz]/ might return an object containing bar and baz. But only if you have either defined them with defineEvent or added some listeners to them.
+     * Each property in the object response is an array of listener functions.
+     *
+     * @param {String|RegExp} evt Name of the event to return the listeners from.
+     * @return {Function[]|Object} All listener functions for the event.
+     */
+    proto.getListeners = function getListeners(evt) {
+        var events = this._getEvents();
+        var response;
+        var key;
+
+        // Return a concatenated array of all matching events if
+        // the selector is a regular expression.
+        if (evt instanceof RegExp) {
+            response = {};
+            for (key in events) {
+                if (events.hasOwnProperty(key) && evt.test(key)) {
+                    response[key] = events[key];
+                }
+            }
+        }
+        else {
+            response = events[evt] || (events[evt] = []);
+        }
+
+        return response;
+    };
+
+    /**
+     * Takes a list of listener objects and flattens it into a list of listener functions.
+     *
+     * @param {Object[]} listeners Raw listener objects.
+     * @return {Function[]} Just the listener functions.
+     */
+    proto.flattenListeners = function flattenListeners(listeners) {
+        var flatListeners = [];
+        var i;
+
+        for (i = 0; i < listeners.length; i += 1) {
+            flatListeners.push(listeners[i].listener);
+        }
+
+        return flatListeners;
+    };
+
+    /**
+     * Fetches the requested listeners via getListeners but will always return the results inside an object. This is mainly for internal use but others may find it useful.
+     *
+     * @param {String|RegExp} evt Name of the event to return the listeners from.
+     * @return {Object} All listener functions for an event in an object.
+     */
+    proto.getListenersAsObject = function getListenersAsObject(evt) {
+        var listeners = this.getListeners(evt);
+        var response;
+
+        if (listeners instanceof Array) {
+            response = {};
+            response[evt] = listeners;
+        }
+
+        return response || listeners;
+    };
+
+    function isValidListener (listener) {
+        if (typeof listener === 'function' || listener instanceof RegExp) {
+            return true
+        } else if (listener && typeof listener === 'object') {
+            return isValidListener(listener.listener)
+        } else {
+            return false
+        }
+    }
+
+    /**
+     * Adds a listener function to the specified event.
+     * The listener will not be added if it is a duplicate.
+     * If the listener returns true then it will be removed after it is called.
+     * If you pass a regular expression as the event name then the listener will be added to all events that match it.
+     *
+     * @param {String|RegExp} evt Name of the event to attach the listener to.
+     * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.addListener = function addListener(evt, listener) {
+        if (!isValidListener(listener)) {
+            throw new TypeError('listener must be a function');
+        }
+
+        var listeners = this.getListenersAsObject(evt);
+        var listenerIsWrapped = typeof listener === 'object';
+        var key;
+
+        for (key in listeners) {
+            if (listeners.hasOwnProperty(key) && indexOfListener(listeners[key], listener) === -1) {
+                listeners[key].push(listenerIsWrapped ? listener : {
+                    listener: listener,
+                    once: false
+                });
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * Alias of addListener
+     */
+    proto.on = alias('addListener');
+
+    /**
+     * Semi-alias of addListener. It will add a listener that will be
+     * automatically removed after its first execution.
+     *
+     * @param {String|RegExp} evt Name of the event to attach the listener to.
+     * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.addOnceListener = function addOnceListener(evt, listener) {
+        return this.addListener(evt, {
+            listener: listener,
+            once: true
+        });
+    };
+
+    /**
+     * Alias of addOnceListener.
+     */
+    proto.once = alias('addOnceListener');
+
+    /**
+     * Defines an event name. This is required if you want to use a regex to add a listener to multiple events at once. If you don't do this then how do you expect it to know what event to add to? Should it just add to every possible match for a regex? No. That is scary and bad.
+     * You need to tell it what event names should be matched by a regex.
+     *
+     * @param {String} evt Name of the event to create.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.defineEvent = function defineEvent(evt) {
+        this.getListeners(evt);
+        return this;
+    };
+
+    /**
+     * Uses defineEvent to define multiple events.
+     *
+     * @param {String[]} evts An array of event names to define.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.defineEvents = function defineEvents(evts) {
+        for (var i = 0; i < evts.length; i += 1) {
+            this.defineEvent(evts[i]);
+        }
+        return this;
+    };
+
+    /**
+     * Removes a listener function from the specified event.
+     * When passed a regular expression as the event name, it will remove the listener from all events that match it.
+     *
+     * @param {String|RegExp} evt Name of the event to remove the listener from.
+     * @param {Function} listener Method to remove from the event.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.removeListener = function removeListener(evt, listener) {
+        var listeners = this.getListenersAsObject(evt);
+        var index;
+        var key;
+
+        for (key in listeners) {
+            if (listeners.hasOwnProperty(key)) {
+                index = indexOfListener(listeners[key], listener);
+
+                if (index !== -1) {
+                    listeners[key].splice(index, 1);
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * Alias of removeListener
+     */
+    proto.off = alias('removeListener');
+
+    /**
+     * Adds listeners in bulk using the manipulateListeners method.
+     * If you pass an object as the first argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
+     * You can also pass it a regular expression to add the array of listeners to all events that match it.
+     * Yeah, this function does quite a bit. That's probably a bad thing.
+     *
+     * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add to multiple events at once.
+     * @param {Function[]} [listeners] An optional array of listener functions to add.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.addListeners = function addListeners(evt, listeners) {
+        // Pass through to manipulateListeners
+        return this.manipulateListeners(false, evt, listeners);
+    };
+
+    /**
+     * Removes listeners in bulk using the manipulateListeners method.
+     * If you pass an object as the first argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+     * You can also pass it an event name and an array of listeners to be removed.
+     * You can also pass it a regular expression to remove the listeners from all events that match it.
+     *
+     * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to remove from multiple events at once.
+     * @param {Function[]} [listeners] An optional array of listener functions to remove.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.removeListeners = function removeListeners(evt, listeners) {
+        // Pass through to manipulateListeners
+        return this.manipulateListeners(true, evt, listeners);
+    };
+
+    /**
+     * Edits listeners in bulk. The addListeners and removeListeners methods both use this to do their job. You should really use those instead, this is a little lower level.
+     * The first argument will determine if the listeners are removed (true) or added (false).
+     * If you pass an object as the second argument you can add/remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+     * You can also pass it an event name and an array of listeners to be added/removed.
+     * You can also pass it a regular expression to manipulate the listeners of all events that match it.
+     *
+     * @param {Boolean} remove True if you want to remove listeners, false if you want to add.
+     * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add/remove from multiple events at once.
+     * @param {Function[]} [listeners] An optional array of listener functions to add/remove.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.manipulateListeners = function manipulateListeners(remove, evt, listeners) {
+        var i;
+        var value;
+        var single = remove ? this.removeListener : this.addListener;
+        var multiple = remove ? this.removeListeners : this.addListeners;
+
+        // If evt is an object then pass each of its properties to this method
+        if (typeof evt === 'object' && !(evt instanceof RegExp)) {
+            for (i in evt) {
+                if (evt.hasOwnProperty(i) && (value = evt[i])) {
+                    // Pass the single listener straight through to the singular method
+                    if (typeof value === 'function') {
+                        single.call(this, i, value);
+                    }
+                    else {
+                        // Otherwise pass back to the multiple function
+                        multiple.call(this, i, value);
+                    }
+                }
+            }
+        }
+        else {
+            // So evt must be a string
+            // And listeners must be an array of listeners
+            // Loop over it and pass each one to the multiple method
+            i = listeners.length;
+            while (i--) {
+                single.call(this, evt, listeners[i]);
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * Removes all listeners from a specified event.
+     * If you do not specify an event then all listeners will be removed.
+     * That means every event will be emptied.
+     * You can also pass a regex to remove all events that match it.
+     *
+     * @param {String|RegExp} [evt] Optional name of the event to remove all listeners for. Will remove from every event if not passed.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.removeEvent = function removeEvent(evt) {
+        var type = typeof evt;
+        var events = this._getEvents();
+        var key;
+
+        // Remove different things depending on the state of evt
+        if (type === 'string') {
+            // Remove all listeners for the specified event
+            delete events[evt];
+        }
+        else if (evt instanceof RegExp) {
+            // Remove all events matching the regex.
+            for (key in events) {
+                if (events.hasOwnProperty(key) && evt.test(key)) {
+                    delete events[key];
+                }
+            }
+        }
+        else {
+            // Remove all listeners in all events
+            delete this._events;
+        }
+
+        return this;
+    };
+
+    /**
+     * Alias of removeEvent.
+     *
+     * Added to mirror the node API.
+     */
+    proto.removeAllListeners = alias('removeEvent');
+
+    /**
+     * Emits an event of your choice.
+     * When emitted, every listener attached to that event will be executed.
+     * If you pass the optional argument array then those arguments will be passed to every listener upon execution.
+     * Because it uses `apply`, your array of arguments will be passed as if you wrote them out separately.
+     * So they will not arrive within the array on the other side, they will be separate.
+     * You can also pass a regular expression to emit to all events that match it.
+     *
+     * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+     * @param {Array} [args] Optional array of arguments to be passed to each listener.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.emitEvent = function emitEvent(evt, args) {
+        var listenersMap = this.getListenersAsObject(evt);
+        var listeners;
+        var listener;
+        var i;
+        var key;
+        var response;
+
+        for (key in listenersMap) {
+            if (listenersMap.hasOwnProperty(key)) {
+                listeners = listenersMap[key].slice(0);
+
+                for (i = 0; i < listeners.length; i++) {
+                    // If the listener returns true then it shall be removed from the event
+                    // The function is executed either with a basic call or an apply if there is an args array
+                    listener = listeners[i];
+
+                    if (listener.once === true) {
+                        this.removeListener(evt, listener.listener);
+                    }
+
+                    response = listener.listener.apply(this, args || []);
+
+                    if (response === this._getOnceReturnValue()) {
+                        this.removeListener(evt, listener.listener);
+                    }
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * Alias of emitEvent
+     */
+    proto.trigger = alias('emitEvent');
+
+    /**
+     * Subtly different from emitEvent in that it will pass its arguments on to the listeners, as opposed to taking a single array of arguments to pass on.
+     * As with emitEvent, you can pass a regex in place of the event name to emit to all events that match it.
+     *
+     * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+     * @param {...*} Optional additional arguments to be passed to each listener.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.emit = function emit(evt) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        return this.emitEvent(evt, args);
+    };
+
+    /**
+     * Sets the current value to check against when executing listeners. If a
+     * listeners return value matches the one set here then it will be removed
+     * after execution. This value defaults to true.
+     *
+     * @param {*} value The new value to check for when executing listeners.
+     * @return {Object} Current instance of EventEmitter for chaining.
+     */
+    proto.setOnceReturnValue = function setOnceReturnValue(value) {
+        this._onceReturnValue = value;
+        return this;
+    };
+
+    /**
+     * Fetches the current value to check against when executing listeners. If
+     * the listeners return value matches this one then it should be removed
+     * automatically. It will return true by default.
+     *
+     * @return {*|Boolean} The current value to check for or the default, true.
+     * @api private
+     */
+    proto._getOnceReturnValue = function _getOnceReturnValue() {
+        if (this.hasOwnProperty('_onceReturnValue')) {
+            return this._onceReturnValue;
+        }
+        else {
+            return true;
+        }
+    };
+
+    /**
+     * Fetches the events object and creates one if required.
+     *
+     * @return {Object} The events storage object.
+     * @api private
+     */
+    proto._getEvents = function _getEvents() {
+        return this._events || (this._events = {});
+    };
+
+    /**
+     * Reverts the global {@link EventEmitter} to its previous value and returns a reference to this version.
+     *
+     * @return {Function} Non conflicting EventEmitter class.
+     */
+    EventEmitter.noConflict = function noConflict() {
+        exports.EventEmitter = originalGlobalValue;
+        return EventEmitter;
+    };
+
+    // Expose the class either via AMD, CommonJS or the global object
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+            return EventEmitter;
+        }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    }
+    else if (typeof module === 'object' && module.exports){
+        module.exports = EventEmitter;
+    }
+    else {
+        exports.EventEmitter = EventEmitter;
+    }
+}(this || {}));
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__side_bar__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(114);
 
 
 
@@ -53099,21 +53705,23 @@ function AppLoaderService($state, $timeout, $location, $window) {
 
 
 /***/ }),
-/* 87 */
+/* 91 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__board_service__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__board_component__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_add_todo__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_board_service__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_board_component__ = __webpack_require__(120);
 
 
 
 
 
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-board', []).service('BoardService', __WEBPACK_IMPORTED_MODULE_1__board_service__["a" /* default */]).component('board', __WEBPACK_IMPORTED_MODULE_2__board_component__["a" /* default */]).config(appRoutes).name);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-board', ['board.modals']).service('BoardService', __WEBPACK_IMPORTED_MODULE_2__base_board_service__["a" /* default */]).component('board', __WEBPACK_IMPORTED_MODULE_3__base_board_component__["a" /* default */]).config(appRoutes).name);
 
 appRoutes.$inject = ['$stateProvider'];
 function appRoutes($stateProvider) {
@@ -53126,59 +53734,18 @@ function appRoutes($stateProvider) {
 }
 
 /***/ }),
-/* 88 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = BoardService;
-
-function BoardService() {
-
-    return {};
-}
-
-/***/ }),
-/* 89 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board_controller__ = __webpack_require__(90);
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */].$inject = [];
-const BoardComponent = {
-    template: __webpack_require__(91),
-    controller: __WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */]
-};
-/* harmony default export */ __webpack_exports__["a"] = (BoardComponent);
-
-/***/ }),
-/* 90 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = BoardController;
-
-function BoardController() {
-    let vm = this;
-};
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports) {
-
-module.exports = "<div>\n    Board\n</div>";
-
-/***/ }),
-/* 92 */
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings_service__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings_service__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(98);
 
 
 
@@ -53197,7 +53764,7 @@ function appRoutes($stateProvider) {
 }
 
 /***/ }),
-/* 93 */
+/* 97 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53209,23 +53776,23 @@ function SettingsService() {
 }
 
 /***/ }),
-/* 94 */
+/* 98 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_controller__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_controller__ = __webpack_require__(99);
 
 
 
 __WEBPACK_IMPORTED_MODULE_0__settings_controller__["a" /* default */].$inject = [];
 const SettingsComponent = {
-    template: __webpack_require__(96),
+    template: __webpack_require__(100),
     controller: __WEBPACK_IMPORTED_MODULE_0__settings_controller__["a" /* default */]
 };
 /* harmony default export */ __webpack_exports__["a"] = (SettingsComponent);
 
 /***/ }),
-/* 95 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53236,19 +53803,19 @@ function SettingsController() {
 };
 
 /***/ }),
-/* 96 */
+/* 100 */
 /***/ (function(module, exports) {
 
 module.exports = "<div>\n    Settings\n</div>";
 
 /***/ }),
-/* 97 */
+/* 101 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(102);
 
 
 
@@ -53256,14 +53823,14 @@ module.exports = "<div>\n    Settings\n</div>";
 /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.side-bar', [__WEBPACK_IMPORTED_MODULE_1__base__["a" /* default */]]).name);
 
 /***/ }),
-/* 98 */
+/* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sideBar_service__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sideBar_component__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sideBar_service__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sideBar_component__ = __webpack_require__(104);
 
 
 
@@ -53272,60 +53839,76 @@ module.exports = "<div>\n    Settings\n</div>";
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.base.side-bar', []).service('SideBarService', __WEBPACK_IMPORTED_MODULE_1__sideBar_service__["a" /* default */]).component('sideBarComponent', __WEBPACK_IMPORTED_MODULE_2__sideBar_component__["a" /* default */]).name);
 
 /***/ }),
-/* 99 */
+/* 103 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = SideBarService;
 
-function SideBarService() {
+SideBarService.$inject = ['dataHub'];
+function SideBarService(dataHub) {
 
     return {};
 }
 
 /***/ }),
-/* 100 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__ = __webpack_require__(105);
 
 
 
-__WEBPACK_IMPORTED_MODULE_0__sideBar_controller__["a" /* default */].$inject = ['$scope'];
 const SideBarComponent = {
-    template: __webpack_require__(102),
-    controller: __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__["a" /* default */]
+    template: __webpack_require__(106),
+    controller: __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__["a" /* default */],
+    controllerAs: 'vm'
 };
 /* harmony default export */ __webpack_exports__["a"] = (SideBarComponent);
 
 /***/ }),
-/* 101 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = SideBarController;
 
-function SideBarController($scope) {
+SideBarController.$inject = ['dataHub'];
+function SideBarController(dataHub) {
     let vm = this;
+
+    vm.$onInit = $onInit;
+
+    function $onInit() {
+        vm.user = dataHub.getState().currentUser;
+        vm.appName = dataHub.getState().app.name;
+        vm.todosCount = dataHub.getState().todos.length;
+
+        dataHub.suscribe(state => {
+            vm.user = state.currentUser;
+            vm.appName = state.app.name;
+            vm.todosCount = state.todos.length;
+        });
+    }
 };
 
 /***/ }),
-/* 102 */
+/* 106 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <ul>\n        <li>\n            <a ui-sref=\"board\">Board</a>\n        </li>\n        <li>\n            <a ui-sref=\"settings\">Settings</a>\n        </li>\n    </ul>\n</div>";
+module.exports = "<div>\n    <div class=\"side-title\">\n        <h3>{{vm.appName}}</h3>\n    </div>\n    <div class=\"side-header\">\n        <img ng-src=\"{{vm.user.image_url}}\"/>\n        <h6>{{vm.user.name}}</h6>\n    </div>\n    <div class=\"side-body\">\n        <ul class=\"list-group\">\n            <li class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\" ui-sref=\"board\" ui-sref-active=\"active\">\n                <a>Board</a>\n                <span class=\"badge badge-dark badge-pill\">{{vm.todosCount}}</span>\n            </li>\n            <li class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\" ui-sref=\"settings\" ui-sref-active=\"active\">\n                <a >Settings</a>\n            </li>\n        </ul>\n    </div>\n    <div class=\"side-recent\">\n\n    </div>\n\n    <div class=\"modal\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <h5 class=\"modal-title\">Modal title</h5>\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n                <div class=\"modal-body\">\n                    <p>Modal body text goes here.</p>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n                    <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"panel-group\">\n        <div class=\"panel panel-default\">\n            <div class=\"panel-heading\">\n                <h4 class=\"panel-title\">\n                    <a data-toggle=\"collapse\" data-target=\"#collapse1\">Collapsible list group</a>\n                </h4>\n            </div>\n            <div id=\"collapse1\" class=\"panel-collapse collapse in\">\n                <ul class=\"list-group\">\n                    <li class=\"list-group-item\">One</li>\n                    <li class=\"list-group-item\">Two</li>\n                    <li class=\"list-group-item\">Three</li>\n                </ul>\n                <div class=\"panel-footer\">Footer</div>\n            </div>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
-/* 103 */
+/* 107 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_service__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loginBackground_component__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_service__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loginBackground_component__ = __webpack_require__(112);
 
 
 
@@ -53353,24 +53936,24 @@ function loginRoutes($stateProvider) {
 }
 
 /***/ }),
-/* 104 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login_controller__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login_controller__ = __webpack_require__(109);
 
 
 
 __WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */].$inject = ['LoginService'];
 const Component = {
-    template: __webpack_require__(106),
+    template: __webpack_require__(110),
     controller: __WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */],
     controllerAs: 'vm'
 };
 /* harmony default export */ __webpack_exports__["a"] = (Component);
 
 /***/ }),
-/* 105 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53388,13 +53971,13 @@ function LoginController(LoginService) {
 };
 
 /***/ }),
-/* 106 */
+/* 110 */
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"login\">\n    <login-background-component></login-background-component>\n    <div class=\"container login-content col-8 centered\">\n        <div class=\"\">\n            <form>\n                <input type=\"text\" placeholder=\"Email\">\n                <input type=\"text\" placeholder=\"Password\">\n            </form>\n            <button ng-click=\"vm.login($event)\">Login</button>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
-/* 107 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53410,13 +53993,13 @@ function LoginService($state) {
 }
 
 /***/ }),
-/* 108 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 const LoginBackgroundComponent = {
-    template: __webpack_require__(109),
+    template: __webpack_require__(113),
     controller: LoginBackgroundController,
     controllerAs: 'vm'
 };
@@ -53440,20 +54023,20 @@ function LoginBackgroundController() {
 /* harmony default export */ __webpack_exports__["a"] = (LoginBackgroundComponent);
 
 /***/ }),
-/* 109 */
+/* 113 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"login-background\">\n    <div class=\"box\" ng-repeat=\"block in ::vm.blocks\">\n    </div>\n</div>";
 
 /***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(116);
 
 
 
@@ -53482,7 +54065,7 @@ function appRoutes($stateProvider) {
 }
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53491,24 +54074,24 @@ function appRoutes($stateProvider) {
 function AppService($state, $timeout) {}
 
 /***/ }),
-/* 112 */
+/* 116 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_controller__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_controller__ = __webpack_require__(117);
 
 
 
 __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */].$inject = ['$state', '$timeout'];
 const AppComponent = {
-    template: __webpack_require__(114),
+    template: __webpack_require__(118),
     controller: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */],
     controllerAs: 'vm'
 };
 /* harmony default export */ __webpack_exports__["a"] = (AppComponent);
 
 /***/ }),
-/* 113 */
+/* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53536,10 +54119,132 @@ function AppController($state, $timeout) {
 };
 
 /***/ }),
-/* 114 */
+/* 118 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <div ui-view=\"app-modals\">\n\n    </div>\n    <!-- END of TOP LEVEL ROUTES -->\n\n    <!-- MOBILE HEADER -->\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <!-- END of MOBILE HEADER -->\n\n    <!-- LEFT NAV -->\n    <div id=\"left-frame\">\n        left-frame\n        <side-bar-component></side-bar-component>\n    </div>\n\n    <div id=\"left-frame-mobile-background\" ng-click=\"vm.onMobileBackgroundClick()\">\n    </div>\n    <!-- END of LEFT NAV -->\n\n    <!-- MAIN CONTENT -->\n    <div id=\"right-frame\">\n        <div ui-view></div>\n    </div>\n    <!-- END of MAIN CONTENT -->\n\n</div>";
+module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <div ui-view=\"app-modals\">\n    </div>\n    <!-- END of TOP LEVEL ROUTES -->\n\n    <!-- MOBILE HEADER -->\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <!-- END of MOBILE HEADER -->\n\n    <!-- LEFT NAV -->\n    <div id=\"left-frame\">\n        <side-bar-component></side-bar-component>\n    </div>\n\n    <div id=\"left-frame-mobile-background\" ng-click=\"vm.onMobileBackgroundClick()\">\n    </div>\n    <!-- END of LEFT NAV -->\n\n    <!-- MAIN CONTENT -->\n    <div id=\"right-frame\">\n        <div ui-view></div>\n    </div>\n    <!-- END of MAIN CONTENT -->\n\n</div>";
+
+/***/ }),
+/* 119 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = BoardService;
+
+BoardService.$inject = ['dataHub'];
+function BoardService(dataHub) {
+
+    return {
+        addTodo: addTodo,
+        getTodos: getTodos
+    };
+
+    function addTodo() {}
+
+    function getTodos() {}
+}
+
+/***/ }),
+/* 120 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board_controller__ = __webpack_require__(121);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */].$inject = ['dataHub'];
+const BoardComponent = {
+    template: __webpack_require__(122),
+    controller: __WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */],
+    controllerAs: 'vm'
+};
+/* harmony default export */ __webpack_exports__["a"] = (BoardComponent);
+
+/***/ }),
+/* 121 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = BoardController;
+
+function BoardController(dataHub) {
+    let vm = this;
+    vm.click = function () {
+        dataHub.addTodo({ title: 'Habibi' });
+    };
+    vm.$onInit = $onInit;
+    vm.onAdd = onAdd;
+
+    function $onInit() {
+        vm.todos = dataHub.getState().todos;
+
+        dataHub.suscribe(state => {
+            vm.todos = state.todos;
+        });
+    }
+
+    function onAdd(title) {
+        console.log(title);
+        dataHub.addTodo({ title });
+    }
+};
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <div class=\"todos-section\">\n        <div class=\"todo-section\">\n            TO DO\n            <div ng-repeat=\"todo in vm.todos track by $index\">\n                <h6>{{::todo.title}}</h6>\n            </div>\n        </div>\n        <div class=\"todo-section\">\n            IN PROGRESS\n        </div>\n        <div class=\"todo-section\">\n            IN REVIEW\n        </div>\n        <div class=\"todo-section\">\n            DONE\n        </div>\n    </div>\n</div>";
+
+/***/ }),
+/* 123 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+
+
+/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('board.modals', []).component('modalAddTodo', {
+    template: __webpack_require__(124),
+    bindings: {
+        onAdd: '&'
+    },
+    controller: function () {
+        let vm = this;
+        vm.$onInit = $onInit;
+
+        function $onInit() {}
+    },
+    controllerAs: 'vm'
+}).component('modal', {
+    template: __webpack_require__(125),
+    bindings: {
+        modalId: '@'
+    },
+    transclude: {
+        header: '?modalHeader',
+        body: '?modalBody',
+        footer: '?modalFooter'
+    },
+    controller: function () {
+        let vm = this;
+        vm.title = '';
+    },
+    controllerAs: 'vm'
+}).name);
+
+/***/ }),
+/* 124 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"exampleModal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <h5 class=\"modal-title\" id=\"exampleModalLabel\">Add new todo</h5>\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\">&times;</span>\n                </button>\n            </div>\n            <div class=\"modal-body\">\n                <form>\n                    <input type=\"text\" placeholder=\"title\" ng-model=\"vm.title\"/>\n                </form>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-loading-text=\"<i class='fa fa-spinner fa-spin '></i> Processing Order\" ng-click=\"vm.onAdd({title: vm.title})\">Add</button>\n                <button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Cancel</button>\n            </div>\n        </div>\n    </div>\n</div>";
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"{{vm.modalId}}\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\" ng-transclude=\"header\">\n            </div>\n            <div class=\"modal-body\" ng-transclude=\"body\">\n            </div>\n            <div class=\"modal-footer\" ng-transclude=\"footer\">\n            </div>\n        </div>\n    </div>\n</div>";
 
 /***/ })
 /******/ ]);

@@ -1,11 +1,13 @@
-
 import angular from 'angular';
 
-import BoardService from './board.service';
-import BoardComponent from './board.component';
+import './modals/add-todo';
+
+import BoardService from './base/board.service';
+import BoardComponent from './base/board.component';
 
 export default angular.module('jira-board',
     [
+        'board.modals'
     ])
     .service('BoardService', BoardService)
     .component('board', BoardComponent)

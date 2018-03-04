@@ -1,5 +1,6 @@
 
-export default function SideBarService() {
+SideBarService.$inject = ['dataHub'];
+export default function SideBarService(dataHub) {
 
     return {}
 }

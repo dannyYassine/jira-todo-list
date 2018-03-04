@@ -21,7 +21,8 @@ angular.module('jira-client',
     ])
     .config(configLocationProvider)
     .config(configRouterProvider)
-    .config(appStateProvider);
+    .config(appStateProvider)
+    .config(dataHubProvider);
 
 configLocationProvider.$inject = ['$locationProvider'];
 function configLocationProvider ($locationProvider) {
@@ -39,4 +40,9 @@ function appStateProvider($stateProvider) {
         .state('launch', {
             url: ''
         })
+}
+
+dataHubProvider.$inject = ['dataHubProvider'];
+function dataHubProvider(dataHubProvider) {
+
 }

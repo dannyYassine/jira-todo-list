@@ -1,5 +1,5 @@
 
-export default function AppLoaderService($state, $timeout, $location, $window) {
+export default function AppLoaderService($state, $timeout, $location) {
     var originalUrl;
     this.launch = launch;
 

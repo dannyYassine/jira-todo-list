@@ -29,7 +29,8 @@
     "lodash": "^4.17.4",
     "nodemon": "^1.11.0",
     "nunjucks": "^3.0.1",
-    "restangular": "^1.6.1"
+    "restangular": "^1.6.1",
+    "wolfy87-eventemitter": "^5.2.4"
   },
   "devDependencies": {
     "angular": "",
