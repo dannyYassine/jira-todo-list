@@ -7,7 +7,7 @@
         <h6>{{vm.user.name}}</h6>
     </div>
     <div class="side-body">
-        <ul class="list-group">
+        <ul class="list-group" ng-click="vm.onItemClicked()">
             <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" ui-sref="board" ui-sref-active="active">
                 <a>Board</a>
                 <span class="badge badge-dark badge-pill">{{vm.todosCount}}</span>

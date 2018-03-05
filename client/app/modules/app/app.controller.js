@@ -5,7 +5,8 @@ export default function AppController($state, $timeout) {
 
     vm.toggleMobileHeader = toggleMobileHeader;
     vm.onMobileBackgroundClick = onMobileBackgroundClick;
-    
+    vm.onSideBatItemClicked = onSideBatItemClicked;
+
     function toggleMobileHeader () {
         let leftFrame = document.getElementById('app-shell');
         if (leftFrame.classList.contains('left-trame-transition-right')) {
@@ -16,6 +17,10 @@ export default function AppController($state, $timeout) {
     }
     
     function onMobileBackgroundClick() {
+        toggleMobileHeader();
+    }
+
+    function onSideBatItemClicked() {
         toggleMobileHeader();
     }
 

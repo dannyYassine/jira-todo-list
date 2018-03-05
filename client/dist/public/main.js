@@ -53693,10 +53693,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__side_bar__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__side_bar__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(122);
 
 
 
@@ -53867,7 +53867,7 @@ function BoardService(dataHub) {
 
 __WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */].$inject = ['dataHub'];
 const BoardComponent = {
-    template: __webpack_require__(102),
+    template: __webpack_require__(103),
     controller: __WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */],
     controllerAs: 'vm'
 };
@@ -53879,7 +53879,7 @@ const BoardComponent = {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = BoardController;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_interactjs__);
 
 
@@ -53915,6 +53915,7 @@ function BoardController(dataHub) {
         ondropactivate: function (event) {
             // add active dropzone feedback
             event.target.classList.add('drop-active');
+            event.relatedTarget.style.transform = 'translate(0, 0)';
         },
         ondragenter: function (event) {
             var draggableElement = event.relatedTarget,
@@ -53934,6 +53935,9 @@ function BoardController(dataHub) {
         },
         ondrop: function (event) {
             // event.relatedTarget.textContent = 'Dropped';
+            event.relatedTarget.style.transform = 'translate(0, 0)';
+            event.relatedTarget.removeAttribute('data-x');
+            event.relatedTarget.removeAttribute('data-y');
         },
         ondropdeactivate: function (event) {
             // remove active dropzone feedback
@@ -53958,11 +53962,7 @@ function BoardController(dataHub) {
         // call this function on every dragmove event
         onmove: dragMoveListener,
         // call this function on every dragend event
-        onend: function (event) {
-            var textEl = event.target.querySelector('p');
-
-            textEl && (textEl.textContent = 'moved a distance of ' + Math.sqrt(Math.pow(event.pageX - event.x0, 2) + Math.pow(event.pageY - event.y0, 2) | 0).toFixed(2) + 'px');
-        }
+        onend: function (event) {}
     });
 
     function dragMoveListener(event) {
@@ -53983,399 +53983,6 @@ function BoardController(dataHub) {
 
 /***/ }),
 /* 102 */
-/***/ (function(module, exports) {
-
-module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <div class=\"todos-section\">\n        <div class=\"todo-section dropzone\">\n            TO DO\n            <todo-item ng-repeat=\"todo in vm.todos track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN PROGRESS\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN REVIEW\n        </div>\n        <div class=\"todo-section dropzone\">\n            DONE\n        </div>\n    </div>\n</div>";
-
-/***/ }),
-/* 103 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings_service__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(105);
-
-
-
-
-
-
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.settings', []).service('SettingsService', __WEBPACK_IMPORTED_MODULE_1__settings_service__["a" /* default */]).component('settings', __WEBPACK_IMPORTED_MODULE_2__settings_component__["a" /* default */]).config(appRoutes).name);
-
-appRoutes.$inject = ['$stateProvider'];
-function appRoutes($stateProvider) {
-    $stateProvider.state('settings', {
-        parent: 'app-layout',
-        url: '/settings',
-        component: 'settings'
-    });
-}
-
-/***/ }),
-/* 104 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = SettingsService;
-
-function SettingsService() {
-
-    return {};
-}
-
-/***/ }),
-/* 105 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_controller__ = __webpack_require__(106);
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__settings_controller__["a" /* default */].$inject = [];
-const SettingsComponent = {
-    template: __webpack_require__(107),
-    controller: __WEBPACK_IMPORTED_MODULE_0__settings_controller__["a" /* default */]
-};
-/* harmony default export */ __webpack_exports__["a"] = (SettingsComponent);
-
-/***/ }),
-/* 106 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = SettingsController;
-
-function SettingsController() {
-    let vm = this;
-};
-
-/***/ }),
-/* 107 */
-/***/ (function(module, exports) {
-
-module.exports = "<div>\n    Settings\n</div>";
-
-/***/ }),
-/* 108 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(109);
-
-
-
-
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.side-bar', [__WEBPACK_IMPORTED_MODULE_1__base__["a" /* default */]]).name);
-
-/***/ }),
-/* 109 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sideBar_service__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sideBar_component__ = __webpack_require__(111);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.base.side-bar', []).service('SideBarService', __WEBPACK_IMPORTED_MODULE_1__sideBar_service__["a" /* default */]).component('sideBarComponent', __WEBPACK_IMPORTED_MODULE_2__sideBar_component__["a" /* default */]).name);
-
-/***/ }),
-/* 110 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = SideBarService;
-
-SideBarService.$inject = ['dataHub'];
-function SideBarService(dataHub) {
-
-    return {};
-}
-
-/***/ }),
-/* 111 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__ = __webpack_require__(112);
-
-
-
-const SideBarComponent = {
-    template: __webpack_require__(113),
-    controller: __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__["a" /* default */],
-    controllerAs: 'vm'
-};
-/* harmony default export */ __webpack_exports__["a"] = (SideBarComponent);
-
-/***/ }),
-/* 112 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = SideBarController;
-
-SideBarController.$inject = ['dataHub'];
-function SideBarController(dataHub) {
-    let vm = this;
-
-    vm.$onInit = $onInit;
-
-    function $onInit() {
-        vm.user = dataHub.getState().currentUser;
-        vm.appName = dataHub.getState().app.name;
-        vm.todosCount = dataHub.getState().todos.length;
-
-        dataHub.suscribe(state => {
-            vm.user = state.currentUser;
-            vm.appName = state.app.name;
-            vm.todosCount = state.todos.length;
-        });
-    }
-};
-
-/***/ }),
-/* 113 */
-/***/ (function(module, exports) {
-
-module.exports = "<div>\n    <div class=\"side-title\">\n        <h3>{{vm.appName}}</h3>\n    </div>\n    <div class=\"side-header\">\n        <img ng-src=\"{{vm.user.image_url}}\"/>\n        <h6>{{vm.user.name}}</h6>\n    </div>\n    <div class=\"side-body\">\n        <ul class=\"list-group\">\n            <li class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\" ui-sref=\"board\" ui-sref-active=\"active\">\n                <a>Board</a>\n                <span class=\"badge badge-dark badge-pill\">{{vm.todosCount}}</span>\n            </li>\n            <li class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\" ui-sref=\"settings\" ui-sref-active=\"active\">\n                <a >Settings</a>\n            </li>\n        </ul>\n    </div>\n    <div class=\"side-recent\">\n\n    </div>\n\n    <div class=\"modal\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <h5 class=\"modal-title\">Modal title</h5>\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n                <div class=\"modal-body\">\n                    <p>Modal body text goes here.</p>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n                    <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"panel-group\">\n        <div class=\"panel panel-default\">\n            <div class=\"panel-heading\">\n                <h4 class=\"panel-title\">\n                    <a data-toggle=\"collapse\" data-target=\"#collapse1\">Collapsible list group</a>\n                </h4>\n            </div>\n            <div id=\"collapse1\" class=\"panel-collapse collapse in\">\n                <ul class=\"list-group\">\n                    <li class=\"list-group-item\">One</li>\n                    <li class=\"list-group-item\">Two</li>\n                    <li class=\"list-group-item\">Three</li>\n                </ul>\n                <div class=\"panel-footer\">Footer</div>\n            </div>\n        </div>\n    </div>\n</div>";
-
-/***/ }),
-/* 114 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_service__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loginBackground_component__ = __webpack_require__(119);
-
-
-
-
-
-
-
-const loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).service('LoginService', __WEBPACK_IMPORTED_MODULE_2__login_service__["a" /* default */]).component('loginBackgroundComponent', __WEBPACK_IMPORTED_MODULE_3__loginBackground_component__["a" /* default */]).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component__["a" /* default */]).config(loginRoutes);
-/* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
-
-function loginRoutes($stateProvider) {
-    $stateProvider.state('login-layout', {
-        url: '',
-        component: 'loginComponent'
-    }).state('login', {
-        parent: 'login-layout',
-        url: '/login'
-    }).state('reset-password', {
-        parent: 'login-layout',
-        url: '/reset-password'
-    }).state('forgot-password', {
-        parent: 'login-layout',
-        url: '/forgot-password'
-    });
-}
-
-/***/ }),
-/* 115 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login_controller__ = __webpack_require__(116);
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */].$inject = ['LoginService'];
-const Component = {
-    template: __webpack_require__(117),
-    controller: __WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */],
-    controllerAs: 'vm'
-};
-/* harmony default export */ __webpack_exports__["a"] = (Component);
-
-/***/ }),
-/* 116 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = LoginController;
-
-function LoginController(LoginService) {
-    let vm = this;
-
-    vm.login = login;
-
-    function login(event) {
-        event.preventDefault();
-        LoginService.login();
-    }
-};
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports) {
-
-module.exports = "<div id=\"login\">\n    <login-background-component></login-background-component>\n    <div class=\"container login-content col-8 centered\">\n        <div class=\"\">\n            <form>\n                <input type=\"text\" placeholder=\"Email\">\n                <input type=\"text\" placeholder=\"Password\">\n            </form>\n            <button ng-click=\"vm.login($event)\">Login</button>\n        </div>\n    </div>\n</div>";
-
-/***/ }),
-/* 118 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = LoginService;
-
-function LoginService($state) {
-    this.login = login;
-
-    function login() {
-        localStorage.setItem('isLoggedIn', true);
-        $state.go('board');
-    }
-}
-
-/***/ }),
-/* 119 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-const LoginBackgroundComponent = {
-    template: __webpack_require__(120),
-    controller: LoginBackgroundController,
-    controllerAs: 'vm'
-};
-
-function LoginBackgroundController() {
-    let vm = this;
-
-    vm.blocks = _createBlocks();
-
-    function _createBlocks() {
-        let blocks = [];
-        let i = 1000;
-        while (i > 0) {
-            blocks.push(i);
-            --i;
-        }
-        return blocks;
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (LoginBackgroundComponent);
-
-/***/ }),
-/* 120 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"login-background\">\n    <div class=\"box\" ng-repeat=\"block in ::vm.blocks\">\n    </div>\n</div>";
-
-/***/ }),
-/* 121 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(123);
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.app', []).service('AppService', __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* default */]).service('AppLaunchService', function ($timeout) {
-    this.user = function () {
-        return new Promise(resolve, reject, function () {
-            $timeout(function () {
-                resolve({});
-            }, 2000);
-        });
-    };
-}).component('app', __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* default */]).config(appRoutes);
-
-appRoutes.$inject = ['$stateProvider'];
-function appRoutes($stateProvider) {
-    $stateProvider.state('app-layout', {
-        url: '',
-        views: {
-            '': {
-                component: 'app'
-            }
-        }
-    });
-}
-
-/***/ }),
-/* 122 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = AppService;
-
-function AppService($state, $timeout) {}
-
-/***/ }),
-/* 123 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_controller__ = __webpack_require__(124);
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */].$inject = ['$state', '$timeout'];
-const AppComponent = {
-    template: __webpack_require__(125),
-    controller: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */],
-    controllerAs: 'vm'
-};
-/* harmony default export */ __webpack_exports__["a"] = (AppComponent);
-
-/***/ }),
-/* 124 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = AppController;
-
-function AppController($state, $timeout) {
-    let vm = this;
-    vm.contentLoaded = false;
-
-    vm.toggleMobileHeader = toggleMobileHeader;
-    vm.onMobileBackgroundClick = onMobileBackgroundClick;
-
-    function toggleMobileHeader() {
-        let leftFrame = document.getElementById('app-shell');
-        if (leftFrame.classList.contains('left-trame-transition-right')) {
-            leftFrame.classList.remove('left-trame-transition-right');
-        } else {
-            leftFrame.classList.add('left-trame-transition-right');
-        }
-    }
-
-    function onMobileBackgroundClick() {
-        toggleMobileHeader();
-    }
-};
-
-/***/ }),
-/* 125 */
-/***/ (function(module, exports) {
-
-module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <div ui-view=\"app-modals\">\n    </div>\n    <!-- END of TOP LEVEL ROUTES -->\n\n    <!-- MOBILE HEADER -->\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <!-- END of MOBILE HEADER -->\n\n    <!-- LEFT NAV -->\n    <div id=\"left-frame\">\n        <side-bar-component></side-bar-component>\n    </div>\n\n    <div id=\"left-frame-mobile-background\" ng-click=\"vm.onMobileBackgroundClick()\">\n    </div>\n    <!-- END of LEFT NAV -->\n\n    <!-- MAIN CONTENT -->\n    <div id=\"right-frame\">\n        <div ui-view></div>\n    </div>\n    <!-- END of MAIN CONTENT -->\n\n</div>";
-
-/***/ }),
-/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -61551,6 +61158,407 @@ win.init = init;
 
 //# sourceMappingURL=interact.js.map
 
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <div class=\"todos-section\">\n        <div class=\"todo-section dropzone\">\n            TO DO\n            <todo-item ng-repeat=\"todo in vm.todos track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN PROGRESS\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN REVIEW\n        </div>\n        <div class=\"todo-section dropzone\">\n            DONE\n        </div>\n    </div>\n</div>";
+
+/***/ }),
+/* 104 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__settings_service__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(106);
+
+
+
+
+
+
+/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.settings', []).service('SettingsService', __WEBPACK_IMPORTED_MODULE_1__settings_service__["a" /* default */]).component('settings', __WEBPACK_IMPORTED_MODULE_2__settings_component__["a" /* default */]).config(appRoutes).name);
+
+appRoutes.$inject = ['$stateProvider'];
+function appRoutes($stateProvider) {
+    $stateProvider.state('settings', {
+        parent: 'app-layout',
+        url: '/settings',
+        component: 'settings'
+    });
+}
+
+/***/ }),
+/* 105 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = SettingsService;
+
+function SettingsService() {
+
+    return {};
+}
+
+/***/ }),
+/* 106 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_controller__ = __webpack_require__(107);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__settings_controller__["a" /* default */].$inject = [];
+const SettingsComponent = {
+    template: __webpack_require__(108),
+    controller: __WEBPACK_IMPORTED_MODULE_0__settings_controller__["a" /* default */]
+};
+/* harmony default export */ __webpack_exports__["a"] = (SettingsComponent);
+
+/***/ }),
+/* 107 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = SettingsController;
+
+function SettingsController() {
+    let vm = this;
+};
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n    Settings\n</div>";
+
+/***/ }),
+/* 109 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(110);
+
+
+
+
+/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.side-bar', [__WEBPACK_IMPORTED_MODULE_1__base__["a" /* default */]]).name);
+
+/***/ }),
+/* 110 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sideBar_service__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sideBar_component__ = __webpack_require__(112);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.base.side-bar', []).service('SideBarService', __WEBPACK_IMPORTED_MODULE_1__sideBar_service__["a" /* default */]).component('sideBarComponent', __WEBPACK_IMPORTED_MODULE_2__sideBar_component__["a" /* default */]).name);
+
+/***/ }),
+/* 111 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = SideBarService;
+
+SideBarService.$inject = ['dataHub'];
+function SideBarService(dataHub) {
+
+    return {};
+}
+
+/***/ }),
+/* 112 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__ = __webpack_require__(113);
+
+
+
+const SideBarComponent = {
+    bindings: {
+        onItemClicked: '&'
+    },
+    template: __webpack_require__(114),
+    controller: __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__["a" /* default */],
+    controllerAs: 'vm'
+};
+/* harmony default export */ __webpack_exports__["a"] = (SideBarComponent);
+
+/***/ }),
+/* 113 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = SideBarController;
+
+SideBarController.$inject = ['dataHub'];
+function SideBarController(dataHub) {
+    let vm = this;
+
+    vm.$onInit = $onInit;
+
+    function $onInit() {
+        vm.user = dataHub.getState().currentUser;
+        vm.appName = dataHub.getState().app.name;
+        vm.todosCount = dataHub.getState().todos.length;
+
+        dataHub.suscribe(state => {
+            vm.user = state.currentUser;
+            vm.appName = state.app.name;
+            vm.todosCount = state.todos.length;
+        });
+    }
+};
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n    <div class=\"side-title\">\n        <h3>{{vm.appName}}</h3>\n    </div>\n    <div class=\"side-header\">\n        <img ng-src=\"{{vm.user.image_url}}\"/>\n        <h6>{{vm.user.name}}</h6>\n    </div>\n    <div class=\"side-body\">\n        <ul class=\"list-group\" ng-click=\"vm.onItemClicked()\">\n            <li class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\" ui-sref=\"board\" ui-sref-active=\"active\">\n                <a>Board</a>\n                <span class=\"badge badge-dark badge-pill\">{{vm.todosCount}}</span>\n            </li>\n            <li class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\" ui-sref=\"settings\" ui-sref-active=\"active\">\n                <a >Settings</a>\n            </li>\n        </ul>\n    </div>\n    <div class=\"side-recent\">\n\n    </div>\n\n    <div class=\"modal\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <h5 class=\"modal-title\">Modal title</h5>\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n                <div class=\"modal-body\">\n                    <p>Modal body text goes here.</p>\n                </div>\n                <div class=\"modal-footer\">\n                    <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n                    <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"panel-group\">\n        <div class=\"panel panel-default\">\n            <div class=\"panel-heading\">\n                <h4 class=\"panel-title\">\n                    <a data-toggle=\"collapse\" data-target=\"#collapse1\">Collapsible list group</a>\n                </h4>\n            </div>\n            <div id=\"collapse1\" class=\"panel-collapse collapse in\">\n                <ul class=\"list-group\">\n                    <li class=\"list-group-item\">One</li>\n                    <li class=\"list-group-item\">Two</li>\n                    <li class=\"list-group-item\">Three</li>\n                </ul>\n                <div class=\"panel-footer\">Footer</div>\n            </div>\n        </div>\n    </div>\n</div>";
+
+/***/ }),
+/* 115 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_component__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_service__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loginBackground_component__ = __webpack_require__(120);
+
+
+
+
+
+
+
+const loginModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.login', []).service('LoginService', __WEBPACK_IMPORTED_MODULE_2__login_service__["a" /* default */]).component('loginBackgroundComponent', __WEBPACK_IMPORTED_MODULE_3__loginBackground_component__["a" /* default */]).component('loginComponent', __WEBPACK_IMPORTED_MODULE_1__login_component__["a" /* default */]).config(loginRoutes);
+/* unused harmony default export */ var _unused_webpack_default_export = (loginModule);
+
+function loginRoutes($stateProvider) {
+    $stateProvider.state('login-layout', {
+        url: '',
+        component: 'loginComponent'
+    }).state('login', {
+        parent: 'login-layout',
+        url: '/login'
+    }).state('reset-password', {
+        parent: 'login-layout',
+        url: '/reset-password'
+    }).state('forgot-password', {
+        parent: 'login-layout',
+        url: '/forgot-password'
+    });
+}
+
+/***/ }),
+/* 116 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__login_controller__ = __webpack_require__(117);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */].$inject = ['LoginService'];
+const Component = {
+    template: __webpack_require__(118),
+    controller: __WEBPACK_IMPORTED_MODULE_0__login_controller__["a" /* default */],
+    controllerAs: 'vm'
+};
+/* harmony default export */ __webpack_exports__["a"] = (Component);
+
+/***/ }),
+/* 117 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = LoginController;
+
+function LoginController(LoginService) {
+    let vm = this;
+
+    vm.login = login;
+
+    function login(event) {
+        event.preventDefault();
+        LoginService.login();
+    }
+};
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"login\">\n    <login-background-component></login-background-component>\n    <div class=\"container login-content col-8 centered\">\n        <div class=\"\">\n            <form>\n                <input type=\"text\" placeholder=\"Email\">\n                <input type=\"text\" placeholder=\"Password\">\n            </form>\n            <button ng-click=\"vm.login($event)\">Login</button>\n        </div>\n    </div>\n</div>";
+
+/***/ }),
+/* 119 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = LoginService;
+
+function LoginService($state) {
+    this.login = login;
+
+    function login() {
+        localStorage.setItem('isLoggedIn', true);
+        $state.go('board');
+    }
+}
+
+/***/ }),
+/* 120 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+const LoginBackgroundComponent = {
+    template: __webpack_require__(121),
+    controller: LoginBackgroundController,
+    controllerAs: 'vm'
+};
+
+function LoginBackgroundController() {
+    let vm = this;
+
+    vm.blocks = _createBlocks();
+
+    function _createBlocks() {
+        let blocks = [];
+        let i = 1000;
+        while (i > 0) {
+            blocks.push(i);
+            --i;
+        }
+        return blocks;
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (LoginBackgroundComponent);
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"login-background\">\n    <div class=\"box\" ng-repeat=\"block in ::vm.blocks\">\n    </div>\n</div>";
+
+/***/ }),
+/* 122 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(124);
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira.app', []).service('AppService', __WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* default */]).service('AppLaunchService', function ($timeout) {
+    this.user = function () {
+        return new Promise(resolve, reject, function () {
+            $timeout(function () {
+                resolve({});
+            }, 2000);
+        });
+    };
+}).component('app', __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* default */]).config(appRoutes);
+
+appRoutes.$inject = ['$stateProvider'];
+function appRoutes($stateProvider) {
+    $stateProvider.state('app-layout', {
+        url: '',
+        views: {
+            '': {
+                component: 'app'
+            }
+        }
+    });
+}
+
+/***/ }),
+/* 123 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppService;
+
+function AppService($state, $timeout) {}
+
+/***/ }),
+/* 124 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_controller__ = __webpack_require__(125);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */].$inject = ['$state', '$timeout'];
+const AppComponent = {
+    template: __webpack_require__(126),
+    controller: __WEBPACK_IMPORTED_MODULE_0__app_controller__["a" /* default */],
+    controllerAs: 'vm'
+};
+/* harmony default export */ __webpack_exports__["a"] = (AppComponent);
+
+/***/ }),
+/* 125 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppController;
+
+function AppController($state, $timeout) {
+    let vm = this;
+    vm.contentLoaded = false;
+
+    vm.toggleMobileHeader = toggleMobileHeader;
+    vm.onMobileBackgroundClick = onMobileBackgroundClick;
+    vm.onSideBatItemClicked = onSideBatItemClicked;
+
+    function toggleMobileHeader() {
+        let leftFrame = document.getElementById('app-shell');
+        if (leftFrame.classList.contains('left-trame-transition-right')) {
+            leftFrame.classList.remove('left-trame-transition-right');
+        } else {
+            leftFrame.classList.add('left-trame-transition-right');
+        }
+    }
+
+    function onMobileBackgroundClick() {
+        toggleMobileHeader();
+    }
+
+    function onSideBatItemClicked() {
+        toggleMobileHeader();
+    }
+};
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <div ui-view=\"app-modals\">\n    </div>\n    <!-- END of TOP LEVEL ROUTES -->\n\n    <!-- MOBILE HEADER -->\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <!-- END of MOBILE HEADER -->\n\n    <!-- LEFT NAV -->\n    <div id=\"left-frame\">\n        <side-bar-component on-item-clicked=\"vm.onSideBatItemClicked()\"></side-bar-component>\n    </div>\n\n    <div id=\"left-frame-mobile-background\" ng-click=\"vm.onMobileBackgroundClick()\">\n    </div>\n    <!-- END of LEFT NAV -->\n\n    <!-- MAIN CONTENT -->\n    <div id=\"right-frame\">\n        <div ui-view></div>\n    </div>\n    <!-- END of MAIN CONTENT -->\n\n</div>";
 
 /***/ })
 /******/ ]);

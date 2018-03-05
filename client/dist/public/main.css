@@ -63,12 +63,13 @@ div.app-loader .spinner {
   }
 }
 todo-item div {
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   min-height: 75px;
   background-color: white;
   border-radius: 5px;
   margin: 2px 5px 2px 5px;
   padding: 2px;
+  width: 100%;
 }
 board .todos-section {
   height: 100vh;
@@ -100,7 +101,7 @@ board .drop-target {
   border-style: solid;
 }
 board div.dragging {
-  box-shadow: 0 5px 10px rgba(136, 136, 136, 0.51);
+  box-shadow: 0 2px 5px rgba(136, 136, 136, 0.51);
 }
 board .drag-drop {
   display: inline-block;

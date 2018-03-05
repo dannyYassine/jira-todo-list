@@ -32,6 +32,7 @@ export default function BoardController(dataHub) {
         ondropactivate: function (event) {
             // add active dropzone feedback
             event.target.classList.add('drop-active');
+            event.relatedTarget.style.transform = 'translate(0, 0)';
         },
         ondragenter: function (event) {
             var draggableElement = event.relatedTarget,
@@ -51,6 +52,9 @@ export default function BoardController(dataHub) {
         },
         ondrop: function (event) {
             // event.relatedTarget.textContent = 'Dropped';
+            event.relatedTarget.style.transform = 'translate(0, 0)';
+            event.relatedTarget.removeAttribute('data-x');
+            event.relatedTarget.removeAttribute('data-y');
         },
         ondropdeactivate: function (event) {
             // remove active dropzone feedback
@@ -77,13 +81,7 @@ export default function BoardController(dataHub) {
             onmove: dragMoveListener,
             // call this function on every dragend event
             onend: function (event) {
-                var textEl = event.target.querySelector('p');
 
-                textEl && (textEl.textContent =
-                    'moved a distance of '
-                    + (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
-                    Math.pow(event.pageY - event.y0, 2) | 0))
-                        .toFixed(2) + 'px');
             }
         });
 
