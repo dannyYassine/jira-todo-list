@@ -5,19 +5,17 @@
     </button>
     <button class="btn-success" ng-click="vm.click()">Add</button>
     <div class="todos-section">
-        <div class="todo-section">
+        <div class="todo-section dropzone">
             TO DO
-            <div ng-repeat="todo in vm.todos track by $index">
-                <h6>{{::todo.title}}</h6>
-            </div>
+            <todo-item ng-repeat="todo in vm.todos track by $index" todo="todo"></todo-item>
         </div>
-        <div class="todo-section">
+        <div class="todo-section dropzone">
             IN PROGRESS
         </div>
-        <div class="todo-section">
+        <div class="todo-section dropzone">
             IN REVIEW
         </div>
-        <div class="todo-section">
+        <div class="todo-section dropzone">
             DONE
         </div>
     </div>

@@ -62,6 +62,14 @@ div.app-loader .spinner {
     border-bottom: solid 5px;
   }
 }
+todo-item div {
+  transition: box-shadow 0.3s ease;
+  min-height: 75px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 2px 5px 2px 5px;
+  padding: 2px;
+}
 board .todos-section {
   height: 100vh;
   display: flex;
@@ -73,6 +81,34 @@ board .todos-section .todo-section {
   flex: 1;
   margin: 5px;
   background-color: #f0f1f3;
+}
+board .dropzone {
+  background-color: #ccc;
+  border: dashed 4px transparent;
+  border-radius: 4px;
+  margin: 10px auto 30px;
+  padding: 10px;
+  width: 80%;
+  transition: background-color 0.3s;
+}
+board .drop-active {
+  border-color: #aaa;
+}
+board .drop-target {
+  background-color: #29e;
+  border-color: #fff;
+  border-style: solid;
+}
+board div.dragging {
+  box-shadow: 0 5px 10px rgba(136, 136, 136, 0.51);
+}
+board .drag-drop {
+  display: inline-block;
+  min-width: 40px;
+  padding: 2em 0.5em;
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+  transition: background-color 0.3s;
 }
 .side-title {
   margin-top: 10px;
