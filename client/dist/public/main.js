@@ -53163,11 +53163,11 @@ function DataHub(newState = __WEBPACK_IMPORTED_MODULE_1__state__["a" /* initialS
     this.getUser = getUser;
 
     function suscribe(options) {
-        options.eventName = options.eventName || 'state';
+        options.state = options.state || 'state';
         if (!options.cb) {
             throw new Exception('need callback');
         }
-        emitter.on(options.eventName, options.cb);
+        emitter.on(options.state, options.cb);
     }
 
     function unsuscribe(options) {
@@ -53821,25 +53821,15 @@ function BoardService(dataHub) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__board_controller__ = __webpack_require__(101);
+/* unused harmony export BoardController */
 
-
-
-__WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */].$inject = ['dataHub', 'todoService'];
 const BoardComponent = {
     template: __webpack_require__(103),
-    controller: __WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */],
+    controller: BoardController,
     controllerAs: 'vm'
 };
-/* harmony default export */ __webpack_exports__["a"] = (BoardComponent);
 
-/***/ }),
-/* 101 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = BoardController;
-
+BoardController.$inject = ['dataHub', 'todoService'];
 function BoardController(dataHub, todoService) {
     let vm = this;
     vm.click = function () {
@@ -53847,7 +53837,6 @@ function BoardController(dataHub, todoService) {
     };
     vm.$onInit = $onInit;
     vm.onAdd = onAdd;
-    vm.draggingTodo = null;
 
     function $onInit() {
         vm.todos = [[], [], [], []];
@@ -53879,7 +53868,10 @@ function BoardController(dataHub, todoService) {
     }
 };
 
+/* harmony default export */ __webpack_exports__["a"] = (BoardComponent);
+
 /***/ }),
+/* 101 */,
 /* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61215,9 +61207,13 @@ function SideBarController(dataHub) {
         vm.todosCount = dataHub.getState().todos.length;
 
         dataHub.suscribe({ cb: function (state) {
-                vm.user = state.currentUser;
                 vm.appName = state.app.name;
-                vm.todosCount = state.todos.length;
+            } });
+        dataHub.suscribe({ state: 'todos', cb: function (todos) {
+                vm.todosCount = todos.length;
+            } });
+        dataHub.suscribe({ state: 'user', cb: function (user) {
+                vm.user = user;
             } });
     }
 };
@@ -61499,7 +61495,7 @@ function TodoService(dataHub) {
      * @param text
      */
     function create(text) {
-        let todo = { title: text, priority: 'medium' };
+        let todo = { title: text, priority: 'medium', status: 'todo' };
         todo.user = {
             name: 'Danny',
             image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
@@ -61626,13 +61622,15 @@ module.exports = "<div class=\"{{vm.priority}}\"></div>";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__todo_item__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_board_dash_component__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_board_dash_drag_component__ = __webpack_require__(145);
 
 
 
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('board.dash', []).component('dash', __WEBPACK_IMPORTED_MODULE_2__base_board_dash_component__["a" /* default */]);
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('board.dash', []).component('dash', __WEBPACK_IMPORTED_MODULE_2__base_board_dash_component__["a" /* default */]).component('dashDrag', __WEBPACK_IMPORTED_MODULE_3__base_board_dash_drag_component__["a" /* default */]);
 
 /***/ }),
 /* 142 */
@@ -61655,81 +61653,6 @@ const BoardDashComponent = {
 BoardDash.$inject = [];
 function BoardDash() {
     let vm = this;
-
-    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.dropzone').dropzone({
-        // only accept elements matching this CSS selector
-        accept: '.draggable',
-        // Require a 75% element overlap for a drop to be possible
-        overlap: 0.75,
-
-        // listen for drop related events:
-        ondropactivate: function (event) {
-            // add active dropzone feedback
-            event.target.classList.add('drop-active');
-            event.relatedTarget.style.transform = 'translate(0, 0)';
-        },
-        ondragenter: function (event) {
-            var draggableElement = event.relatedTarget,
-                dropzoneElement = event.target;
-
-            // feedback the possibility of a drop
-            dropzoneElement.classList.add('drop-target');
-            draggableElement.classList.add('dragging');
-            // draggableElement.classList.add('can-drop');
-            // draggableElement.textContent = 'Dragged in';
-        },
-        ondragleave: function (event) {
-            // remove the drop feedback style
-            event.target.classList.remove('drop-target');
-            // event.relatedTarget.classList.remove('can-drop');
-            // event.relatedTarget.textContent = 'Dragged out';
-        },
-        ondrop: function (event) {
-            // event.relatedTarget.textContent = 'Dropped';
-            event.relatedTarget.style.transform = 'translate(0, 0)';
-            event.relatedTarget.removeAttribute('data-x');
-            event.relatedTarget.removeAttribute('data-y');
-        },
-        ondropdeactivate: function (event) {
-            // remove active dropzone feedback
-            event.target.classList.remove('drop-active');
-            event.relatedTarget.classList.remove('dragging');
-            event.target.classList.remove('drop-target');
-        }
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.draggable').draggable({
-        // enable inertial throwing
-        inertia: true,
-        // keep the element within the area of it's parent
-        restrict: {
-            restriction: "parent",
-            endOnly: true,
-            elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-        },
-        // enable autoScroll
-        autoScroll: true,
-
-        // call this function on every dragmove event
-        onmove: dragMoveListener,
-        // call this function on every dragend event
-        onend: function (event) {}
-    });
-
-    function dragMoveListener(event) {
-        var target = event.target,
-
-        // keep the dragged position in the data-x/data-y attributes
-        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-        // translate the element
-        target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-
-        // update the posiion attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
-    }
 }
 /* harmony default export */ __webpack_exports__["a"] = (BoardDashComponent);
 
@@ -61737,7 +61660,7 @@ function BoardDash() {
 /* 143 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"todos-section\">\n    <div class=\"todo-section dropzone\">\n        TO DO\n        <todo-item ng-repeat=\"todo in vm.todos[0] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n    <div class=\"todo-section dropzone\">\n        IN PROGRESS\n        <todo-item ng-repeat=\"todo in vm.todos[1] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n    <div class=\"todo-section dropzone\">\n        IN REVIEW\n        <todo-item ng-repeat=\"todo in vm.todos[2] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n    <div class=\"todo-section dropzone\">\n        DONE\n        <todo-item ng-repeat=\"todo in vm.todos[3] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n</div>";
+module.exports = "<dash-drag>\n    <div class=\"todos-section\">\n        <div class=\"todo-section dropzone\">\n            TO DO\n            <todo-item ng-repeat=\"todo in vm.todos[0] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN PROGRESS\n            <todo-item ng-repeat=\"todo in vm.todos[1] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN REVIEW\n            <todo-item ng-repeat=\"todo in vm.todos[2] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            DONE\n            <todo-item ng-repeat=\"todo in vm.todos[3] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n    </div>\n</dash-drag>";
 
 /***/ }),
 /* 144 */
@@ -61802,6 +61725,112 @@ const initialState = {
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = initialState;
 
+
+/***/ }),
+/* 145 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_interactjs__);
+
+
+const BoardDashDragComponent = {
+    bindings: {
+        dragStart: '&',
+        dragEnd: '&',
+        dragChangeSection: '&'
+    },
+    transclude: true,
+    template: `
+        <div ng-transclude><div>
+    `,
+    controller: BoardDashDragController,
+    controllerAs: 'vm'
+};
+/* harmony default export */ __webpack_exports__["a"] = (BoardDashDragComponent);
+
+function BoardDashDragController() {
+    let vm = this;
+
+    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.dropzone').dropzone({
+        // only accept elements matching this CSS selector
+        accept: '.draggable',
+        // Require a 75% element overlap for a drop to be possible
+        overlap: 0.75,
+
+        // listen for drop related events:
+        ondropactivate: function (event) {
+            // add active dropzone feedback
+            event.target.classList.add('drop-active');
+            event.relatedTarget.style.transform = 'translate(0, 0)';
+            vm.dragStart({});
+        },
+        ondragenter: function (event) {
+            var draggableElement = event.relatedTarget,
+                dropzoneElement = event.target;
+
+            // feedback the possibility of a drop
+            dropzoneElement.classList.add('drop-target');
+            draggableElement.classList.add('dragging');
+            // draggableElement.classList.add('can-drop');
+            // draggableElement.textContent = 'Dragged in';
+            vm.dragChangeSection({});
+        },
+        ondragleave: function (event) {
+            // remove the drop feedback style
+            event.target.classList.remove('drop-target');
+            // event.relatedTarget.classList.remove('can-drop');
+            // event.relatedTarget.textContent = 'Dragged out';
+        },
+        ondrop: function (event) {
+            // event.relatedTarget.textContent = 'Dropped';
+            event.relatedTarget.style.transform = 'translate(0, 0)';
+            event.relatedTarget.removeAttribute('data-x');
+            event.relatedTarget.removeAttribute('data-y');
+        },
+        ondropdeactivate: function (event) {
+            // remove active dropzone feedback
+            event.target.classList.remove('drop-active');
+            event.relatedTarget.classList.remove('dragging');
+            event.target.classList.remove('drop-target');
+            vm.dragEnd({});
+        }
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.draggable').draggable({
+        // enable inertial throwing
+        inertia: true,
+        // keep the element within the area of it's parent
+        restrict: {
+            restriction: "parent",
+            endOnly: true,
+            elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+        },
+        // enable autoScroll
+        autoScroll: true,
+
+        // call this function on every dragmove event
+        onmove: dragMoveListener,
+        // call this function on every dragend event
+        onend: function (event) {}
+    });
+
+    function dragMoveListener(event) {
+        var target = event.target,
+
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+        // translate the element
+        target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+    }
+}
 
 /***/ })
 /******/ ]);

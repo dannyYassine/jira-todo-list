@@ -19,11 +19,11 @@ export default function DataHub(newState = initialState) {
     this.getUser = getUser;
 
     function suscribe(options) {
-        options.eventName = options.eventName || 'state';
+        options.state = options.state || 'state';
         if (!options.cb) {
             throw new Exception('need callback');
         }
-        emitter.on(options.eventName, options.cb);
+        emitter.on(options.state, options.cb);
     }
 
     function unsuscribe(options) {

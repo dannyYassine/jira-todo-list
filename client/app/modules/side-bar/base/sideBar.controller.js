@@ -11,9 +11,13 @@ export default function SideBarController(dataHub) {
         vm.todosCount = dataHub.getState().todos.length;
 
         dataHub.suscribe({cb: function (state) {
-            vm.user = state.currentUser;
             vm.appName = state.app.name;
-            vm.todosCount = state.todos.length;
+        }});
+        dataHub.suscribe({state: 'todos', cb: function (todos) {
+            vm.todosCount = todos.length;
+        }});
+        dataHub.suscribe({state: 'user', cb: function (user) {
+            vm.user = user;
         }});
     }
 };

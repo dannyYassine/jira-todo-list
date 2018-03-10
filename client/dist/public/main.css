@@ -119,7 +119,7 @@ todo-item-status div.medium {
 todo-item-status div.low {
   background-color: #269A33;
 }
-dash .dropzone {
+dash-drag .dropzone {
   background-color: #ccc;
   border: dashed 2px transparent;
   border-radius: 4px;
@@ -128,19 +128,19 @@ dash .dropzone {
   width: 80%;
   transition: background-color 0.3s;
 }
-dash .drop-active {
+dash-drag .drop-active {
   border-color: #aaa;
 }
-dash .drop-target {
+dash-drag .drop-target {
   background-color: #29e;
   border-color: #fff;
   border-style: solid;
 }
-dash div.dragging {
+dash-drag div.dragging {
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(136, 136, 136, 0.51);
 }
-dash .drag-drop {
+dash-drag .drag-drop {
   display: inline-block;
   min-width: 40px;
   -webkit-transform: translate(0px, 0px);
