@@ -70,23 +70,13 @@ todo-item .todo-item {
   min-height: 60px;
   background-color: white;
   border-radius: 5px;
-  margin: 2px 0;
+  margin: 4px 0;
   padding: 2px;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
 }
 todo-item .todo-item:hover {
   background-color: #EBECF0;
-}
-todo-item .todo-item .status-bar {
-  position: absolute;
-  top: 50%;
-  left: 4px;
-  transform: translateY(-50%);
-  float: left;
-  width: 2px;
-  height: calc(85%);
-  background-color: orangered;
 }
 todo-item .todo-item .todo-title {
   font-size: 16px;
@@ -111,6 +101,52 @@ todo-item .user-pic {
   border-radius: 45px;
   border: solid white 1px;
 }
+todo-item-status div {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  float: left;
+  width: 2px;
+  height: calc(85%);
+}
+todo-item-status div.high {
+  background-color: #C02323;
+}
+todo-item-status div.medium {
+  background-color: #F7933A;
+}
+todo-item-status div.low {
+  background-color: #269A33;
+}
+dash .dropzone {
+  background-color: #ccc;
+  border: dashed 2px transparent;
+  border-radius: 4px;
+  margin: 10px auto 30px;
+  padding: 5px;
+  width: 80%;
+  transition: background-color 0.3s;
+}
+dash .drop-active {
+  border-color: #aaa;
+}
+dash .drop-target {
+  background-color: #29e;
+  border-color: #fff;
+  border-style: solid;
+}
+dash div.dragging {
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(136, 136, 136, 0.51);
+}
+dash .drag-drop {
+  display: inline-block;
+  min-width: 40px;
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+  transition: background-color 0.3s;
+}
 board .todos-section {
   height: 100vh;
   display: flex;
@@ -122,33 +158,6 @@ board .todos-section .todo-section {
   flex: 1;
   margin: 5px;
   background-color: #f0f1f3;
-}
-board .dropzone {
-  background-color: #ccc;
-  border: dashed 2px transparent;
-  border-radius: 4px;
-  margin: 10px auto 30px;
-  padding: 10px;
-  width: 80%;
-  transition: background-color 0.3s;
-}
-board .drop-active {
-  border-color: #aaa;
-}
-board .drop-target {
-  background-color: #29e;
-  border-color: #fff;
-  border-style: solid;
-}
-board div.dragging {
-  box-shadow: 0 2px 5px rgba(136, 136, 136, 0.51);
-}
-board .drag-drop {
-  display: inline-block;
-  min-width: 40px;
-  -webkit-transform: translate(0px, 0px);
-  transform: translate(0px, 0px);
-  transition: background-color 0.3s;
 }
 .side-title {
   margin-top: 10px;

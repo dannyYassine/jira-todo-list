@@ -1,0 +1,15 @@
+<div class="todo-item draggable drag-drop">
+    <todo-item-status priority="vm.todo.priority"></todo-item-status>
+    <div class="todo-content">
+        <h4 class="todo-title">{{vm.todo.title}}</h4>
+        <div class="todo-footer">
+            <div>
+                Prority
+            </div>
+            <div>
+                <p>JI-{{vm.todo.id}}</p>
+                <img class="user-pic" ng-src="{{vm.todo.user.image_url}}"/>
+            </div>
+        </div>
+    </div>
+</div>

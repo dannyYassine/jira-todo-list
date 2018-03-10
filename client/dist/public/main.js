@@ -52985,13 +52985,15 @@ angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInli
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_loader__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_hub__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__todo__ = __webpack_require__(133);
 
 
 
 
 
 
-const sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader', 'shared.data-hub']);
+
+const sharedModule = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.modules', ['shared.app-loader', 'shared.data-hub', 'shared.todo.service']);
 
 const _default = sharedModule.name;
 /* harmony default export */ __webpack_exports__["a"] = (_default);
@@ -53139,55 +53141,13 @@ function DataHubProvider() {
 /* harmony export (immutable) */ __webpack_exports__["a"] = DataHub;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__state__ = __webpack_require__(144);
 
 
 
-const initialState = {
-    app: {
-        name: 'Jira'
-    },
-    todos: [{
-        id: '1',
-        title: 'On Monday, clean stairs with vaccuum and detergent',
-        priority: 'high',
-        status: 'todo',
-        description: 'Don\'t forget to vaccum',
-        sorted_date: '1520686000246',
-        user: {
-            name: 'Danny',
-            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
-        }
-    }, {
-        id: '2',
-        title: 'Clean the appartment',
-        priority: 'high',
-        status: 'todo',
-        description: 'Don\'t forget to vaccum',
-        sorted_date: '1520686000246',
-        user: {
-            name: 'Danny',
-            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
-        }
-    }, {
-        id: '3',
-        title: 'Buy toilet paper for the appartment',
-        priority: 'high',
-        status: 'todo',
-        description: 'Don\'t forget to vaccum',
-        sorted_date: '1520686000246',
-        user: {
-            name: 'Danny',
-            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
-        }
-    }],
-    user: {
-        name: 'Danny',
-        image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
-    },
-    ui: {}
-};
 
-function DataHub(newState = initialState) {
+
+function DataHub(newState = __WEBPACK_IMPORTED_MODULE_1__state__["a" /* initialState */]) {
     const emitter = new __WEBPACK_IMPORTED_MODULE_0_wolfy87_eventemitter___default.a();
 
     let state = newState;
@@ -53195,20 +53155,32 @@ function DataHub(newState = initialState) {
     this.getState = getState;
     this.suscribe = suscribe;
     this.unsuscribe = unsuscribe;
-    this.addTodo = addTodo;
 
-    function suscribe(subState, cb) {
-        emitter.on(subState, cb);
+    this.setTodos = setTodos;
+    this.getTodos = getTodos;
+
+    this.setUser = setUser;
+    this.getUser = getUser;
+
+    function suscribe(options) {
+        options.eventName = options.eventName || 'state';
+        if (!options.cb) {
+            throw new Exception('need callback');
+        }
+        emitter.on(options.eventName, options.cb);
     }
 
-    function unsuscribe(subState, cb) {
-        emitter.off(subState, cb);
+    function unsuscribe(options) {
+        options.eventName = options.eventName || 'state';
+        if (!options.cb) {
+            throw new Exception('need callback');
+        }
+        emitter.off(options.eventName, options.cb);
     }
 
     function getState() {
         return state;
     }
-
     function setTodos(val) {
         state.todos = val;
         _emit('todos');
@@ -53216,23 +53188,12 @@ function DataHub(newState = initialState) {
     function getTodos() {
         return state.todos;
     }
-    function setCurrentUser(val) {
-        state.currentUser = val;
+    function setUser(val) {
+        state.user = val;
         _emit('user');
     }
     function getUser() {
         return state.user;
-    }
-
-    function addTodo(todo) {
-        todo.user = {
-            name: 'Danny',
-            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
-        };
-        let newState = Object.assign({}, state);
-        newState.todos.push(todo);
-        state = Object.assign(state, newState);
-        _emit();
     }
 
     function _emit(eventName = 'state') {
@@ -53757,7 +53718,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__todo_item__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dash__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_add_todo__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_board_service__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__base_board_component__ = __webpack_require__(100);
@@ -53769,7 +53730,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-board', ['board.modals', 'board.todo-item']).service('BoardService', __WEBPACK_IMPORTED_MODULE_3__base_board_service__["a" /* default */]).component('board', __WEBPACK_IMPORTED_MODULE_4__base_board_component__["a" /* default */]).config(appRoutes).name);
+/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('jira-board', ['board.modals', 'board.todo-item', 'board.dash']).service('BoardService', __WEBPACK_IMPORTED_MODULE_3__base_board_service__["a" /* default */]).component('board', __WEBPACK_IMPORTED_MODULE_4__base_board_component__["a" /* default */]).config(appRoutes).name);
 
 appRoutes.$inject = ['$stateProvider'];
 function appRoutes($stateProvider) {
@@ -53782,57 +53743,10 @@ function appRoutes($stateProvider) {
 }
 
 /***/ }),
-/* 92 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__todo_item_component__ = __webpack_require__(93);
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('board.todo-item', []).component('todoItem', __WEBPACK_IMPORTED_MODULE_1__todo_item_component__["a" /* default */]);
-
-/***/ }),
-/* 93 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__todo_item_controller__ = __webpack_require__(94);
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__todo_item_controller__["a" /* default */].$inject = [];
-const TodoItemComponent = {
-    bindings: {
-        todo: '<'
-    },
-    template: __webpack_require__(95),
-    controller: __WEBPACK_IMPORTED_MODULE_0__todo_item_controller__["a" /* default */],
-    controllerAs: 'vm'
-};
-/* harmony default export */ __webpack_exports__["a"] = (TodoItemComponent);
-
-/***/ }),
-/* 94 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = TodoItemController;
-
-function TodoItemController() {
-    let vm = this;
-};
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"todo-item draggable drag-drop\">\n    <div class=\"status-bar\"></div>\n    <div class=\"todo-content\">\n        <h4 class=\"todo-title\">{{vm.todo.title}}</h4>\n        <div class=\"todo-footer\">\n            <div>\n                Prority\n            </div>\n            <div>\n                <p>JI-{{vm.todo.id}}</p>\n                <img class=\"user-pic\" ng-src=\"{{vm.todo.user.image_url}}\"/>\n            </div>\n        </div>\n    </div>\n</div>";
-
-/***/ }),
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
 /* 96 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -53911,7 +53825,7 @@ function BoardService(dataHub) {
 
 
 
-__WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */].$inject = ['dataHub'];
+__WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */].$inject = ['dataHub', 'todoService'];
 const BoardComponent = {
     template: __webpack_require__(103),
     controller: __WEBPACK_IMPORTED_MODULE_0__board_controller__["a" /* default */],
@@ -53925,14 +53839,11 @@ const BoardComponent = {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = BoardController;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_interactjs__);
 
-
-function BoardController(dataHub) {
+function BoardController(dataHub, todoService) {
     let vm = this;
     vm.click = function () {
-        dataHub.addTodo({ title: 'Habibi' });
+        todoService.create('habibi');
     };
     vm.$onInit = $onInit;
     vm.onAdd = onAdd;
@@ -53941,91 +53852,30 @@ function BoardController(dataHub) {
     function $onInit() {
         vm.todos = [[], [], [], []];
 
-        vm.todos[0] = dataHub.getState().todos;
+        sortTodos(dataHub.getState().todos);
+        dataHub.suscribe({ state: 'todos', cb: function (todos) {
+                sortTodos(todos);
+            } });
+    }
 
-        dataHub.suscribe(state => {
-            vm.todos[0] = state.todos;
+    function sortTodos(todos) {
+        vm.todos[0] = todos.filter(function (todo) {
+            return todo.status === 'todo';
+        });
+        vm.todos[1] = todos.filter(function (todo) {
+            return todo.status === 'progress';
+        });
+        vm.todos[2] = todos.filter(function (todo) {
+            return todo.status === 'review';
+        });
+        vm.todos[3] = todos.filter(function (todo) {
+            return todo.status === 'done';
         });
     }
 
     function onAdd(title) {
         console.log(title);
-        dataHub.addTodo({ title });
-    }
-
-    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.dropzone').dropzone({
-        // only accept elements matching this CSS selector
-        accept: '.draggable',
-        // Require a 75% element overlap for a drop to be possible
-        overlap: 0.75,
-
-        // listen for drop related events:
-        ondropactivate: function (event) {
-            // add active dropzone feedback
-            event.target.classList.add('drop-active');
-            event.relatedTarget.style.transform = 'translate(0, 0)';
-        },
-        ondragenter: function (event) {
-            var draggableElement = event.relatedTarget,
-                dropzoneElement = event.target;
-
-            // feedback the possibility of a drop
-            dropzoneElement.classList.add('drop-target');
-            draggableElement.classList.add('dragging');
-            // draggableElement.classList.add('can-drop');
-            // draggableElement.textContent = 'Dragged in';
-        },
-        ondragleave: function (event) {
-            // remove the drop feedback style
-            event.target.classList.remove('drop-target');
-            // event.relatedTarget.classList.remove('can-drop');
-            // event.relatedTarget.textContent = 'Dragged out';
-        },
-        ondrop: function (event) {
-            // event.relatedTarget.textContent = 'Dropped';
-            event.relatedTarget.style.transform = 'translate(0, 0)';
-            event.relatedTarget.removeAttribute('data-x');
-            event.relatedTarget.removeAttribute('data-y');
-        },
-        ondropdeactivate: function (event) {
-            // remove active dropzone feedback
-            event.target.classList.remove('drop-active');
-            event.relatedTarget.classList.remove('dragging');
-            event.target.classList.remove('drop-target');
-        }
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.draggable').draggable({
-        // enable inertial throwing
-        inertia: true,
-        // keep the element within the area of it's parent
-        restrict: {
-            restriction: "parent",
-            endOnly: true,
-            elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-        },
-        // enable autoScroll
-        autoScroll: true,
-
-        // call this function on every dragmove event
-        onmove: dragMoveListener,
-        // call this function on every dragend event
-        onend: function (event) {}
-    });
-
-    function dragMoveListener(event) {
-        var target = event.target,
-
-        // keep the dragged position in the data-x/data-y attributes
-        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-        // translate the element
-        target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-
-        // update the posiion attributes
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
+        todoService.create({ title });
     }
 };
 
@@ -61211,7 +61061,7 @@ win.init = init;
 /* 103 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <div class=\"todos-section\">\n        <div class=\"todo-section dropzone\">\n            TO DO\n            <todo-item ng-repeat=\"todo in vm.todos[0] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN PROGRESS\n            <todo-item ng-repeat=\"todo in vm.todos[1] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN REVIEW\n            <todo-item ng-repeat=\"todo in vm.todos[2] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            DONE\n            <todo-item ng-repeat=\"todo in vm.todos[3] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n    </div>\n</div>";
+module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <dash todos=\"vm.todos\"></dash>\n</div>";
 
 /***/ }),
 /* 104 */
@@ -61364,11 +61214,11 @@ function SideBarController(dataHub) {
         vm.appName = dataHub.getState().app.name;
         vm.todosCount = dataHub.getState().todos.length;
 
-        dataHub.suscribe(state => {
-            vm.user = state.currentUser;
-            vm.appName = state.app.name;
-            vm.todosCount = state.todos.length;
-        });
+        dataHub.suscribe({ cb: function (state) {
+                vm.user = state.currentUser;
+                vm.appName = state.app.name;
+                vm.todosCount = state.todos.length;
+            } });
     }
 };
 
@@ -61607,6 +61457,351 @@ function AppController($state, $timeout) {
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <div ui-view=\"app-modals\">\n    </div>\n    <!-- END of TOP LEVEL ROUTES -->\n\n    <!-- MOBILE HEADER -->\n    <div id=\"mobile-header\">\n        <div class=\"mobile-toggler\" ng-click=\"vm.toggleMobileHeader()\">\n            <div class=\"button-toggler\">\n                &#9776;\n            </div>\n        </div>\n    </div>\n    <!-- END of MOBILE HEADER -->\n\n    <!-- LEFT NAV -->\n    <div id=\"left-frame\">\n        <side-bar-component on-item-clicked=\"vm.onSideBatItemClicked()\"></side-bar-component>\n    </div>\n\n    <div id=\"left-frame-mobile-background\" ng-click=\"vm.onMobileBackgroundClick()\">\n    </div>\n    <!-- END of LEFT NAV -->\n\n    <!-- MAIN CONTENT -->\n    <div id=\"right-frame\">\n        <div ui-view></div>\n    </div>\n    <!-- END of MAIN CONTENT -->\n\n</div>";
+
+/***/ }),
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__todo_service__ = __webpack_require__(134);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.todo.service', []).factory('todoService', __WEBPACK_IMPORTED_MODULE_1__todo_service__["a" /* default */]);
+
+/***/ }),
+/* 134 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = TodoService;
+
+
+TodoService.$inject = ['dataHub'];
+function TodoService(dataHub) {
+
+    return {
+        create: create,
+        remove: remove,
+        edit: edit
+    };
+
+    /**
+     * Create a new todo with a given text
+     * @param text
+     */
+    function create(text) {
+        let todo = { title: text, priority: 'medium' };
+        todo.user = {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        };
+        let state = dataHub.getState();
+        state.todos.push(todo);
+        dataHub.setTodos(state.todos);
+    }
+
+    /**
+     * Remove the todo from system with id
+     * @param todoId
+     */
+    function remove(todoId) {
+        let state = dataHub.getState();
+        state.todos = state.filter(todo => {
+            return todo.id !== todoId;
+        });
+        dataHub.setTodos(state.todos);
+    }
+
+    /**
+     * Edits todo with given options
+     * @param todoId
+     * @param options
+     * @throws EditTodoException
+     * options.title
+     * options.priority
+     */
+    function edit(todoId, options) {}
+}
+
+/***/ }),
+/* 135 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base_todo_item_component__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__status_todoItemStatus_component__ = __webpack_require__(139);
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('board.todo-item', []).component('todoItem', __WEBPACK_IMPORTED_MODULE_1__base_todo_item_component__["a" /* default */]).component('todoItemStatus', __WEBPACK_IMPORTED_MODULE_2__status_todoItemStatus_component__["a" /* default */]);
+
+/***/ }),
+/* 136 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__todo_item_controller__ = __webpack_require__(137);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__todo_item_controller__["a" /* default */].$inject = [];
+const TodoItemComponent = {
+    bindings: {
+        todo: '<'
+    },
+    template: __webpack_require__(138),
+    controller: __WEBPACK_IMPORTED_MODULE_0__todo_item_controller__["a" /* default */],
+    controllerAs: 'vm'
+};
+/* harmony default export */ __webpack_exports__["a"] = (TodoItemComponent);
+
+/***/ }),
+/* 137 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = TodoItemController;
+
+function TodoItemController() {
+    let vm = this;
+};
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"todo-item draggable drag-drop\">\n    <todo-item-status priority=\"vm.todo.priority\"></todo-item-status>\n    <div class=\"todo-content\">\n        <h4 class=\"todo-title\">{{vm.todo.title}}</h4>\n        <div class=\"todo-footer\">\n            <div>\n                Prority\n            </div>\n            <div>\n                <p>JI-{{vm.todo.id}}</p>\n                <img class=\"user-pic\" ng-src=\"{{vm.todo.user.image_url}}\"/>\n            </div>\n        </div>\n    </div>\n</div>";
+
+/***/ }),
+/* 139 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+const TodoItemStatusComponent = {
+    bindings: {
+        priority: '<'
+    },
+    template: __webpack_require__(140),
+    controller: TodoItemStatusController,
+    controllerAs: 'vm'
+};
+
+TodoItemStatusController.$inject = [];
+function TodoItemStatusController() {
+    let vm = this;
+
+    vm.$onInit = $onInit;
+
+    function $onInit() {}
+}
+/* harmony default export */ __webpack_exports__["a"] = (TodoItemStatusComponent);
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"{{vm.priority}}\"></div>";
+
+/***/ }),
+/* 141 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__todo_item__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_board_dash_component__ = __webpack_require__(142);
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('board.dash', []).component('dash', __WEBPACK_IMPORTED_MODULE_2__base_board_dash_component__["a" /* default */]);
+
+/***/ }),
+/* 142 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_interactjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_interactjs__);
+
+
+const BoardDashComponent = {
+    bindings: {
+        todos: '<'
+    },
+    template: __webpack_require__(143),
+    controller: BoardDash,
+    controllerAs: 'vm'
+};
+
+BoardDash.$inject = [];
+function BoardDash() {
+    let vm = this;
+
+    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.dropzone').dropzone({
+        // only accept elements matching this CSS selector
+        accept: '.draggable',
+        // Require a 75% element overlap for a drop to be possible
+        overlap: 0.75,
+
+        // listen for drop related events:
+        ondropactivate: function (event) {
+            // add active dropzone feedback
+            event.target.classList.add('drop-active');
+            event.relatedTarget.style.transform = 'translate(0, 0)';
+        },
+        ondragenter: function (event) {
+            var draggableElement = event.relatedTarget,
+                dropzoneElement = event.target;
+
+            // feedback the possibility of a drop
+            dropzoneElement.classList.add('drop-target');
+            draggableElement.classList.add('dragging');
+            // draggableElement.classList.add('can-drop');
+            // draggableElement.textContent = 'Dragged in';
+        },
+        ondragleave: function (event) {
+            // remove the drop feedback style
+            event.target.classList.remove('drop-target');
+            // event.relatedTarget.classList.remove('can-drop');
+            // event.relatedTarget.textContent = 'Dragged out';
+        },
+        ondrop: function (event) {
+            // event.relatedTarget.textContent = 'Dropped';
+            event.relatedTarget.style.transform = 'translate(0, 0)';
+            event.relatedTarget.removeAttribute('data-x');
+            event.relatedTarget.removeAttribute('data-y');
+        },
+        ondropdeactivate: function (event) {
+            // remove active dropzone feedback
+            event.target.classList.remove('drop-active');
+            event.relatedTarget.classList.remove('dragging');
+            event.target.classList.remove('drop-target');
+        }
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.draggable').draggable({
+        // enable inertial throwing
+        inertia: true,
+        // keep the element within the area of it's parent
+        restrict: {
+            restriction: "parent",
+            endOnly: true,
+            elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+        },
+        // enable autoScroll
+        autoScroll: true,
+
+        // call this function on every dragmove event
+        onmove: dragMoveListener,
+        // call this function on every dragend event
+        onend: function (event) {}
+    });
+
+    function dragMoveListener(event) {
+        var target = event.target,
+
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+            y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+        // translate the element
+        target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+
+        // update the posiion attributes
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+    }
+}
+/* harmony default export */ __webpack_exports__["a"] = (BoardDashComponent);
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"todos-section\">\n    <div class=\"todo-section dropzone\">\n        TO DO\n        <todo-item ng-repeat=\"todo in vm.todos[0] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n    <div class=\"todo-section dropzone\">\n        IN PROGRESS\n        <todo-item ng-repeat=\"todo in vm.todos[1] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n    <div class=\"todo-section dropzone\">\n        IN REVIEW\n        <todo-item ng-repeat=\"todo in vm.todos[2] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n    <div class=\"todo-section dropzone\">\n        DONE\n        <todo-item ng-repeat=\"todo in vm.todos[3] track by $index\" todo=\"todo\"></todo-item>\n    </div>\n</div>";
+
+/***/ }),
+/* 144 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+const initialState = {
+    app: {
+        name: 'Jira'
+    },
+    todos: [{
+        id: '1',
+        title: 'On Monday, clean stairs with vaccuum and detergent',
+        priority: 'high',
+        status: 'todo',
+        description: 'Don\'t forget to vaccum',
+        sorted_date: '1520686000246',
+        user: {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        }
+    }, {
+        id: '2',
+        title: 'Clean the appartment',
+        priority: 'medium',
+        status: 'todo',
+        description: 'Don\'t forget to vaccum',
+        sorted_date: '1520686000246',
+        user: {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        }
+    }, {
+        id: '3',
+        title: 'Buy toilet paper for the appartment',
+        priority: 'low',
+        status: 'todo',
+        description: 'Don\'t forget to vaccum',
+        sorted_date: '1520686000246',
+        user: {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        }
+    }, {
+        id: '4',
+        title: 'Do Groceries at Provigo',
+        priority: 'high',
+        status: 'progress',
+        description: 'Don\'t forget to vaccum',
+        sorted_date: '1520686000246',
+        user: {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        }
+    }],
+    user: {
+        name: 'Danny',
+        image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+    },
+    ui: {}
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = initialState;
+
 
 /***/ })
 /******/ ]);

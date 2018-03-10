@@ -1,0 +1,21 @@
+todo-item-status {
+	div {
+		position: absolute;
+		top: 50%;
+		left: 5px;
+		transform: translateY(-50%);
+		float: left;
+		width: 2px;
+		height: calc(100% - 15px);
+
+		&.high {
+			background-color: #C02323;
+		}
+		&.medium {
+			background-color: #F7933A;
+		}
+		&.low {
+			background-color: #269A33;
+		}
+	}
+}
