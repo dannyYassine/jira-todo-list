@@ -1,11 +1,54 @@
 todo-item {
-	div {
+	.todo-item {
+		position: relative;
+		display: flex;
+		align-items: center;
 		transition: all 0.3s ease;
-		min-height: 75px;
+		min-height: 60px;
 		background-color: white;
 		border-radius: 5px;
-		margin: 2px 5px 2px 5px;
+		margin: 2px 0;
 		padding: 2px;
 		width: 100%;
+		box-shadow: rgba(0,0,0,0.2) 0 1px 3px;
+
+		&:hover {
+			background-color: #EBECF0;
+		}
+		.status-bar {
+			position: absolute;
+			top: 50%;
+			left: 4px;
+			transform: translateY(-50%);
+			float: left;
+			width: 2px;
+			height: calc(100% - 15px);
+			background-color: orangered;
+		}
+		.todo-title {
+			font-size: 16px;
+		}
+		.todo-content {
+			margin-left: 8px;
+			padding: 5px;
+		}
+		.todo-footer {
+			div:nth-child(1) {
+				float: left
+			}
+			div:nth-child(2) {
+				float: right
+			}
+		}
+		p {
+			font-size: 14px;
+			display: inline;
+		}
+	}
+	.user-pic {
+		width: 30px;
+		height: 30px;
+		border-radius: 45px;
+		border: solid white 1px;
 	}
 }

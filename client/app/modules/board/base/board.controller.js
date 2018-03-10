@@ -7,12 +7,15 @@ export default function BoardController(dataHub) {
     };
     vm.$onInit = $onInit;
     vm.onAdd = onAdd;
-    
+    vm.draggingTodo = null;
+
     function $onInit() {
-        vm.todos = dataHub.getState().todos;
+        vm.todos = [[] , [], [] , []];
+
+        vm.todos[0] = dataHub.getState().todos;
 
         dataHub.suscribe((state) => {
-            vm.todos = state.todos;
+            vm.todos[0] = state.todos;
         });
     }
     
@@ -28,7 +31,6 @@ export default function BoardController(dataHub) {
         overlap: 0.75,
 
         // listen for drop related events:
-
         ondropactivate: function (event) {
             // add active dropzone feedback
             event.target.classList.add('drop-active');

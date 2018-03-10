@@ -53148,12 +53148,39 @@ const initialState = {
     },
     todos: [{
         id: '1',
-        title: 'Clean stairs',
+        title: 'On Monday, clean stairs with vaccuum and detergent',
         priority: 'high',
         status: 'todo',
-        description: 'Don\'t forget to vaccum'
+        description: 'Don\'t forget to vaccum',
+        sorted_date: '1520686000246',
+        user: {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        }
+    }, {
+        id: '2',
+        title: 'Clean the appartment',
+        priority: 'high',
+        status: 'todo',
+        description: 'Don\'t forget to vaccum',
+        sorted_date: '1520686000246',
+        user: {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        }
+    }, {
+        id: '3',
+        title: 'Buy toilet paper for the appartment',
+        priority: 'high',
+        status: 'todo',
+        description: 'Don\'t forget to vaccum',
+        sorted_date: '1520686000246',
+        user: {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        }
     }],
-    currentUser: {
+    user: {
         name: 'Danny',
         image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
     },
@@ -53170,27 +53197,46 @@ function DataHub(newState = initialState) {
     this.unsuscribe = unsuscribe;
     this.addTodo = addTodo;
 
-    function suscribe(cb) {
-        emitter.on('state', cb);
+    function suscribe(subState, cb) {
+        emitter.on(subState, cb);
     }
 
-    function unsuscribe(cb) {
-        emitter.off('state', cb);
+    function unsuscribe(subState, cb) {
+        emitter.off(subState, cb);
     }
 
     function getState() {
         return state;
     }
 
+    function setTodos(val) {
+        state.todos = val;
+        _emit('todos');
+    }
+    function getTodos() {
+        return state.todos;
+    }
+    function setCurrentUser(val) {
+        state.currentUser = val;
+        _emit('user');
+    }
+    function getUser() {
+        return state.user;
+    }
+
     function addTodo(todo) {
+        todo.user = {
+            name: 'Danny',
+            image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
+        };
         let newState = Object.assign({}, state);
         newState.todos.push(todo);
         state = Object.assign(state, newState);
         _emit();
     }
 
-    function _emit() {
-        emitter.emitEvent('state', [state]);
+    function _emit(eventName = 'state') {
+        emitter.emitEvent(eventName, [eventName === 'state' ? state : state[eventName]]);
     }
 }
 
@@ -53784,7 +53830,7 @@ function TodoItemController() {
 /* 95 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"draggable drag-drop\">\n    <h4>{{vm.todo.title}}</h4>\n</div>";
+module.exports = "<div class=\"todo-item draggable drag-drop\">\n    <div class=\"status-bar\"></div>\n    <div class=\"todo-content\">\n        <h4 class=\"todo-title\">{{vm.todo.title}}</h4>\n        <div class=\"todo-footer\">\n            <div>\n                Prority\n            </div>\n            <div>\n                <p>JI-{{vm.todo.id}}</p>\n                <img class=\"user-pic\" ng-src=\"{{vm.todo.user.image_url}}\"/>\n            </div>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
 /* 96 */
@@ -53890,12 +53936,15 @@ function BoardController(dataHub) {
     };
     vm.$onInit = $onInit;
     vm.onAdd = onAdd;
+    vm.draggingTodo = null;
 
     function $onInit() {
-        vm.todos = dataHub.getState().todos;
+        vm.todos = [[], [], [], []];
+
+        vm.todos[0] = dataHub.getState().todos;
 
         dataHub.suscribe(state => {
-            vm.todos = state.todos;
+            vm.todos[0] = state.todos;
         });
     }
 
@@ -53911,7 +53960,6 @@ function BoardController(dataHub) {
         overlap: 0.75,
 
         // listen for drop related events:
-
         ondropactivate: function (event) {
             // add active dropzone feedback
             event.target.classList.add('drop-active');
@@ -61163,7 +61211,7 @@ win.init = init;
 /* 103 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <div class=\"todos-section\">\n        <div class=\"todo-section dropzone\">\n            TO DO\n            <todo-item ng-repeat=\"todo in vm.todos track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN PROGRESS\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN REVIEW\n        </div>\n        <div class=\"todo-section dropzone\">\n            DONE\n        </div>\n    </div>\n</div>";
+module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <div class=\"todos-section\">\n        <div class=\"todo-section dropzone\">\n            TO DO\n            <todo-item ng-repeat=\"todo in vm.todos[0] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN PROGRESS\n            <todo-item ng-repeat=\"todo in vm.todos[1] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN REVIEW\n            <todo-item ng-repeat=\"todo in vm.todos[2] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            DONE\n            <todo-item ng-repeat=\"todo in vm.todos[3] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
 /* 104 */
@@ -61312,7 +61360,7 @@ function SideBarController(dataHub) {
     vm.$onInit = $onInit;
 
     function $onInit() {
-        vm.user = dataHub.getState().currentUser;
+        vm.user = dataHub.getState().user;
         vm.appName = dataHub.getState().app.name;
         vm.todosCount = dataHub.getState().todos.length;
 

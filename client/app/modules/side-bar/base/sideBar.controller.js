@@ -6,7 +6,7 @@ export default function SideBarController(dataHub) {
     vm.$onInit = $onInit;
 
     function $onInit() {
-        vm.user = dataHub.getState().currentUser;
+        vm.user = dataHub.getState().user;
         vm.appName = dataHub.getState().app.name;
         vm.todosCount = dataHub.getState().todos.length;
 
