@@ -1,8 +1,14 @@
 dash {
+	.todo-list {
 
+	}
 }
 
 dash-drag {
+	.initial-dropzone {
+		background-color: #f0f1f3 !important;
+		border: solid 2px white !important;
+	}
 	.dropzone {
 		background-color: #ccc;
 		border: dashed 2px transparent;
@@ -10,20 +16,33 @@ dash-drag {
 		margin: 10px auto 30px;
 		padding: 5px;
 		width: 80%;
-		transition: background-color 0.3s;
+
+		&.drop-active {
+			&:not(.drop-target) {
+				background-color: #EBF2F9;
+				border: dashed 2px #0065AA;
+			}
+			&.drop-target {
+				background-color: #F3F9F4;
+				border: dashed 2px #007C00;
+			}
+		}
+
 	}
 
 	.drop-active {
-		border-color: #aaa;
-	}
 
-	.drop-target {
-		background-color: #29e;
-		border-color: #fff;
-		border-style: solid;
+		div.draggable:not(.dragging) {
+			opacity: 0.1;
+		}
+
+	}
+	.draggable {
+		transition: opacity 0.3s ease;
 	}
 
 	div.dragging {
+		opacity: 0.9;
 		z-index: 1000;
 		box-shadow: 0 2px 5px rgba(136, 136, 136, 0.51);
 	}

@@ -37,6 +37,7 @@ export default function DataHub(newState = initialState) {
     function getState() {
         return state;
     }
+
     function setTodos(val) {
         state.todos = val;
         _emit('todos');

@@ -1,10 +1,20 @@
 
 
-TodoService.$inject = ['dataHub'];
-export default function TodoService(dataHub) {
+TodoService.$inject = ['dataHub', 'todosResource'];
+export default function TodoService(dataHub, todosResource) {
+
+    const props = {
+        state: {
+            isLoading: false
+        },
+        data: {}
+    };
 
     return {
         create: create,
+        move: move,
+        retrieve: retrieve,
+        doneDragging: doneDragging,
         remove: remove,
         edit: edit
     };
@@ -23,6 +33,20 @@ export default function TodoService(dataHub) {
         state.todos.push(todo);
         dataHub.setTodos(state.todos);
     }
+    
+    function move(todoId, status) {
+        let state = dataHub.getState();
+        let todo = state.todos.find((todo) => {
+            return todo.id === todoId;
+        });
+        todo.status = status;
+        dataHub.setTodos(state.todos);
+    }
+    
+    function doneDragging() {
+        let state = dataHub.getState();
+        dataHub.setTodos(state.todos);
+    }
 
     /**
      * Remove the todo from system with id
@@ -30,12 +54,21 @@ export default function TodoService(dataHub) {
      */
     function remove(todoId) {
         let state = dataHub.getState();
-        state.todos = state.filter((todo) => {
+        state.todos = state.todos.filter((todo) => {
             return todo.id !== todoId;
         });
         dataHub.setTodos(state.todos);
     }
 
+    /**
+     *
+     */
+    function retrieve() {
+        return todosResource.getTodos().then(() => {
+            dataHub.setTodos(state.todos);
+        });
+    }
+    
     /**
      * Edits todo with given options
      * @param todoId

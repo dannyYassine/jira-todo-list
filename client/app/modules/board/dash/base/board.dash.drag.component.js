@@ -3,8 +3,7 @@ import interact from "interactjs";
 const BoardDashDragComponent = {
     bindings: {
         dragStart: '&',
-        dragEnd: '&',
-        dragChangeSection: '&'
+        dragEnd: '&'
     },
     transclude: true,
     template: `
@@ -15,8 +14,10 @@ const BoardDashDragComponent = {
 };
 export default BoardDashDragComponent;
 
-function BoardDashDragController() {
+BoardDashDragController.$scope = ['$scope'];
+function BoardDashDragController($scope) {
     let vm = this;
+    vm.dropTarget = null;
 
     interact('.dropzone').dropzone({
         // only accept elements matching this CSS selector
@@ -29,18 +30,17 @@ function BoardDashDragController() {
             // add active dropzone feedback
             event.target.classList.add('drop-active');
             event.relatedTarget.style.transform = 'translate(0, 0)';
-            vm.dragStart({});
+            event.relatedTarget.classList.add('dragging');
+
         },
         ondragenter: function (event) {
             var draggableElement = event.relatedTarget,
                 dropzoneElement = event.target;
-
+            vm.dropTarget = dropzoneElement;
             // feedback the possibility of a drop
             dropzoneElement.classList.add('drop-target');
-            draggableElement.classList.add('dragging');
-            // draggableElement.classList.add('can-drop');
-            // draggableElement.textContent = 'Dragged in';
-            vm.dragChangeSection({});
+
+
         },
         ondragleave: function (event) {
             // remove the drop feedback style
@@ -53,25 +53,22 @@ function BoardDashDragController() {
             event.relatedTarget.style.transform = 'translate(0, 0)';
             event.relatedTarget.removeAttribute('data-x');
             event.relatedTarget.removeAttribute('data-y');
+
         },
         ondropdeactivate: function (event) {
             // remove active dropzone feedback
             event.target.classList.remove('drop-active');
             event.relatedTarget.classList.remove('dragging');
             event.target.classList.remove('drop-target');
-            vm.dragEnd({});
+
         }
     });
 
     interact('.draggable')
         .draggable({
-            // enable inertial throwing
-            inertia: true,
             // keep the element within the area of it's parent
             restrict: {
-                restriction: "parent",
-                endOnly: true,
-                elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+                elementRect: { top: 0, left: 0, bottom: 0, right: 0 }
             },
             // enable autoScroll
             autoScroll: true,
@@ -82,6 +79,25 @@ function BoardDashDragController() {
             onend: function (event) {
 
             }
+        })
+        .on('down', function (event) {
+            event.currentTarget.parentElement.parentElement.parentElement.classList.add('initial-dropzone');
+            vm.dragStart({})
+        })
+        .on('up', function (event) {
+            event.currentTarget.parentElement.parentElement.parentElement.classList.remove('initial-dropzone');
+
+            var draggableElement = event.currentTarget,
+                dropzoneElement = vm.dropTarget;
+
+            console.log(draggableElement);
+
+            let todoId = draggableElement.getAttribute('id').replace('todo-item-', '');
+            let sectionId = dropzoneElement.getAttribute('id').replace('todo-section-', '');
+
+            $scope.$apply(() => {
+                vm.dragEnd({todoId, sectionId});
+            });
         });
 
     function dragMoveListener (event) {

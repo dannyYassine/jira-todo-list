@@ -1,20 +1,31 @@
-<dash-drag>
-    <div class="todos-section">
-        <div class="todo-section dropzone">
+<dash-drag
+        drag-start="vm.dragStart()"
+        drag-end="vm.dragEnd(todoId, sectionId)"
+    >
+    <div class="todos-section" ng-class="{'drag': vm.isDragging}">
+        <div id="todo-section-0" class="todo-section dropzone">
             TO DO
-            <todo-item ng-repeat="todo in vm.todos[0] track by $index" todo="todo"></todo-item>
-        </div>
-        <div class="todo-section dropzone">
+            <div class="todo-list">
+                <todo-item ng-repeat="todo in vm.inTodo() track by todo.id" todo="todo" ng-click="vm.remove(todo)"></todo-item>
+            </div>
+        </div >
+        <div id="todo-section-1" class="todo-section dropzone">
             IN PROGRESS
-            <todo-item ng-repeat="todo in vm.todos[1] track by $index" todo="todo"></todo-item>
-        </div>
-        <div class="todo-section dropzone">
+            <div class="todo-list">
+                <todo-item ng-repeat="todo in vm.inProgress() track by todo.id" todo="todo" ng-click="vm.remove(todo)"></todo-item>
+            </div>
+        </div >
+        <div id="todo-section-2" class="todo-section dropzone">
             IN REVIEW
-            <todo-item ng-repeat="todo in vm.todos[2] track by $index" todo="todo"></todo-item>
-        </div>
-        <div class="todo-section dropzone">
+            <div class="todo-list">
+                <todo-item ng-repeat="todo in vm.inReview() track by todo.id" todo="todo" ng-click="vm.remove(todo)"></todo-item>
+            </div>
+        </div >
+        <div id="todo-section-3" class="todo-section dropzone">
             DONE
-            <todo-item ng-repeat="todo in vm.todos[3] track by $index" todo="todo"></todo-item>
+            <div class="todo-list">
+                <todo-item ng-repeat="todo in vm.inDone() track by todo.id" todo="todo" ng-click="vm.remove(todo)"></todo-item>
+            </div>
         </div>
     </div>
 </dash-drag>

@@ -75,9 +75,6 @@ todo-item .todo-item {
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
 }
-todo-item .todo-item:hover {
-  background-color: #EBECF0;
-}
 todo-item .todo-item .todo-title {
   font-size: 16px;
 }
@@ -119,6 +116,10 @@ todo-item-status div.medium {
 todo-item-status div.low {
   background-color: #269A33;
 }
+dash-drag .initial-dropzone {
+  background-color: #f0f1f3 !important;
+  border: solid 2px white !important;
+}
 dash-drag .dropzone {
   background-color: #ccc;
   border: dashed 2px transparent;
@@ -126,17 +127,23 @@ dash-drag .dropzone {
   margin: 10px auto 30px;
   padding: 5px;
   width: 80%;
-  transition: background-color 0.3s;
 }
-dash-drag .drop-active {
-  border-color: #aaa;
+dash-drag .dropzone.drop-active:not(.drop-target) {
+  background-color: #EBF2F9;
+  border: dashed 2px #0065AA;
 }
-dash-drag .drop-target {
-  background-color: #29e;
-  border-color: #fff;
-  border-style: solid;
+dash-drag .dropzone.drop-active.drop-target {
+  background-color: #F3F9F4;
+  border: dashed 2px #007C00;
+}
+dash-drag .drop-active div.draggable:not(.dragging) {
+  opacity: 0.1;
+}
+dash-drag .draggable {
+  transition: opacity 0.3s ease;
 }
 dash-drag div.dragging {
+  opacity: 0.9;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(136, 136, 136, 0.51);
 }

@@ -15,27 +15,10 @@ export function BoardController(dataHub, todoService) {
     vm.onAdd = onAdd;
 
     function $onInit() {
-        vm.todos = [[] , [], [] , []];
-
-        sortTodos(dataHub.getState().todos);
+        vm.todos = dataHub.getState().todos;
         dataHub.suscribe({state: 'todos', cb: function (todos) {
-            sortTodos(todos);
+            vm.todos = todos;
         }});
-    }
-
-    function sortTodos(todos) {
-        vm.todos[0] = todos.filter(function (todo) {
-            return todo.status === 'todo'
-        });
-        vm.todos[1] = todos.filter(function (todo) {
-            return todo.status === 'progress'
-        });
-        vm.todos[2] = todos.filter(function (todo) {
-            return todo.status === 'review'
-        });
-        vm.todos[3] = todos.filter(function (todo) {
-            return todo.status === 'done'
-        });
     }
 
     function onAdd(title) {

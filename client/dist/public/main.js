@@ -53181,6 +53181,7 @@ function DataHub(newState = __WEBPACK_IMPORTED_MODULE_1__state__["a" /* initialS
     function getState() {
         return state;
     }
+
     function setTodos(val) {
         state.todos = val;
         _emit('todos');
@@ -53839,27 +53840,10 @@ function BoardController(dataHub, todoService) {
     vm.onAdd = onAdd;
 
     function $onInit() {
-        vm.todos = [[], [], [], []];
-
-        sortTodos(dataHub.getState().todos);
+        vm.todos = dataHub.getState().todos;
         dataHub.suscribe({ state: 'todos', cb: function (todos) {
-                sortTodos(todos);
+                vm.todos = todos;
             } });
-    }
-
-    function sortTodos(todos) {
-        vm.todos[0] = todos.filter(function (todo) {
-            return todo.status === 'todo';
-        });
-        vm.todos[1] = todos.filter(function (todo) {
-            return todo.status === 'progress';
-        });
-        vm.todos[2] = todos.filter(function (todo) {
-            return todo.status === 'review';
-        });
-        vm.todos[3] = todos.filter(function (todo) {
-            return todo.status === 'done';
-        });
     }
 
     function onAdd(title) {
@@ -61053,7 +61037,7 @@ win.init = init;
 /* 103 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <dash todos=\"vm.todos\"></dash>\n</div>";
+module.exports = "<div>\n    <modal-add-todo></modal-add-todo>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n        Launch demo modal\n    </button>\n    <button class=\"btn-success\" ng-click=\"vm.click()\">Add</button>\n    <dash ng-if=\"vm.todos\" todos=\"vm.todos\"></dash>\n</div>";
 
 /***/ }),
 /* 104 */
@@ -61174,26 +61158,16 @@ function SideBarService(dataHub) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__ = __webpack_require__(113);
-
-
 
 const SideBarComponent = {
     bindings: {
         onItemClicked: '&'
     },
     template: __webpack_require__(114),
-    controller: __WEBPACK_IMPORTED_MODULE_0__sideBar_controller__["a" /* default */],
+    controller: SideBarController,
     controllerAs: 'vm'
 };
 /* harmony default export */ __webpack_exports__["a"] = (SideBarComponent);
-
-/***/ }),
-/* 113 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = SideBarController;
 
 SideBarController.$inject = ['dataHub'];
 function SideBarController(dataHub) {
@@ -61219,6 +61193,7 @@ function SideBarController(dataHub) {
 };
 
 /***/ }),
+/* 113 */,
 /* 114 */
 /***/ (function(module, exports) {
 
@@ -61468,10 +61443,12 @@ module.exports = "<div id=\"app-shell\">\n    <!-- TOP LEVEL ROUTES -->\n    <di
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__todo_service__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__todo_resource__ = __webpack_require__(146);
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.todo.service', []).factory('todoService', __WEBPACK_IMPORTED_MODULE_1__todo_service__["a" /* default */]);
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.todo.service', []).factory('todoService', __WEBPACK_IMPORTED_MODULE_1__todo_service__["a" /* default */]).factory('todosResource', __WEBPACK_IMPORTED_MODULE_2__todo_resource__["a" /* default */]);
 
 /***/ }),
 /* 134 */
@@ -61481,11 +61458,21 @@ __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('shared.todo.service', []
 /* harmony export (immutable) */ __webpack_exports__["a"] = TodoService;
 
 
-TodoService.$inject = ['dataHub'];
-function TodoService(dataHub) {
+TodoService.$inject = ['dataHub', 'todosResource'];
+function TodoService(dataHub, todosResource) {
+
+    const props = {
+        state: {
+            isLoading: false
+        },
+        data: {}
+    };
 
     return {
         create: create,
+        move: move,
+        retrieve: retrieve,
+        doneDragging: doneDragging,
         remove: remove,
         edit: edit
     };
@@ -61505,16 +61492,39 @@ function TodoService(dataHub) {
         dataHub.setTodos(state.todos);
     }
 
+    function move(todoId, status) {
+        let state = dataHub.getState();
+        let todo = state.todos.find(todo => {
+            return todo.id === todoId;
+        });
+        todo.status = status;
+        dataHub.setTodos(state.todos);
+    }
+
+    function doneDragging() {
+        let state = dataHub.getState();
+        dataHub.setTodos(state.todos);
+    }
+
     /**
      * Remove the todo from system with id
      * @param todoId
      */
     function remove(todoId) {
         let state = dataHub.getState();
-        state.todos = state.filter(todo => {
+        state.todos = state.todos.filter(todo => {
             return todo.id !== todoId;
         });
         dataHub.setTodos(state.todos);
+    }
+
+    /**
+     *
+     */
+    function retrieve() {
+        return todosResource.getTodos().then(() => {
+            dataHub.setTodos(state.todos);
+        });
     }
 
     /**
@@ -61580,7 +61590,7 @@ function TodoItemController() {
 /* 138 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"todo-item draggable drag-drop\">\n    <todo-item-status priority=\"vm.todo.priority\"></todo-item-status>\n    <div class=\"todo-content\">\n        <h4 class=\"todo-title\">{{vm.todo.title}}</h4>\n        <div class=\"todo-footer\">\n            <div>\n                Prority\n            </div>\n            <div>\n                <p>JI-{{vm.todo.id}}</p>\n                <img class=\"user-pic\" ng-src=\"{{vm.todo.user.image_url}}\"/>\n            </div>\n        </div>\n    </div>\n</div>";
+module.exports = "<div id=\"todo-item-{{::vm.todo.id}}\" class=\"todo-item draggable drag-drop\">\n    <todo-item-status priority=\"vm.todo.priority\"></todo-item-status>\n    <div class=\"todo-content\">\n        <h4 class=\"todo-title\">{{vm.todo.title}}</h4>\n        <div class=\"todo-footer\">\n            <div>\n                Prority\n            </div>\n            <div>\n                <p>JI-{{vm.todo.id}}</p>\n                <img class=\"user-pic\" ng-src=\"{{vm.todo.user.image_url}}\"/>\n            </div>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
 /* 139 */
@@ -61650,9 +61660,66 @@ const BoardDashComponent = {
     controllerAs: 'vm'
 };
 
-BoardDash.$inject = [];
-function BoardDash() {
+BoardDash.$inject = ['todoService'];
+function BoardDash(todoService) {
     let vm = this;
+
+    vm.$onInit = $onInit;
+    vm.dragStart = dragStart;
+    vm.dragEnd = dragEnd;
+    vm.dragChangeSection = dragChangeSection;
+    vm.inTodo = inTodo;
+    vm.inProgress = inProgress;
+    vm.inReview = inReview;
+    vm.inDone = inDone;
+
+    vm.draggingTodo = null;
+    vm.isDragging = false;
+
+    function $onInit() {}
+
+    function inTodo() {
+        return vm.todos.filter(todo => {
+            return todo.status === 'todo';
+        });
+    }
+    function inProgress() {
+        return vm.todos.filter(todo => {
+            return todo.status === 'progress';
+        });
+    }
+    function inReview() {
+        return vm.todos.filter(todo => {
+            return todo.status === 'review';
+        });
+    }
+    function inDone() {
+        return vm.todos.filter(todo => {
+            return todo.status === 'done';
+        });
+    }
+
+    function dragStart() {
+        vm.isDragging = true;
+    }
+    function dragChangeSection(todoId, sectionId) {}
+    function dragEnd(todoId, sectionId) {
+        vm.isDragging = false;
+        todoService.move(todoId, mapSectionIdToState(sectionId));
+    }
+
+    function mapSectionIdToState(sectionId) {
+        switch (sectionId) {
+            case "0":
+                return 'todo';
+            case "1":
+                return 'progress';
+            case "2":
+                return 'review';
+            case "3":
+                return 'done';
+        }
+    }
 }
 /* harmony default export */ __webpack_exports__["a"] = (BoardDashComponent);
 
@@ -61660,7 +61727,7 @@ function BoardDash() {
 /* 143 */
 /***/ (function(module, exports) {
 
-module.exports = "<dash-drag>\n    <div class=\"todos-section\">\n        <div class=\"todo-section dropzone\">\n            TO DO\n            <todo-item ng-repeat=\"todo in vm.todos[0] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN PROGRESS\n            <todo-item ng-repeat=\"todo in vm.todos[1] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            IN REVIEW\n            <todo-item ng-repeat=\"todo in vm.todos[2] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n        <div class=\"todo-section dropzone\">\n            DONE\n            <todo-item ng-repeat=\"todo in vm.todos[3] track by $index\" todo=\"todo\"></todo-item>\n        </div>\n    </div>\n</dash-drag>";
+module.exports = "<dash-drag\n        drag-start=\"vm.dragStart()\"\n        drag-end=\"vm.dragEnd(todoId, sectionId)\"\n    >\n    <div class=\"todos-section\" ng-class=\"{'drag': vm.isDragging}\">\n        <div id=\"todo-section-0\" class=\"todo-section dropzone\">\n            TO DO\n            <div class=\"todo-list\">\n                <todo-item ng-repeat=\"todo in vm.inTodo() track by todo.id\" todo=\"todo\" ng-click=\"vm.remove(todo)\"></todo-item>\n            </div>\n        </div >\n        <div id=\"todo-section-1\" class=\"todo-section dropzone\">\n            IN PROGRESS\n            <div class=\"todo-list\">\n                <todo-item ng-repeat=\"todo in vm.inProgress() track by todo.id\" todo=\"todo\" ng-click=\"vm.remove(todo)\"></todo-item>\n            </div>\n        </div >\n        <div id=\"todo-section-2\" class=\"todo-section dropzone\">\n            IN REVIEW\n            <div class=\"todo-list\">\n                <todo-item ng-repeat=\"todo in vm.inReview() track by todo.id\" todo=\"todo\" ng-click=\"vm.remove(todo)\"></todo-item>\n            </div>\n        </div >\n        <div id=\"todo-section-3\" class=\"todo-section dropzone\">\n            DONE\n            <div class=\"todo-list\">\n                <todo-item ng-repeat=\"todo in vm.inDone() track by todo.id\" todo=\"todo\" ng-click=\"vm.remove(todo)\"></todo-item>\n            </div>\n        </div>\n    </div>\n</dash-drag>";
 
 /***/ }),
 /* 144 */
@@ -61738,8 +61805,7 @@ const initialState = {
 const BoardDashDragComponent = {
     bindings: {
         dragStart: '&',
-        dragEnd: '&',
-        dragChangeSection: '&'
+        dragEnd: '&'
     },
     transclude: true,
     template: `
@@ -61750,8 +61816,10 @@ const BoardDashDragComponent = {
 };
 /* harmony default export */ __webpack_exports__["a"] = (BoardDashDragComponent);
 
-function BoardDashDragController() {
+BoardDashDragController.$scope = ['$scope'];
+function BoardDashDragController($scope) {
     let vm = this;
+    vm.dropTarget = null;
 
     __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.dropzone').dropzone({
         // only accept elements matching this CSS selector
@@ -61764,18 +61832,14 @@ function BoardDashDragController() {
             // add active dropzone feedback
             event.target.classList.add('drop-active');
             event.relatedTarget.style.transform = 'translate(0, 0)';
-            vm.dragStart({});
+            event.relatedTarget.classList.add('dragging');
         },
         ondragenter: function (event) {
             var draggableElement = event.relatedTarget,
                 dropzoneElement = event.target;
-
+            vm.dropTarget = dropzoneElement;
             // feedback the possibility of a drop
             dropzoneElement.classList.add('drop-target');
-            draggableElement.classList.add('dragging');
-            // draggableElement.classList.add('can-drop');
-            // draggableElement.textContent = 'Dragged in';
-            vm.dragChangeSection({});
         },
         ondragleave: function (event) {
             // remove the drop feedback style
@@ -61794,18 +61858,13 @@ function BoardDashDragController() {
             event.target.classList.remove('drop-active');
             event.relatedTarget.classList.remove('dragging');
             event.target.classList.remove('drop-target');
-            vm.dragEnd({});
         }
     });
 
     __WEBPACK_IMPORTED_MODULE_0_interactjs___default()('.draggable').draggable({
-        // enable inertial throwing
-        inertia: true,
         // keep the element within the area of it's parent
         restrict: {
-            restriction: "parent",
-            endOnly: true,
-            elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+            elementRect: { top: 0, left: 0, bottom: 0, right: 0 }
         },
         // enable autoScroll
         autoScroll: true,
@@ -61814,6 +61873,23 @@ function BoardDashDragController() {
         onmove: dragMoveListener,
         // call this function on every dragend event
         onend: function (event) {}
+    }).on('down', function (event) {
+        event.currentTarget.parentElement.parentElement.parentElement.classList.add('initial-dropzone');
+        vm.dragStart({});
+    }).on('up', function (event) {
+        event.currentTarget.parentElement.parentElement.parentElement.classList.remove('initial-dropzone');
+
+        var draggableElement = event.currentTarget,
+            dropzoneElement = vm.dropTarget;
+
+        console.log(draggableElement);
+
+        let todoId = draggableElement.getAttribute('id').replace('todo-item-', '');
+        let sectionId = dropzoneElement.getAttribute('id').replace('todo-section-', '');
+
+        $scope.$apply(() => {
+            vm.dragEnd({ todoId, sectionId });
+        });
     });
 
     function dragMoveListener(event) {
@@ -61829,6 +61905,29 @@ function BoardDashDragController() {
         // update the posiion attributes
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
+    }
+}
+
+/***/ }),
+/* 146 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = TodosResource;
+
+TodosResource.$inject = ['$http'];
+function TodosResource($http) {
+
+    return {
+        getTodos: getTodos
+    };
+
+    function getTodos() {
+        let request = {
+            method: 'GET',
+            url: ''
+        };
+        return $http(request).then(json => json.data());
     }
 }
 

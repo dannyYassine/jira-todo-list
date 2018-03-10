@@ -4,5 +4,5 @@
         Launch demo modal
     </button>
     <button class="btn-success" ng-click="vm.click()">Add</button>
-    <dash todos="vm.todos"></dash>
+    <dash ng-if="vm.todos" todos="vm.todos"></dash>
 </div>
