@@ -3,6 +3,8 @@ import angular from 'angular';
 import AppService from './app.service';
 import AppComponent from './app.component';
 
+AppService.$inject = ['$state', '$timeout'];
+
 angular.module('jira.app',
     [
     ])

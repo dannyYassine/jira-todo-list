@@ -6,15 +6,13 @@ const BoardDashDragComponent = {
         dragEnd: '&'
     },
     transclude: true,
-    template: `
-        <div ng-transclude><div>
-    `,
+    template: require('./drag.template.html'),
     controller: BoardDashDragController,
     controllerAs: 'vm'
 };
 export default BoardDashDragComponent;
 
-BoardDashDragController.$scope = ['$scope'];
+BoardDashDragController.$inject = ['$scope'];
 function BoardDashDragController($scope) {
     let vm = this;
     vm.dropTarget = null;
@@ -89,8 +87,6 @@ function BoardDashDragController($scope) {
 
             var draggableElement = event.currentTarget,
                 dropzoneElement = vm.dropTarget;
-
-            console.log(draggableElement);
 
             let todoId = draggableElement.getAttribute('id').replace('todo-item-', '');
             let sectionId = dropzoneElement.getAttribute('id').replace('todo-section-', '');

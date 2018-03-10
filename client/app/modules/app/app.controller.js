@@ -1,5 +1,5 @@
 
-export default function AppController($state, $timeout) {
+export default function AppController() {
     let vm = this;
     vm.contentLoaded = false;
 

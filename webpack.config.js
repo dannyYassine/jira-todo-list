@@ -14,68 +14,81 @@ const minifyJS = new Uglify({
     sourceMap: true,
     uglifyOptions: {
         output: {
-            beautify: true, // comment out or set to false for production
+            beautify: false, // comment out or set to false for production
         },
     },
 });
 
 const outputBundle = __dirname + '/client/dist/public/';
-module.exports = [
-    { // JS
-        devtool: 'sourcemap',
-        entry: { js: './client/app/index.js' },
-        output: {
-            path: outputBundle,
-            filename: 'main.js'
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ['es2015']
+
+module.exports = () => {
+
+    const minifyCss = process.env.ENV === 'PROD';
+    const minizeJs = process.env.ENV === 'PROD';
+
+    let jsPlugins = [];
+    if (minizeJs) {
+        jsPlugins.push(minifyJS);
+    }
+
+    let cssPlugins = [];
+    cssPlugins.push(extractLess);
+
+    return [
+        { // JS
+            devtool: 'sourcemap',
+            entry: { js: './client/app/index.js' },
+            output: {
+                path: outputBundle,
+                filename: 'main.js'
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.js$/,
+                        exclude: /(node_modules|bower_components)/,
+                        loader: 'babel-loader',
+                        query: {
+                            presets: ['es2015']
+                        }
+                    },
+                    {
+                        test: /\.(html)$/,
+                        use: {
+                            loader: 'html-loader'
+                        }
                     }
-                },
-                {
-                    test: /\.(html)$/,
-                    use: {
-                        loader: 'html-loader'
+                ]
+            },
+            plugins: jsPlugins
+        },
+        { // LESS
+            devtool: 'sourcemap',
+            entry: { css: './client/app/shared/styles/main.less' },
+            output: {
+                path: outputBundle,
+                filename: 'main.css'
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.less$/,
+                        exclude: /(node_modules|bower_components)/,
+                        use: extractLess.extract({
+                            use: [{
+                                loader: "css-loader", // translates CSS into CommonJS
+                                options: {
+                                    url: false,
+                                    minimize: minifyCss
+                                }
+                            }, {
+                                loader: "less-loader" // compiles Less to CSS
+                            }]
+                        })
                     }
-                }
-            ]
-        },
-        plugins: [
-        ]
-    },
-    { // LESS
-        devtool: 'sourcemap',
-        entry: { css: './client/app/shared/styles/main.less' },
-        output: {
-            path: outputBundle,
-            filename: 'main.css'
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.less$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: extractLess.extract({
-                        use: [{
-                            loader: "css-loader", // translates CSS into CommonJS
-                            options: {
-                                url: false,
-                                minimize: true
-                            }
-                        }, {
-                            loader: "less-loader" // compiles Less to CSS
-                        }]
-                    })
-                }
-            ]
-        },
-        plugins: [
-            extractLess
-        ]
-    }];
+                ]
+            },
+            plugins: cssPlugins
+        }
+    ];
+};

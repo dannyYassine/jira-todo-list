@@ -1,4 +1,5 @@
 
+AppLoaderService.$inject = ['$state', '$timeout', '$location'];
 export default function AppLoaderService($state, $timeout, $location) {
     var originalUrl;
     this.launch = launch;

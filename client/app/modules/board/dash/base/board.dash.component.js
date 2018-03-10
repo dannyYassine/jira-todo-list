@@ -1,4 +1,3 @@
-import interact from "interactjs";
 
 const BoardDashComponent = {
     bindings: {

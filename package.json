@@ -7,17 +7,19 @@
   "license": "MIT",
   "main": "server/index.js",
   "scripts": {
-    "dev": "concurrently \"npm run watch\" \"npm run serve\" \"npm run sync\"",
+    "dev": "concurrently \"NODE_ENV=development npm run watch\" \"npm run serve\" \"npm run sync\"",
     "watch": "webpack --watch --config webpack.config.js",
     "serve": "nodemon server/index.js --watch server -e html ",
     "sync": "browser-sync start --proxy \"localhost:3002\" --files \"client/dist/**/*\"",
     "build": "webpack --config webpack.config.js",
+    "build:prod": "ENV=PROD webpack --config webpack.config.js",
     "nodemon": "nodemon server/index.js",
     "start": "forever server/index.js",
-    "deploy": "git push heroku master",
+    "deploy": "npm run build:prod && git push heroku master",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
-    "test-single-run": "karma start karma.conf.js --single-run"
+    "test-single-run": "karma start karma.conf.js --single-run",
+    "profile": "webpack --profile --json > stats.json"
   },
   "dependencies": {
     "@shopify/draggable": "^1.0.0-beta.5",

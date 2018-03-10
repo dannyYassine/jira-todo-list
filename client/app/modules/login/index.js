@@ -5,6 +5,8 @@ import LoginComponent from './login.component';
 import LoginService from './login.service';
 import LoginBackgroundComponent from "./loginBackground.component";
 
+LoginService.$inject = ['$state'];
+
 const loginModule = angular.module('jira.login',
     [
     ])
@@ -12,8 +14,8 @@ const loginModule = angular.module('jira.login',
     .component('loginBackgroundComponent', LoginBackgroundComponent)
     .component('loginComponent', LoginComponent)
     .config(loginRoutes);
-export default loginModule;
 
+loginRoutes.$inject = ['$stateProvider'];
 function loginRoutes($stateProvider) {
     $stateProvider
         .state('login-layout', {
