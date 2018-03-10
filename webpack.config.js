@@ -1,11 +1,24 @@
 /**
  * Created by dannyyassine on 2017-11-29.
  */
+const webpack = require("webpack");
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+let Uglify = require("uglifyjs-webpack-plugin");
 
 const extractLess = new ExtractTextPlugin({
     filename: 'main' + '.css'
 });
+
+const minifyJS = new Uglify({
+    sourceMap: true,
+    uglifyOptions: {
+        output: {
+            beautify: true, // comment out or set to false for production
+        },
+    },
+});
+
 const outputBundle = __dirname + '/client/dist/public/';
 module.exports = [
     { // JS
@@ -20,8 +33,9 @@ module.exports = [
                 {
                     test: /\.js$/,
                     exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader'
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['es2015']
                     }
                 },
                 {
@@ -32,7 +46,8 @@ module.exports = [
                 }
             ]
         },
-        plugins: []
+        plugins: [
+        ]
     },
     { // LESS
         devtool: 'sourcemap',
@@ -50,7 +65,8 @@ module.exports = [
                         use: [{
                             loader: "css-loader", // translates CSS into CommonJS
                             options: {
-                                url: false
+                                url: false,
+                                minimize: true
                             }
                         }, {
                             loader: "less-loader" // compiles Less to CSS
