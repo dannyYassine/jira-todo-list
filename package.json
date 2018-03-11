@@ -17,7 +17,7 @@
     "nodemon": "nodemon server/index.js",
     "start": "forever server/index.js",
     "deploy": "npm run build:prod && git commit -am \"pushing to prod\" && git push heroku master",
-    "force-deploy": "npm version patch -m \"deploying\" && npm run deploy",
+    "force-deploy": "npm version patch && npm run deploy",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js --single-run",
