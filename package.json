@@ -51,7 +51,6 @@
     "css-loader": "^0.28.9",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-loader": "",
-    "http-server": "^0.9.0",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jasmine-core": "^2.4.1",
     "karma": "^2.0.0",
