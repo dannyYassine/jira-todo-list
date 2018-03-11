@@ -1,5 +1,12 @@
 # JIRA Todo List Clone
 
+### Demo available here:
+http://dannyyassine-jira-todo.herokuapp.com/
+
+## Initial loading
+![](https://github.com/dannyYassine/jira-todo-list/blob/master/github/spinner.gif)
+
+
 # `angular-seed` — the seed for AngularJS apps
 
 This project is an application skeleton for a typical [AngularJS][angularjs] web app. You can use it
