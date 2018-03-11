@@ -1,8 +1,7 @@
 <div>
-    <modal-add-todo></modal-add-todo>
+    <modal-add-todo on-add="vm.onAdd(title)"></modal-add-todo>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
+        Add
     </button>
-    <button class="btn-success" ng-click="vm.click()">Add</button>
     <dash ng-if="vm.todos" todos="vm.todos"></dash>
 </div>

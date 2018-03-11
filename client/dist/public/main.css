@@ -1,2 +1,427 @@
-*{margin:0;padding:0}body,html{height:100%;width:100%;background-color:#000}.centered{margin:0 auto}.vertical-center{min-height:100%;min-height:100vh;display:flex;align-items:center}div.app-loader{position:absolute;width:100vw;height:100vh;background-color:#ebf2f9}div.app-loader .inner-spinner{position:relative;margin:0 auto;width:100vw;height:100%}div.app-loader .spinner{position:absolute;top:50%;left:50%;margin-top:-50px;margin-left:-50px;border:5px solid #fff;border-radius:100px;width:100px;height:100px;animation:spin 1s cubic-bezier(.89,.01,.35,1.43) infinite}@keyframes spin{0%{-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);-o-transform:rotate(0deg);transform:rotate(0deg);border-bottom:5px solid}to{-webkit-transform:rotate(1turn);-moz-transform:rotate(1turn);-ms-transform:rotate(1turn);-o-transform:rotate(1turn);transform:rotate(1turn);border-bottom:5px solid}}todo-item .todo-item{position:relative;display:flex;align-items:center;transition:all .3s ease;min-height:60px;background-color:#fff;border-radius:5px;margin:4px 0;padding:2px;width:100%;box-shadow:0 1px 3px rgba(0,0,0,.2)}todo-item .todo-item .todo-title{font-size:16px}todo-item .todo-item .todo-content{margin-left:8px;padding:5px}todo-item .todo-item .todo-footer div:first-child{float:left}todo-item .todo-item .todo-footer div:nth-child(2){float:right}todo-item .todo-item p{font-size:14px;display:inline}todo-item .user-pic{width:30px;height:30px;border-radius:45px;border:1px solid #fff}todo-item-status div{position:absolute;top:50%;left:5px;transform:translateY(-50%);float:left;width:2px;height:85%}todo-item-status div.high{background-color:#c02323}todo-item-status div.medium{background-color:#f7933a}todo-item-status div.low{background-color:#269a33}dash-drag .initial-dropzone{background-color:#f0f1f3!important;border:2px solid #fff!important}dash-drag .dropzone{background-color:#ccc;border:2px dashed transparent;border-radius:4px;margin:10px auto 30px;padding:5px;width:80%}dash-drag .dropzone.drop-active:not(.drop-target){background-color:#ebf2f9;border:2px dashed #0065aa}dash-drag .dropzone.drop-active.drop-target{background-color:#f3f9f4;border:2px dashed #007c00}dash-drag .drop-active div.draggable:not(.dragging){opacity:.1}dash-drag .draggable{transition:opacity .3s ease}dash-drag div.dragging{opacity:.9;z-index:1000;box-shadow:0 2px 5px hsla(0,0%,53%,.51)}dash-drag .drag-drop{display:inline-block;min-width:40px;-webkit-transform:translate(0);transform:translate(0);transition:background-color .3s}board .todos-section{height:100vh;display:flex;flex-flow:row;align-items:flex-start}board .todos-section .todo-section{height:100%;flex:1;margin:5px;background-color:#f0f1f3}.side-title{margin-top:10px;margin-bottom:20px}.side-header,.side-title{display:flex;align-items:center;flex-flow:column;margin-bottom:20px}.side-header h3,.side-title h3{margin-bottom:10px}.side-header img,.side-title img{width:75px;height:75px;border:1px solid #000;border-radius:75px}.side-body{overflow:auto}.side-body ul{list-style:none}.margin-paddgin-zero{margin:0;padding:20px}div#app-shell{position:absolute;width:100vw;overflow:auto}div#mobile-header{position:fixed;z-index:10;display:none;height:65px;width:100%;background:#edeef0}div.mobile-toggler{display:inline;float:right;height:65px;width:65px;padding-top:18px}div.mobile-toggler .button-toggler{margin:0 auto;height:30px;width:30px;border-radius:4px;background-color:#000;color:#fff;text-align:center;vertical-align:center;padding-top:2px}div#left-frame{float:left;display:inline-block;background:#edeef0;width:250px;border-right:2px solid #edeef0;height:100vh}div#left-frame-mobile-background{position:fixed;background-color:#000;opacity:0;left:-100vw;width:100vw;height:100vh}div#right-frame{margin:0;padding:20px;float:left;display:inline-block;background:#f8f8f8;width:calc(100% - 250px);height:100vh;overflow:auto}login-component{position:absolute;width:100vw;height:100vh;background-color:#f8f8f8}login-component div#login{position:relative;width:100vw;height:100vh}login-component div#login login-background-component{width:100vw;height:100vh;position:absolute;overflow:hidden}login-component div#login login-background-component .login-background{position:relative;top:-25%;transform:rotate(45deg) scale(1.75);width:100vw;height:100vh}login-component div#login login-background-component .box{display:block;float:left;padding:0!important;margin:0!important;width:50px;height:50px;background-color:#262626;border:1px solid #d5d5d5}login-component div#login .login-content{width:500px;position:absolute;top:50%;left:50%;height:200px;margin:-100px 0 0 -250px}login-component div#login form{display:block}login-component div#login form input{display:block;width:100%;height:40px;border-radius:20px;border:1px solid #000;margin-bottom:5px;padding-left:15px;padding-right:15px;outline:none}login-component div#login button{display:block;margin-top:15px;height:40px;width:100%;background-color:#000;color:#fff;text-align:center;border-radius:20px}@media only screen and (max-width:900px){div#left-frame{width:100px}div#right-frame{width:calc(100% - 100px)}}@media only screen and (max-width:500px){div#mobile-header{display:block}div#left-frame{z-index:11;position:fixed;display:block;left:-200px;width:200px;transition:left .35s ease;overflow:scroll}div#right-frame{z-index:2;display:block;width:100%;margin-top:65px}div#left-frame-mobile-background,div#right-frame{transition:opacity .35s ease}div.left-trame-transition-right div#left-frame{left:0}div.left-trame-transition-right div#left-frame-mobile-background{display:block;left:0;opacity:.4;z-index:10}}
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #EBF2F9;
+}
+.centered {
+  margin: 0 auto;
+}
+.vertical-center {
+  min-height: 100%;
+  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh;
+  /* These two lines are counted as one :-)       */
+  display: flex;
+  align-items: center;
+}
+div.app-loader {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #EBF2F9;
+}
+div.app-loader .inner-spinner {
+  position: relative;
+  margin: 0 auto;
+  width: 100vw;
+  height: 100%;
+}
+div.app-loader .square-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -37.5px;
+  margin-left: -37.5px;
+  width: 75px;
+  height: 75px;
+}
+div.app-loader .square {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  float: left;
+  animation: scaledown 2.0s ease infinite;
+}
+div.app-loader .square:nth-child(1) {
+  animation-delay: 0.225s;
+}
+div.app-loader .square:nth-child(2) {
+  animation-delay: 0.45s;
+}
+div.app-loader .square:nth-child(3) {
+  animation-delay: 0.6s;
+}
+div.app-loader .square:nth-child(4) {
+  animation-delay: 0.075s;
+}
+div.app-loader .square:nth-child(5) {
+  animation-delay: 0.3s;
+}
+div.app-loader .square:nth-child(6) {
+  animation-delay: 0.525s;
+}
+div.app-loader .square:nth-child(7) {
+  animation-delay: 0s;
+}
+div.app-loader .square:nth-child(8) {
+  animation-delay: 0.15s;
+}
+div.app-loader .square:nth-child(9) {
+  animation-delay: 0.375s;
+}
+@keyframes scaledown {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    transform: scale(0);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  80% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+div.app-loader .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  border: solid white 5px;
+  border-radius: 100px;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s cubic-bezier(0.89, 0.01, 0.35, 1.43) infinite;
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-bottom: solid 5px;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    border-bottom: solid 5px;
+  }
+}
+todo-item .todo-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  min-height: 60px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 4px 0;
+  padding: 2px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
+}
+todo-item .todo-item:hover {
+  background-color: #EBECF0;
+}
+todo-item .todo-item .todo-title {
+  font-size: 14px;
+  font-weight: normal;
+}
+todo-item .todo-item .todo-content {
+  margin-left: 8px;
+  padding: 5px;
+}
+todo-item .todo-item .todo-footer div:nth-child(1) {
+  float: left;
+}
+todo-item .todo-item .todo-footer div:nth-child(2) {
+  float: right;
+}
+todo-item .todo-item p {
+  font-size: 14px;
+  display: inline;
+}
+todo-item .user-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 45px;
+  border: solid white 1px;
+}
+todo-item-status div {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  float: left;
+  width: 2px;
+  height: calc(85%);
+}
+todo-item-status div.high {
+  background-color: #C02323;
+}
+todo-item-status div.medium {
+  background-color: #F7933A;
+}
+todo-item-status div.low {
+  background-color: #269A33;
+}
+dash-drag .initial-dropzone {
+  background-color: #f0f1f3 !important;
+  border: solid 2px white !important;
+}
+dash-drag .dropzone {
+  background-color: #ccc;
+  border: dashed 2px transparent;
+  border-radius: 4px;
+  margin: 10px auto 30px;
+  padding: 5px;
+  width: 80%;
+}
+dash-drag .dropzone.drop-active:not(.drop-target) {
+  background-color: #EBF2F9;
+  border: dashed 2px #0065AA;
+}
+dash-drag .dropzone.drop-active.drop-target {
+  background-color: #F3F9F4;
+  border: dashed 2px #007C00;
+}
+dash-drag .drop-active div.draggable:not(.dragging) {
+  opacity: 0.1;
+}
+dash-drag .draggable {
+  transition: opacity 0.3s ease;
+}
+dash-drag div.dragging {
+  opacity: 0.9;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(136, 136, 136, 0.51);
+}
+dash-drag .drag-drop {
+  display: inline-block;
+  min-width: 40px;
+  -webkit-transform: translate(0px, 0px);
+  transform: translate(0px, 0px);
+  transition: background-color 0.3s;
+}
+board .todos-section {
+  height: 100vh;
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+}
+board .todos-section .todo-section {
+  height: 100%;
+  flex: 1;
+  margin: 5px;
+  background-color: #f0f1f3;
+  min-width: 150px;
+}
+.side-title {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.side-header,
+.side-title {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  margin-bottom: 20px;
+}
+.side-header h3,
+.side-title h3 {
+  margin-bottom: 10px;
+}
+.side-header img,
+.side-title img {
+  width: 75px;
+  height: 75px;
+  border: solid 1px black;
+  border-radius: 75px;
+}
+.side-body {
+  overflow: auto;
+}
+.side-body ul {
+  list-style: none;
+}
+.margin-paddgin-zero {
+  margin: 0;
+  padding: 20px;
+}
+div#app-shell {
+  position: absolute;
+  width: 100vw;
+  overflow: auto;
+}
+div#mobile-header {
+  position: fixed;
+  z-index: 10;
+  display: none;
+  height: 65px;
+  width: 100%;
+  background: #edeef0;
+}
+div.mobile-toggler {
+  display: inline;
+  float: right;
+  height: 65px;
+  width: 65px;
+  padding-top: 18px;
+}
+div.mobile-toggler .button-toggler {
+  margin: 0 auto;
+  height: 30px;
+  width: 30px;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  vertical-align: center;
+  padding-top: 2px;
+}
+div#left-frame {
+  float: left;
+  display: inline-block;
+  background: #edeef0;
+  width: 250px;
+  border-right: solid #edeef0 2px;
+  height: 100vh;
+}
+div#left-frame-mobile-background {
+  position: fixed;
+  background-color: black;
+  opacity: 0.0;
+  left: -100vw;
+  width: 100vw;
+  height: 100vh;
+}
+div#right-frame {
+  margin: 0;
+  padding: 20px;
+  float: left;
+  display: inline-block;
+  background: #f8f8f8;
+  width: calc(100% - 250px);
+  height: 100vh;
+  overflow: auto;
+}
+login-component {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+login-component div#login {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+login-component div#login login-background-component {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  overflow: hidden;
+}
+login-component div#login login-background-component .login-background {
+  position: relative;
+  top: -25%;
+  transform: rotate(45deg) scale(1.75);
+  width: 100vw;
+  height: 100vh;
+}
+login-component div#login login-background-component .box {
+  display: block;
+  float: left;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 50px;
+  height: 50px;
+  background-color: #262626;
+  border: solid #d5d5d5 1px;
+}
+login-component div#login .login-content {
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  margin: -100px 0 0 -250px;
+}
+login-component div#login form {
+  display: block;
+}
+login-component div#login form input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+  border: solid black 1px;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  outline: none;
+}
+login-component div#login button {
+  display: block;
+  margin-top: 15px;
+  height: 40px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 20px;
+}
+@media only screen and (max-width: 900px) {
+  div#left-frame {
+    width: 100px;
+  }
+  div#right-frame {
+    width: calc(100% - 100px);
+  }
+}
+@media only screen and (max-width: 500px) {
+  div#mobile-header {
+    display: block;
+  }
+  div#left-frame {
+    z-index: 11;
+    position: fixed;
+    display: block;
+    left: -200px;
+    width: 200px;
+    transition: left 0.35s ease;
+    overflow: scroll;
+  }
+  div#right-frame {
+    z-index: 2;
+    display: block;
+    width: 100%;
+    margin-top: 65px;
+    transition: opacity 0.35s ease;
+  }
+  div#left-frame-mobile-background {
+    transition: opacity 0.35s ease;
+  }
+  div.left-trame-transition-right div#left-frame {
+    left: 0;
+  }
+  div.left-trame-transition-right div#left-frame-mobile-background {
+    display: block;
+    left: 0;
+    opacity: 0.4;
+    z-index: 10;
+  }
+}
+
 /*# sourceMappingURL=main.css.map*/

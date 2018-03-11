@@ -1,4 +1,4 @@
-<div id="exampleModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="exampleModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" modal-close close="vm.close">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,7 +13,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order" ng-click="vm.onAdd({title: vm.title})">Add</button>
+                <button type="button" class="btn btn-secondary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order" ng-click="vm.add(vm.title)">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>

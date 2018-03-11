@@ -12,7 +12,7 @@ export default function AppLoaderService($state, $timeout, $location) {
             val ?
                 _showApp() :
                 _showLogin();
-        }, 2000);
+        }, 2500);
     }
 
     function _showLogin() {

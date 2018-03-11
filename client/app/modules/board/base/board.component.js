@@ -22,8 +22,7 @@ export function BoardController(dataHub, todoService) {
     }
 
     function onAdd(title) {
-        console.log(title);
-        todoService.create({title})
+        todoService.create(title)
     }
 
 };

@@ -13,6 +13,73 @@ div.app-loader {
 		height: 100%;
 	}
 
+	.square-container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -37.5px;
+		margin-left: -37.5px;
+
+		width: 75px;
+		height: 75px;
+	}
+
+	.square {
+		width: 25px;
+		height: 25px;
+		background-color: white;
+		float: left;
+		.animate();
+	}
+	.animate() {
+		@time: 0.075s;
+		animation: scaledown 2.0s ease infinite;
+		&:nth-child(1) {
+			animation-delay: 3 * @time;
+		}
+		&:nth-child(2) {
+			animation-delay: 6 * @time;
+		}
+		&:nth-child(3) {
+			animation-delay: 8 * @time;
+		}
+		&:nth-child(4) {
+			animation-delay: 1 * @time;
+		}
+		&:nth-child(5) {
+			animation-delay: 4 * @time;
+		}
+		&:nth-child(6) {
+			animation-delay: 7 * @time;
+		}
+		&:nth-child(7) {
+			animation-delay: 0 * @time;
+		}
+		&:nth-child(8) {
+			animation-delay: 2 * @time;
+		}
+		&:nth-child(9) {
+			animation-delay: 5 * @time;
+		}
+	}
+	@keyframes scaledown {
+		0% {
+			transform: scale(1);
+			box-shadow: 0 0 0 rgba(0,0,0,0);
+		}
+		40% {
+			transform: scale(0);
+			box-shadow: 0 0 5px rgba(0,0,0,0.2);
+		}
+		80% {
+			transform: scale(1);
+			box-shadow: 0 0 0 rgba(0,0,0,0);
+		}
+		100% {
+
+		}
+	}
+
 	.spinner {
 		position: absolute;
 		top: 50%;

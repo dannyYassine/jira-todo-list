@@ -8,6 +8,7 @@
   "main": "server/index.js",
   "scripts": {
     "dev": "concurrently \"NODE_ENV=development npm run watch\" \"npm run serve\" \"npm run sync\"",
+    "prod": "npm run build:prod && npm run serve",
     "watch": "webpack --watch --config webpack.config.js",
     "serve": "nodemon server/index.js --watch server -e html ",
     "sync": "browser-sync start --proxy \"localhost:3002\" --files \"client/dist/**/*\"",
