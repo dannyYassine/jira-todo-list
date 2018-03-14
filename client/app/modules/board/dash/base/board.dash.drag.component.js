@@ -29,7 +29,7 @@ function BoardDashDragController($scope) {
             event.target.classList.add('drop-active');
             event.relatedTarget.style.transform = 'translate(0, 0)';
             event.relatedTarget.classList.add('dragging');
-
+            console.log('activate');
         },
         ondragenter: function (event) {
             var draggableElement = event.relatedTarget,
@@ -37,8 +37,7 @@ function BoardDashDragController($scope) {
             vm.dropTarget = dropzoneElement;
             // feedback the possibility of a drop
             dropzoneElement.classList.add('drop-target');
-
-
+            console.log('enter');
         },
         ondragleave: function (event) {
             // remove the drop feedback style

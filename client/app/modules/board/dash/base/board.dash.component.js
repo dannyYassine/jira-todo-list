@@ -25,7 +25,11 @@ function BoardDash(todoService) {
     vm.isDragging = false;
 
     function $onInit() {
-
+        var todosRef = firebase.database().ref('jira-todo/todos');
+        console.log(todosRef);
+        todosRef.on('value', function(snapshot) {
+            console.log(snapshot);
+        });
     }
 
     function inTodo() {

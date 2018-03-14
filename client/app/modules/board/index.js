@@ -1,5 +1,6 @@
 import angular from 'angular';
 
+import './todo-detail';
 import './dash';
 import './modals/add-todo';
 //
@@ -10,7 +11,8 @@ export default angular.module('jira-board',
     [
         'board.modals',
         'board.todo-item',
-        'board.dash'
+        'board.dash',
+        'board.todo.detail'
     ])
     .service('BoardService', BoardService)
     .component('board', BoardComponent)
