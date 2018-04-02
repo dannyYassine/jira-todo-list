@@ -22,7 +22,7 @@ const minifyJS = new Uglify({
 let jsPlugins = [];
 const procssENV = new webpack.DefinePlugin({
     'process.env': {
-        'NODE_ENV': `"${process.env.NODE_ENV}"`
+        'NODE_ENV': process.env.NODE_ENV.trim() === 'production' ? JSON.stringify("production") : JSON.stringify("development")
     }
 });
 

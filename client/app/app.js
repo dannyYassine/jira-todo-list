@@ -2,16 +2,18 @@
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 import uiBootrap from 'angular-ui-bootstrap';
-
+require('angular-loading-bar');
+require('angular-animate');
 import sharedModule from './shared/modules';
 import './modules';
 import config from './config';
-console.log(config);
 
 angular.module('jira-client',
     [
         uiRouter,
         uiBootrap,
+        'angular-loading-bar',
+        'ngAnimate',
 
         sharedModule,
 
@@ -26,11 +28,18 @@ angular.module('jira-client',
     .config(configRouterProvider)
     .config(appStateProvider)
     .config(dataHubProvider)
+    .config(angularLoadingBar)
     .config($httpInterceptors);
 
 configLocationProvider.$inject = ['$locationProvider'];
 function configLocationProvider ($locationProvider) {
     $locationProvider.html5Mode(true);
+}
+
+angularLoadingBar.$inject = ['cfpLoadingBarProvider'];
+function angularLoadingBar(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.latencyThreshold = 1;
+    cfpLoadingBarProvider.includeSpinner = false;
 }
 
 $httpInterceptors.$inject = ['$httpProvider'];
@@ -41,6 +50,7 @@ function $httpInterceptors($httpProvider) {
                 if (rejection.status === 401) {
                     $state.go('login');
                 }
+                return rejection;
             }
         };
     }]);

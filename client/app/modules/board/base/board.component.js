@@ -16,7 +16,6 @@ export function BoardController(dataHub, todoService, BoardService) {
 
     function $onInit() {
         dataHub.suscribe({state: 'todos', cb: function (todos) {
-            console.log(todos);
             vm.todos = todos;
         }});
         todoService.retrieve().then((todos) => {

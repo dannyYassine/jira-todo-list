@@ -13,7 +13,6 @@ export default function BoardService(dataHub, todoService) {
     
     function getTodos() {
         todoService.get((todos) => {
-            console.log(todos);
         })
     }
 }
