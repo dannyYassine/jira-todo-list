@@ -5,7 +5,7 @@ import LoginComponent from './login.component';
 import LoginService from './login.service';
 import LoginBackgroundComponent from "./loginBackground.component";
 
-LoginService.$inject = ['$state', '$http', '$templateCache'];
+LoginService.$inject = ['$state', 'Restangular', '$templateCache'];
 
 const loginModule = angular.module('jira.login',
     [

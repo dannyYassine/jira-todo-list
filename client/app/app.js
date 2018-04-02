@@ -4,6 +4,8 @@ import uiRouter from '@uirouter/angularjs';
 import uiBootrap from 'angular-ui-bootstrap';
 require('angular-loading-bar');
 require('angular-animate');
+require('restangular');
+
 import sharedModule from './shared/modules';
 import './modules';
 import config from './config';
@@ -14,6 +16,7 @@ angular.module('jira-client',
         uiBootrap,
         'angular-loading-bar',
         'ngAnimate',
+        'restangular',
 
         sharedModule,
 
@@ -29,6 +32,7 @@ angular.module('jira-client',
     .config(appStateProvider)
     .config(dataHubProvider)
     .config(angularLoadingBar)
+    .config(restangularConfig)
     .config($httpInterceptors);
 
 configLocationProvider.$inject = ['$locationProvider'];
@@ -59,6 +63,11 @@ function $httpInterceptors($httpProvider) {
 configRouterProvider.$inject = ['$urlRouterProvider'];
 function configRouterProvider($urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
+}
+
+restangularConfig.$inject = ['RestangularProvider', 'appConfig'];
+function restangularConfig(RestangularProvider, appConfig) {
+    RestangularProvider.setBaseUrl(appConfig.API_HOST);
 }
 
 appStateProvider.$inject = ['$stateProvider'];

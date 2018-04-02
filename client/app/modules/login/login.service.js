@@ -1,15 +1,17 @@
 
-export default function LoginService($state, $http, $templateCache) {
+export default function LoginService($state, Restangular, $templateCache) {
     this.login = login;
     this.logOut = logOut;
 
     function login() {
-        $http.post('http://localhost:3000/api/login').then(() => {
+        const login = Restangular.all('login');
+        return login.post().then(() => {
             $state.go('board');
         })
     }
     function logOut() {
-        return $http.post('http://localhost:3000/api/logout').then(() => {
+        const logout = Restangular.all('logout');
+        return logout.post().then(() => {
             $templateCache.removeAll();
         })
     }
