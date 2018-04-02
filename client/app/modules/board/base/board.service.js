@@ -1,6 +1,6 @@
 
-BoardService.$inject = ['dataHub'];
-export default function BoardService(dataHub) {
+BoardService.$inject = ['dataHub', 'todoService'];
+export default function BoardService(dataHub, todoService) {
 
     return {
         addTodo: addTodo,
@@ -12,6 +12,8 @@ export default function BoardService(dataHub) {
     }
     
     function getTodos() {
-
+        todoService.get((todos) => {
+            console.log(todos);
+        })
     }
 }

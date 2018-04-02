@@ -1,22 +1,15 @@
 
-AppLoaderService.$inject = ['$state', '$timeout', '$location'];
-export default function AppLoaderService($state, $timeout, $location) {
+AppLoaderService.$inject = ['$state', '$timeout', '$location', 'todoService', 'dataHub'];
+export default function AppLoaderService($state, $timeout, $location, todoService, dataHub) {
     var originalUrl;
     this.launch = launch;
 
     function launch() {
         originalUrl = $location.path();
         $state.go('launch');
-        $timeout(function () {
-            const val = localStorage.getItem('isLoggedIn');
-            val ?
-                _showApp() :
-                _showLogin();
-        }, 2000);
-    }
-
-    function _showLogin() {
-        $state.go('login')
+        todoService.retrieve().then(() => {
+            _showApp();
+        })
     }
 
     function _showApp() {

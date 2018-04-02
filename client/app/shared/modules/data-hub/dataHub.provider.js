@@ -9,6 +9,11 @@ export default function DataHubProvider() {
     this.setState = setState;
     this.$get = $get;
 
+
+    function setState(state) {
+        provider.state = state;
+    }
+
     function $get() {
         if (provider.state) {
             return new DataHub(provider.state)
@@ -16,10 +21,5 @@ export default function DataHubProvider() {
             return new DataHub()
         }
     }
-
-    function setState(state) {
-        provider.state = state;
-    }
-
 
 }

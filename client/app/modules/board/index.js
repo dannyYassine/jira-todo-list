@@ -5,6 +5,7 @@ import './dash';
 import './modals/add-todo';
 //
 import BoardService from './base/board.service';
+import BoardResource from './base/board.resource';
 import BoardComponent from './base/board.component';
 
 export default angular.module('jira-board',
@@ -15,6 +16,7 @@ export default angular.module('jira-board',
         'board.todo.detail'
     ])
     .service('BoardService', BoardService)
+    .service('BoardResource', BoardResource)
     .component('board', BoardComponent)
     .config(appRoutes)
     .name;

@@ -12,11 +12,10 @@ export default function TodoService(dataHub, todosResource) {
 
     return {
         create: create,
-        move: move,
+        edit: edit,
         retrieve: retrieve,
         doneDragging: doneDragging,
-        remove: remove,
-        edit: edit
+        remove: remove
     };
 
     /**
@@ -35,16 +34,7 @@ export default function TodoService(dataHub, todosResource) {
         state.todos.push(todo);
         dataHub.setTodos(state.todos);
     }
-    
-    function move(todoId, status) {
-        let state = dataHub.getState();
-        let todo = state.todos.find((todo) => {
-            return todo.id === todoId;
-        });
-        todo.status = status;
-        dataHub.setTodos(state.todos);
-    }
-    
+
     function doneDragging() {
         let state = dataHub.getState();
         dataHub.setTodos(state.todos);
@@ -66,8 +56,9 @@ export default function TodoService(dataHub, todosResource) {
      *
      */
     function retrieve() {
-        return todosResource.getTodos().then(() => {
-            dataHub.setTodos(state.todos);
+        return todosResource.getTodos().then((json) => {
+            dataHub.setTodos(json.data.data);
+            return json.data.data;
         });
     }
     
@@ -80,7 +71,14 @@ export default function TodoService(dataHub, todosResource) {
      * options.priority
      */
     function edit(todoId, options) {
-
+        let state = dataHub.getState();
+        let todo = state.todos.find((todo) => {
+            return todo.id === todoId;
+        });
+        if (options.status) {
+            todo.status = options.status;
+        }
+        dataHub.setTodos(state.todos);
     }
 
 }

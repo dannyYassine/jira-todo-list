@@ -1,3 +1,5 @@
+import SideBarService from "./sideBar.service";
+import swal from 'sweetalert';
 
 const SideBarComponent = {
     bindings: {
@@ -9,12 +11,13 @@ const SideBarComponent = {
 };
 export default SideBarComponent;
 
-SideBarController.$inject = ['dataHub'];
-function SideBarController(dataHub) {
+SideBarController.$inject = ['dataHub', 'SideBarService'];
+function SideBarController(dataHub, SideBarService) {
     let vm = this;
 
     vm.$onInit = $onInit;
-
+    vm.onLogOut = onLogOut;
+    
     function $onInit() {
         vm.user = dataHub.getState().user;
         vm.appName = dataHub.getState().app.name;
@@ -29,5 +32,20 @@ function SideBarController(dataHub) {
         dataHub.suscribe({state: 'user', cb: function (user) {
                 vm.user = user;
             }});
+    }
+    
+    function onLogOut() {
+        swal({
+            title: "Are you sure to logout?",
+            text: "You will be redirected to the login screen.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    SideBarService.logOut();
+                }
+            });
     }
 };

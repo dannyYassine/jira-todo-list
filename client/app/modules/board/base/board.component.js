@@ -5,8 +5,8 @@ const BoardComponent = {
     controllerAs: 'vm'
 };
 
-BoardController.$inject = ['dataHub', 'todoService'];
-export function BoardController(dataHub, todoService) {
+BoardController.$inject = ['dataHub', 'todoService', 'BoardService'];
+export function BoardController(dataHub, todoService, BoardService) {
     let vm = this;
     vm.click = function () {
         todoService.create('habibi')
@@ -15,10 +15,13 @@ export function BoardController(dataHub, todoService) {
     vm.onAdd = onAdd;
 
     function $onInit() {
-        vm.todos = dataHub.getState().todos;
         dataHub.suscribe({state: 'todos', cb: function (todos) {
+            console.log(todos);
             vm.todos = todos;
         }});
+        todoService.retrieve().then((todos) => {
+            vm.todos = todos;
+        })
     }
 
     function onAdd(title) {

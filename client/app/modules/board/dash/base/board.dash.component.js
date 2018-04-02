@@ -25,11 +25,7 @@ function BoardDash(todoService) {
     vm.isDragging = false;
 
     function $onInit() {
-        var todosRef = firebase.database().ref('jira-todo/todos');
-        console.log(todosRef);
-        todosRef.on('value', function(snapshot) {
-            console.log(snapshot);
-        });
+
     }
 
     function inTodo() {
@@ -60,10 +56,10 @@ function BoardDash(todoService) {
     }
     function dragEnd(todoId, sectionId) {
         vm.isDragging = false;
-        todoService.move(todoId, mapSectionIdToState(sectionId));
+        todoService.edit(todoId, {status: mapSectionIdToStatus(sectionId)});
     }
 
-    function mapSectionIdToState(sectionId) {
+    function mapSectionIdToStatus(sectionId) {
         switch (sectionId) {
             case "0":
                 return 'todo';

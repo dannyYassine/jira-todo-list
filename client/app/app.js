@@ -22,11 +22,25 @@ angular.module('jira-client',
     .config(configLocationProvider)
     .config(configRouterProvider)
     .config(appStateProvider)
-    .config(dataHubProvider);
+    .config(dataHubProvider)
+    .config($httpInterceptors);
 
 configLocationProvider.$inject = ['$locationProvider'];
 function configLocationProvider ($locationProvider) {
     $locationProvider.html5Mode(true);
+}
+
+$httpInterceptors.$inject = ['$httpProvider'];
+function $httpInterceptors($httpProvider) {
+    $httpProvider.interceptors.push(['$state', function($state) {
+        return {
+            'responseError': function(rejection) {
+                if (rejection.status === 401) {
+                    $state.go('login');
+                }
+            }
+        };
+    }]);
 }
 
 configRouterProvider.$inject = ['$urlRouterProvider'];

@@ -7,10 +7,6 @@ export default function TodosResource($http) {
     };
 
     function getTodos() {
-        let request = {
-            method: 'GET',
-            url: '',
-        };
-        return $http(request).then(json => json.data());
+        return $http.get('http://localhost:3000/api/todos');
     }
 }
