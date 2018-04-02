@@ -13,7 +13,6 @@ export function BoardController(dataHub, todoService, BoardService, UINotificati
     };
     vm.$onInit = $onInit;
     vm.onAdd = onAdd;
-    vm.testAlert = testAlert;
 
     function $onInit() {
         dataHub.suscribe({state: 'todos', cb: function (todos) {
@@ -27,10 +26,6 @@ export function BoardController(dataHub, todoService, BoardService, UINotificati
     function onAdd(title) {
         todoService.create(title);
         UINotificationsService.success('A new to-do created!');
-    }
-
-    function testAlert() {
-        UINotificationsService.success('Hello');
     }
 
 };

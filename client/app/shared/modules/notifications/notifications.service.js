@@ -3,6 +3,21 @@ import EventEmitter from 'wolfy87-eventemitter';
 function Notification(msg, type = 'success') {
     this.msg = msg;
     this.type = type;
+
+    this.expires = expires;
+
+    function expires() {
+        switch (this.type) {
+            case 'success':
+                return 2000;
+            case 'warning':
+                return 3000;
+            case 'danger':
+                return 4000;
+            default:
+                return 2000;
+        }
+    }
 }
 
 export default function UINotificationsService () {

@@ -3,8 +3,8 @@
     <div class="container login-content col-8 centered">
         <div class="">
             <form>
-                <input type="text" placeholder="Email">
-                <input type="password" placeholder="Password">
+                <input type="text" placeholder="Email" ng-model="vm.model.email">
+                <input type="password" placeholder="Password" ng-model="vm.model.password">
             </form>
             <button ng-click="vm.login($event)">Login</button>
         </div>

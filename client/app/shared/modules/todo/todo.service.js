@@ -79,6 +79,7 @@ export default function TodoService(dataHub, todosResource) {
             todo.status = options.status;
         }
         dataHub.setTodos(state.todos);
+        todosResource.saveTodos(state.todos);
     }
 
 }

@@ -20,6 +20,7 @@ notifications {
 			opacity: 1;
 		}
 		100% {
+			right: 0;
 			opacity: 0;
 		}
 	}
@@ -30,7 +31,7 @@ notifications {
 		box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 		min-width: 200px;
 		margin: 8px;
-		transition: transform 0.2s ease-in, opacity 0.3s ease-in;
+		transition: transform 0.2s ease-in, opacity 0.3s ease-in, right 0.3s ease-in;
 		animation-name: notificationAppear;
 		animation-duration: 0.3s;
 
@@ -40,6 +41,7 @@ notifications {
 
 		&.notification-dismiss {
 			opacity: 0;
+			right: -50px;
 		}
 	}
 

@@ -40,7 +40,7 @@ function NotificationController($timeout) {
     function _addTimer() {
         $timeout(function () {
             onClick();
-        }, 5000);
+        }, vm.notification.expires());
     }
 
 }
