@@ -25,7 +25,8 @@ export function BoardController(dataHub, todoService, BoardService, UINotificati
     }
 
     function onAdd(title) {
-        todoService.create(title)
+        todoService.create(title);
+        UINotificationsService.success('A new to-do created!');
     }
 
     function testAlert() {

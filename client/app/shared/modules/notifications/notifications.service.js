@@ -25,7 +25,7 @@ export default function UINotificationsService () {
     }
     
     function error(msg = 'Error') {
-        _addNotification(new Notification(msg, 'error'))
+        _addNotification(new Notification(msg, 'danger'))
     }
 
     function onNewNotification(cb) {

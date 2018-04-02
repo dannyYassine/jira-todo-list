@@ -7,6 +7,6 @@ export default function TodosResource($http, appConfig) {
     };
 
     function getTodos() {
-        return $http.get(`${appConfig.API_HOST}/todos`);
+        return $http.get(`${appConfig.API_HOST}/todos`).then();
     }
 }

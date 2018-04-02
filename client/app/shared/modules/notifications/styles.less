@@ -1,42 +1,45 @@
 notifications {
 	position: absolute;
 	z-index: 1000;
-	right: 0;
+	right: 10px;
 	margin-top: 10px;
 
 	@keyframes notificationAppear {
 		0% {
+			right: -100px;
 			opacity: 0;
 		}
 		100% {
+			right: 0;
 			opacity: 1;
 		}
 	}
 
-	.notification-dismiss {
-		opacity: 0;
+	@keyframes notificationDisappear {
+		0% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
 	}
 
-	.notification {
-		width: 250px;
-		min-height: 75px;
-		border-radius: 5px;
+	div.alert {
+		position: relative;
+		right: 0;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+		min-width: 200px;
 		margin: 8px;
-		padding: 5px;
-		opacity: 0;
-		transition: all 0.3s ease-in;
+		transition: transform 0.2s ease-in, opacity 0.3s ease-in;
 		animation-name: notificationAppear;
 		animation-duration: 0.3s;
-		animation-fill-mode: forwards;
 
-		&.success {
-			background: green;
+		&:hover {
+			transform: scaleX(1.05) scaleY(1.05);
 		}
-		&.warning {
-			background: yellow;
-		}
-		&.error {
-			background: red;
+
+		&.notification-dismiss {
+			opacity: 0;
 		}
 	}
 

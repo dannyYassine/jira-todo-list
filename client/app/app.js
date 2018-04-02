@@ -52,7 +52,6 @@ function $httpInterceptors($httpProvider) {
         return {
             'responseError': function(rejection) {
                 if (rejection.status === 401) {
-                    console.log(rejection);
                     UINotificationsService.error(rejection.data.error);
                     $state.go('login');
                 }

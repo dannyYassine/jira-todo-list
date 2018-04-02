@@ -18,20 +18,13 @@ function NotificationsController(UINotificationsService, $timeout) {
     function $onInit() {
         UINotificationsService.onNewNotification((notification) => {
             vm.notifications.push(notification);
-            _addTimer(notification);
         })
-    }
-
-    function _addTimer(notification) {
-        $timeout(function () {
-            vm.notifications.splice(vm.notifications.indexOf(notification),1);
-        }, 5000);
     }
 
     function onNotificationClick(notification) {
         $timeout(function () {
             vm.notifications.splice(vm.notifications.indexOf(notification),1);
-        }, 300);
+        }, 400);
     }
 
 }

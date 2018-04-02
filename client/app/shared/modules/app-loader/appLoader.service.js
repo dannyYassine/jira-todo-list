@@ -8,8 +8,10 @@ export default function AppLoaderService($state, $timeout, $location, todoServic
         originalUrl = $location.path();
         $state.go('launch');
         $timeout(function () {
-            todoService.retrieve().then(() => {
-                _showApp();
+            todoService.retrieve().then((todos) => {
+                if (todos) {
+                    _showApp();
+                }
             })
         }, 1000)
     }
