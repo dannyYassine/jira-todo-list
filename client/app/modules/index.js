@@ -1,4 +1,4 @@
-
+import './root';
 import './board';
 import './settings';
 import './side-bar';

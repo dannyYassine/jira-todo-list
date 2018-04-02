@@ -19,7 +19,7 @@ angular.module('jira-client',
         'restangular',
 
         sharedModule,
-
+        'root',
         'jira.app',
         'jira-board',
         'jira.login',
@@ -48,10 +48,12 @@ function angularLoadingBar(cfpLoadingBarProvider) {
 
 $httpInterceptors.$inject = ['$httpProvider'];
 function $httpInterceptors($httpProvider) {
-    $httpProvider.interceptors.push(['$state', function($state) {
+    $httpProvider.interceptors.push(['$state', 'UINotificationsService', function($state, UINotificationsService) {
         return {
             'responseError': function(rejection) {
                 if (rejection.status === 401) {
+                    console.log(rejection);
+                    UINotificationsService.error(rejection.data.error);
                     $state.go('login');
                 }
                 return rejection;

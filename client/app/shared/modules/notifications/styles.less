@@ -1,0 +1,45 @@
+notifications {
+	position: absolute;
+	z-index: 1000;
+	right: 0;
+	margin-top: 10px;
+
+	@keyframes notificationAppear {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	.notification-dismiss {
+		opacity: 0;
+	}
+
+	.notification {
+		width: 250px;
+		min-height: 75px;
+		border-radius: 5px;
+		margin: 8px;
+		padding: 5px;
+		opacity: 0;
+		transition: all 0.3s ease-in;
+		animation-name: notificationAppear;
+		animation-duration: 0.3s;
+		animation-fill-mode: forwards;
+
+		&.success {
+			background: green;
+		}
+		&.warning {
+			background: yellow;
+		}
+		&.error {
+			background: red;
+		}
+	}
+
+
+
+}

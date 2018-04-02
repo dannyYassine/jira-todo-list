@@ -5,14 +5,15 @@ const BoardComponent = {
     controllerAs: 'vm'
 };
 
-BoardController.$inject = ['dataHub', 'todoService', 'BoardService'];
-export function BoardController(dataHub, todoService, BoardService) {
+BoardController.$inject = ['dataHub', 'todoService', 'BoardService', 'UINotificationsService'];
+export function BoardController(dataHub, todoService, BoardService, UINotificationsService) {
     let vm = this;
     vm.click = function () {
         todoService.create('habibi')
     };
     vm.$onInit = $onInit;
     vm.onAdd = onAdd;
+    vm.testAlert = testAlert;
 
     function $onInit() {
         dataHub.suscribe({state: 'todos', cb: function (todos) {
@@ -25,6 +26,10 @@ export function BoardController(dataHub, todoService, BoardService) {
 
     function onAdd(title) {
         todoService.create(title)
+    }
+
+    function testAlert() {
+        UINotificationsService.success('Hello');
     }
 
 };
