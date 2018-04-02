@@ -5,6 +5,8 @@ import uiBootrap from 'angular-ui-bootstrap';
 
 import sharedModule from './shared/modules';
 import './modules';
+import config from './config';
+console.log(config);
 
 angular.module('jira-client',
     [
@@ -19,6 +21,7 @@ angular.module('jira-client',
         'jira.side-bar',
         'jira.settings'
     ])
+    .constant('appConfig', config)
     .config(configLocationProvider)
     .config(configRouterProvider)
     .config(appStateProvider)

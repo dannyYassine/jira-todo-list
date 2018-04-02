@@ -19,14 +19,22 @@ const minifyJS = new Uglify({
     },
 });
 
+let jsPlugins = [];
+const procssENV = new webpack.DefinePlugin({
+    'process.env': {
+        'NODE_ENV': `"${process.env.NODE_ENV}"`
+    }
+});
+
+jsPlugins.push(procssENV);
+
 const outputBundle = __dirname + '/client/dist/public/';
 
 module.exports = () => {
 
-    const minifyCss = process.env.ENV === 'PROD';
-    const minizeJs = process.env.ENV === 'PROD';
+    const minifyCss = process.env.NODE_ENV === 'production';
+    const minizeJs = process.env.NODE_ENV === 'production';
 
-    let jsPlugins = [];
     if (minizeJs) {
         jsPlugins.push(minifyJS);
     }

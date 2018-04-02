@@ -1,12 +1,12 @@
 
-TodosResource.$inject = ['$http'];
-export default function TodosResource($http) {
+TodosResource.$inject = ['$http', 'appConfig'];
+export default function TodosResource($http, appConfig) {
 
     return {
         getTodos: getTodos
     };
 
     function getTodos() {
-        return $http.get('http://localhost:3000/api/todos');
+        return $http.get(`${appConfig.API_HOST}/api/todos`);
     }
 }
