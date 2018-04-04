@@ -26,9 +26,11 @@ function appRoutes($stateProvider) {
     $stateProvider
         .state('app-layout', {
             url: '',
-            views: {
-                '': {
-                    component: 'app'
+            abstract: true,
+            component: 'app',
+            resolve: {
+                todos: function (todoService) {
+                    return todoService.retrieve();
                 }
             }
         })

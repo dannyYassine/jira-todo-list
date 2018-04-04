@@ -17,7 +17,7 @@ function NotificationsController(UINotificationsService, $timeout) {
 
     function $onInit() {
         UINotificationsService.onNewNotification((notification) => {
-            vm.notifications.push(notification);
+            vm.notifications = [notification];
         })
     }
 

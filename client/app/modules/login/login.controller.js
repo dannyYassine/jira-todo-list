@@ -1,5 +1,5 @@
 
-export default function LoginController(LoginService) {
+export default function LoginController(LoginService, UINotificationsService) {
     let vm = this;
     vm.model = {
         email: null,
@@ -9,7 +9,9 @@ export default function LoginController(LoginService) {
 
     function login(event) {
         event.preventDefault();
-        LoginService.login(vm.model.email, vm.model.password);
+        LoginService.login(vm.model.email, vm.model.password).catch((msg) => {
+            UINotificationsService.error(msg);
+        });
     }
 
 };

@@ -1,7 +1,7 @@
 
 import LoginController from './login.controller';
 
-LoginController.$inject = ['LoginService'];
+LoginController.$inject = ['LoginService', 'UINotificationsService'];
 const Component = {
     template: require('./login.template.html'),
     controller: LoginController,

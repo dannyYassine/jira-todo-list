@@ -32,15 +32,22 @@ export default function UINotificationsService () {
     };
     
     function success(msg = 'Success') {
+        removeNotifications();
         _addNotification(new Notification(msg, 'success'))
     }
     
     function warning(msg = 'Warning') {
+        removeNotifications();
         _addNotification(new Notification(msg, 'warning'))
     }
     
     function error(msg = 'Error') {
+        removeNotifications();
         _addNotification(new Notification(msg, 'danger'))
+    }
+
+    function removeNotifications() {
+
     }
 
     function onNewNotification(cb) {
