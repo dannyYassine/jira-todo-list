@@ -1,7 +1,7 @@
 
 import TodoItemController from './todo-item.controller';
 
-TodoItemController.$inject = [];
+TodoItemController.$inject = ['BoardSelectedTodoService'];
 const TodoItemComponent = {
     bindings: {
         todo: '<'

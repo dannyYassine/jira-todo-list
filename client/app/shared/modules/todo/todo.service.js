@@ -14,7 +14,6 @@ export default function TodoService(dataHub, todosResource) {
         create: create,
         edit: edit,
         retrieve: retrieve,
-        doneDragging: doneDragging,
         remove: remove
     };
 
@@ -33,23 +32,22 @@ export default function TodoService(dataHub, todosResource) {
         };
         state.todos.push(todo);
         dataHub.setTodos(state.todos);
-    }
-
-    function doneDragging() {
-        let state = dataHub.getState();
-        dataHub.setTodos(state.todos);
+        return todosResource.saveTodos(state.todos);
     }
 
     /**
      * Remove the todo from system with id
-     * @param todoId
+     * @param todo
      */
-    function remove(todoId) {
+    function remove(todo) {
         let state = dataHub.getState();
-        state.todos = state.todos.filter((todo) => {
-            return todo.id !== todoId;
+        state.todos = state.todos.filter((aTodo) => {
+            return aTodo.id !== todo.id;
         });
         dataHub.setTodos(state.todos);
+        return todosResource.deleteTodo(todo).then((data) => {
+            return data
+        });
     }
 
     /**

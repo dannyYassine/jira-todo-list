@@ -8,18 +8,21 @@ const BoardDashComponent = {
     controllerAs: 'vm'
 };
 
-BoardDash.$inject = ['todoService'];
-function BoardDash(todoService) {
+BoardDash.$inject = ['todoService', 'BoardSelectedTodoService'];
+function BoardDash(todoService, BoardSelectedTodoService) {
     let vm = this;
 
     vm.$onInit = $onInit;
     vm.dragStart = dragStart;
     vm.dragEnd = dragEnd;
+    vm.todoClicked = todoClicked;
+
     vm.dragChangeSection = dragChangeSection;
     vm.inTodo = inTodo;
     vm.inProgress = inProgress;
     vm.inReview = inReview;
     vm.inDone = inDone;
+    vm.onTodoClick = onTodoClick;
 
     vm.draggingTodo = null;
     vm.isDragging = false;
@@ -57,6 +60,16 @@ function BoardDash(todoService) {
     function dragEnd(todoId, sectionId) {
         vm.isDragging = false;
         todoService.edit(todoId, {status: mapSectionIdToStatus(sectionId)});
+    }
+    function todoClicked(todoId, sectionId) {
+        let todo = vm.todos.find((todo) => {
+            return todo.id === todoId;
+        });
+        BoardSelectedTodoService.selectTodo(todo);
+    }
+
+    function onTodoClick(todo) {
+        BoardSelectedTodoService.selectTodo(todo);
     }
 
     function mapSectionIdToStatus(sectionId) {

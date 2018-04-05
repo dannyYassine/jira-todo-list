@@ -3,7 +3,8 @@ import interact from "interactjs";
 const BoardDashDragComponent = {
     bindings: {
         dragStart: '&',
-        dragEnd: '&'
+        dragEnd: '&',
+        clicked: '&',
     },
     transclude: true,
     template: require('./drag.template.html'),
@@ -16,6 +17,7 @@ BoardDashDragController.$inject = ['$scope'];
 function BoardDashDragController($scope) {
     let vm = this;
     vm.dropTarget = null;
+    vm.isDragging = false;
 
     interact('.dropzone').dropzone({
         // only accept elements matching this CSS selector
@@ -29,7 +31,6 @@ function BoardDashDragController($scope) {
             event.target.classList.add('drop-active');
             event.relatedTarget.style.transform = 'translate(0, 0)';
             event.relatedTarget.classList.add('dragging');
-            console.log('activate');
         },
         ondragenter: function (event) {
             var draggableElement = event.relatedTarget,
@@ -37,7 +38,6 @@ function BoardDashDragController($scope) {
             vm.dropTarget = dropzoneElement;
             // feedback the possibility of a drop
             dropzoneElement.classList.add('drop-target');
-            console.log('enter');
         },
         ondragleave: function (event) {
             // remove the drop feedback style
@@ -79,13 +79,19 @@ function BoardDashDragController($scope) {
         })
         .on('down', function (event) {
             event.currentTarget.parentElement.parentElement.parentElement.classList.add('initial-dropzone');
-            vm.dragStart({})
         })
         .on('up', function (event) {
-            event.currentTarget.parentElement.parentElement.parentElement.classList.remove('initial-dropzone');
-
             var draggableElement = event.currentTarget,
                 dropzoneElement = vm.dropTarget;
+            event.currentTarget.parentElement.parentElement.parentElement.classList.remove('initial-dropzone');
+
+            if (!vm.isDragging) {
+                let todoId = draggableElement.getAttribute('id').replace('todo-item-', '');
+                $scope.$apply(() => {
+                    vm.clicked({todoId});
+                });
+                return;
+            }
 
             let todoId = draggableElement.getAttribute('id').replace('todo-item-', '');
             let sectionId = dropzoneElement.getAttribute('id').replace('todo-section-', '');
@@ -93,9 +99,14 @@ function BoardDashDragController($scope) {
             $scope.$apply(() => {
                 vm.dragEnd({todoId, sectionId});
             });
+            vm.isDragging = false;
         });
 
     function dragMoveListener (event) {
+        if (!vm.isDragging) {
+            vm.dragStart({})
+        }
+        vm.isDragging = true;
         var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,

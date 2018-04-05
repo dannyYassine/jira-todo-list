@@ -39,6 +39,12 @@ module.exports = app => {
         response.status(200).json({data: request.body.todos});
     });
 
+    app.delete('/api/todos', (request, response) => {
+        let todoData = request.body.todo;
+        todosData.splice(todosData.indexOf(todoData),1);
+        response.status(200).json({data: todosData});
+    });
+
     /**
      * Front-end application
      */

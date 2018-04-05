@@ -14,5 +14,8 @@
             <a class="dropdown-item" href="#">Done</a>
         </div>
     <!--</div>-->
-    <dash ng-if="vm.todos" todos="vm.todos"></dash>
+    <div class="dash-container">
+        <dash ng-if="vm.todos" todos="vm.todos"></dash>
+        <todo-detail ng-if="vm.selectedTodo" todo="vm.selectedTodo"></todo-detail>
+    </div>
 </div>

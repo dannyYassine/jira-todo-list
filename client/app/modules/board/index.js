@@ -7,6 +7,7 @@ import './modals/add-todo';
 import BoardService from './base/board.service';
 import BoardResource from './base/board.resource';
 import BoardComponent from './base/board.component';
+import BoardSelectedTodoService from './base/board.selected.todo.service';
 
 export default angular.module('jira-board',
     [
@@ -17,6 +18,7 @@ export default angular.module('jira-board',
     ])
     .service('BoardService', BoardService)
     .service('BoardResource', BoardResource)
+    .service('BoardSelectedTodoService', BoardSelectedTodoService)
     .component('board', BoardComponent)
     .config(appRoutes)
     .name;
