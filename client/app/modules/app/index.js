@@ -29,9 +29,9 @@ function appRoutes($stateProvider) {
             abstract: true,
             component: 'app',
             resolve: {
-                todos: function (todoService) {
+                todos: ['todoService', function (todoService) {
                     return todoService.retrieve();
-                }
+                }]
             }
         })
 }
