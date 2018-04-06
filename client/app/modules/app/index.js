@@ -30,7 +30,13 @@ function appRoutes($stateProvider) {
             component: 'app',
             resolve: {
                 todos: ['todoService', function (todoService) {
-                    return todoService.retrieve();
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            todoService.retrieve().then((data) => {
+                                resolve(data)
+                            });
+                        }, 1000);
+                    });
                 }]
             }
         })

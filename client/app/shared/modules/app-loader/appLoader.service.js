@@ -6,7 +6,9 @@ export default function AppLoaderService($state, $timeout, $location, todoServic
 
     function launch() {
         originalUrl = $location.path();
-        _showApp();
+        // $timeout(() => {
+            _showApp();
+        // }, 1000);
     }
 
     function _showApp() {
