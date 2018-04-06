@@ -27,10 +27,8 @@ export function BoardController(dataHub, todoService, BoardService, UINotificati
         BoardSelectedTodoService.off(_selectedTodoEvent);
     }
 
-    function onAdd(title) {
-        todoService.create(title).then(() => {
-            UINotificationsService.success('A new to-do sucessfully created!');
-        });
+    function onAdd(model) {
+
     }
 
     function _selectedTodoEvent(todo) {

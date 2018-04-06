@@ -1,4 +1,4 @@
-<div id="exampleModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" modal-close close="vm.close">
+<div id="exampleModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" modal-close="vm.close">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,12 +8,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <input type="text" placeholder="title" ng-model="vm.title"/>
-                </form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">To do title</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="to do name" ng-model="vm.model.title" required>
+                    <small id="emailHelp" class="form-text text-muted">If you are going to talk the talk, better walk the walk</small>
+
+                    <label for="todoStatusSelect">To do title</label>
+                    <select id="todoStatusSelect" class="form-control" ng-model="vm.model.status" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <small id="statusHelp" class="form-text text-muted">How important it is</small>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order" ng-click="vm.add(vm.title)">Add</button>
+                <button type="button" class="btn btn-secondary" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order" ng-click="vm.add()">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>

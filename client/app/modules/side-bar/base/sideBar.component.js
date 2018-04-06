@@ -1,5 +1,6 @@
 import SideBarService from "./sideBar.service";
 import swal from 'sweetalert';
+import UINotificationsService from "../../../shared/modules/notifications/notifications.service";
 
 const SideBarComponent = {
     bindings: {
@@ -11,8 +12,8 @@ const SideBarComponent = {
 };
 export default SideBarComponent;
 
-SideBarController.$inject = ['dataHub', 'SideBarService'];
-function SideBarController(dataHub, SideBarService) {
+SideBarController.$inject = ['dataHub', 'SideBarService', 'UINotificationsService'];
+function SideBarController(dataHub, SideBarService, UINotificationsService) {
     let vm = this;
 
     vm.$onInit = $onInit;
@@ -44,7 +45,9 @@ function SideBarController(dataHub, SideBarService) {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    SideBarService.logOut();
+                    SideBarService.logOut(() => {
+                        UINotificationsService.success('You have successfully logged out.');
+                    });
                 }
             });
     }

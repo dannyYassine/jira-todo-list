@@ -6,8 +6,9 @@ export default function SideBarService(dataHub, LoginService, $state) {
         logOut: logOut
     };
 
-    function logOut() {
+    function logOut(cb) {
         LoginService.logOut().then(() => {
+            cb();
             $state.go('login');
             dataHub.setTodos([]);
         })

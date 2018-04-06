@@ -14,7 +14,7 @@ module.exports = app => {
         let email = request.body.email;
         let password = request.body.password;
 
-        if (email !== 'dannyyassine@gmail.com' || password !== 'swift') {
+        if (email !== 'test@gmail.com' || password !== 'swift') {
             return response.status(400).json({error: 'Invalid email or password'})
         }
         let date = new Date();

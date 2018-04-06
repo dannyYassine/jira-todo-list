@@ -19,13 +19,20 @@ export default function TodoService(dataHub, todosResource) {
 
     /**
      * Create a new todo with a given text
-     * @param text
+     * @param model
+     * model.title {String}
+     * model.status {String}
      */
-    // TODO: replace ID
-    function create(text) {
+    function create(model) {
+        if (_validateTitle(model.title)) {
+            return Promise.reject('Invalid title');
+        }
+        if (_validateStatus(model.status)) {
+            return Promise.reject('Invalid status');
+        }
         let state = dataHub.getState();
 
-        let todo = {title: text, priority: 'medium', status: 'todo', id: `${state.todos.length + 1}`};
+        let todo = {title: model.title, priority: model.status, status: 'todo', id: `${state.todos.length + 1}`};
         todo.user = {
             name: 'Danny',
             image_url: 'https://instagram.fymq1-1.fna.fbcdn.net/vp/716eb0fe2ed3233b9192c6463a52e6da/5B46B8FC/t51.2885-19/s320x320/16464380_1876471352630153_2529914536832532480_a.jpg'
@@ -80,4 +87,11 @@ export default function TodoService(dataHub, todosResource) {
         todosResource.saveTodos(state.todos);
     }
 
+    function _validateTitle(title) {
+        return !title || title.length <=3;
+    }
+
+    function _validateStatus(status) {
+        return !status && (status !== 'low' || status !== 'medium' || status !== 'high');
+    }
 }

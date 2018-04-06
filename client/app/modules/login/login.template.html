@@ -2,11 +2,11 @@
     <login-background-component></login-background-component>
     <div class="container login-content col-8 centered">
         <div class="">
-            <form>
+            <form ng-submit="vm.login($event)">
                 <input type="text" placeholder="Email" ng-model="vm.model.email">
                 <input type="password" placeholder="Password" ng-model="vm.model.password">
+                <button type="submit" ng-click="vm.login($event)">Login</button>
             </form>
-            <button ng-click="vm.login($event)">Login</button>
         </div>
     </div>
 </div>

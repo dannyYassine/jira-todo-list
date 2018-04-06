@@ -20,7 +20,7 @@ function Notification(msg, type = 'success') {
     }
 }
 
-export default function UINotificationsService () {
+export default function UINotificationsService ($rootScope) {
     const emitter = new EventEmitter();
     const EVENT = 'UINotificationsService:NEW_NOTIFICATION';
 
@@ -32,18 +32,24 @@ export default function UINotificationsService () {
     };
     
     function success(msg = 'Success') {
-        removeNotifications();
-        _addNotification(new Notification(msg, 'success'))
+        $rootScope.$evalAsync(() => {
+            removeNotifications();
+            _addNotification(new Notification(msg, 'success'))
+        });
     }
     
     function warning(msg = 'Warning') {
-        removeNotifications();
-        _addNotification(new Notification(msg, 'warning'))
+        $rootScope.$evalAsync(() => {
+            removeNotifications();
+            _addNotification(new Notification(msg, 'warning'))
+        });
     }
     
     function error(msg = 'Error') {
-        removeNotifications();
-        _addNotification(new Notification(msg, 'danger'))
+        $rootScope.$evalAsync(() => {
+            removeNotifications();
+            _addNotification(new Notification(msg, 'danger'))
+        });
     }
 
     function removeNotifications() {

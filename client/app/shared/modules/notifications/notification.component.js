@@ -13,13 +13,18 @@ export default NotificationComponent;
 
 function NotificationController($timeout) {
     let vm = this;
+    let timer;
 
     vm.$onInit = $onInit;
+    vm.$onDestroy = $onDestroy;
     vm.onClick = onClick;
     vm.ngClasses = ngClasses;
     
     function $onInit() {
         _addTimer();
+    }
+    function $onDestroy() {
+        $timeout.cancel(timer);
     }
     
     function onClick() {
@@ -38,7 +43,7 @@ function NotificationController($timeout) {
     }
 
     function _addTimer() {
-        $timeout(function () {
+        timer = $timeout(function () {
             onClick();
         }, vm.notification.expires());
     }

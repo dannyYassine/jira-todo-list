@@ -78,6 +78,7 @@ function BoardDashDragController($scope) {
             }
         })
         .on('down', function (event) {
+            vm.isDragging = false;
             event.currentTarget.parentElement.parentElement.parentElement.classList.add('initial-dropzone');
         })
         .on('up', function (event) {
@@ -86,6 +87,7 @@ function BoardDashDragController($scope) {
             event.currentTarget.parentElement.parentElement.parentElement.classList.remove('initial-dropzone');
 
             if (!vm.isDragging) {
+                vm.isDragging = false;
                 let todoId = draggableElement.getAttribute('id').replace('todo-item-', '');
                 $scope.$apply(() => {
                     vm.clicked({todoId});

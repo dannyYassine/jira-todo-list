@@ -4,7 +4,7 @@ export default angular.module('board.modals', [])
     .directive('modalClose', function () {
         return {
             scope: {
-                close: '=',
+                close: '=modalClose',
             },
             restrict: 'A',
             link: function (scope, el, attrs) {
@@ -22,20 +22,7 @@ export default angular.module('board.modals', [])
         bindings: {
             onAdd: '&'
         },
-        controller: function () {
-            let vm = this;
-            vm.close = false;
-            vm.$onInit = $onInit;
-            vm.add = add;
-            function $onInit () {
-
-            }
-            function add(title) {
-                vm.onAdd({title: title});
-                vm.title = null;
-                vm.close = true;
-            }
-        },
+        controller: ModelAddTodoController,
         controllerAs: 'vm'
     })
     .component('modal', {
@@ -55,3 +42,30 @@ export default angular.module('board.modals', [])
         controllerAs: 'vm'
     })
     .name;
+
+ModelAddTodoController.$inject = ['UINotificationsService', 'todoService'];
+function ModelAddTodoController(UINotificationsService, todoService) {
+    let vm = this;
+    vm.model = {};
+
+    vm.close = false;
+    vm.$onInit = $onInit;
+    vm.add = add;
+    function $onInit () {
+
+    }
+    function add() {
+        todoService.create(vm.model)
+            .then(() => {
+                UINotificationsService.success('A new to-do sucessfully created!');
+                vm.model.title = '';
+                vm.model.status = '';
+                vm.close = true;
+                vm.onAdd();
+            })
+            .catch((msg) => {
+                UINotificationsService.error(msg);
+            });
+
+    }
+}
