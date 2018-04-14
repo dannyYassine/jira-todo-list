@@ -1,11 +1,14 @@
 <div id="login">
     <login-background-component></login-background-component>
     <div class="login-content">
-        <div class="">
+        <div class="login-header-image login-input-1">
+            <img src="/assets/Jira@2x-blue.png"/>
+        </div>
+        <div class="login-form">
             <form ng-submit="vm.login($event)">
-                <input type="text" placeholder="Email" ng-model="vm.model.email">
-                <input type="password" placeholder="Password" ng-model="vm.model.password">
-                <button type="submit" ng-click="vm.login($event)">Login</button>
+                <input class="login-input-2" type="text" placeholder="Email" ng-model="vm.model.email">
+                <input class="login-input-3" type="password" placeholder="Password" ng-model="vm.model.password">
+                <button class="login-input-4" type="submit" ng-click="vm.login($event)">Login</button>
             </form>
         </div>
     </div>

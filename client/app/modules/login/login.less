@@ -57,15 +57,31 @@ login-component {
 		.login-content {
 			width: 500px;
 			position: absolute;
-			top: 50%;
+			top: 35%;
 			left: 50%;
 			height: 200px;
 			margin: -100px 0 0 -250px;
+
+			.login-header-image {
+				position: relative;
+				margin: 0 auto 50px;
+				border-radius: 50%;
+				background-color: rgba(0,0,0,0.3);
+				width: 175px;
+				height: 175px;
+
+				img {
+					margin-top: 65px;
+					padding: 0 10px;
+					width: 175px;
+				}
+			}
 		}
 		form {
 			display: block;
 
 			input {
+				position: relative;
 				display: block;
 				width: 100%;
 				height: 40px;
@@ -75,6 +91,44 @@ login-component {
 				padding-left: 15px;
 				padding-right: 15px;
 				outline: none;
+			}
+			button {
+				position: relative;
+			}
+		}
+		.login-anim {
+			opacity: 0;
+			animation-name: login-form-appear;
+			animation-delay: 1s;
+			animation-duration: 0.75s;
+			animation-fill-mode: forwards;
+		}
+		.login-input {
+			&-1 {
+				.login-anim();
+				animation-delay: 1s;
+			}
+			&-2 {
+				.login-anim();
+				animation-delay: 1.1s;
+			}
+			&-3 {
+				.login-anim();
+				animation-delay: 1.2s;
+			}
+			&-4 {
+				.login-anim();
+				animation-delay: 1.3s;
+			}
+		}
+		@keyframes login-form-appear {
+			0% {
+				top: 25px;
+				opacity: 0;
+			}
+			100% {
+				top: 0;
+				opacity: 1;
 			}
 		}
 		button {
