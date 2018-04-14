@@ -6,6 +6,9 @@ http://dannyyassine-jira-todo.herokuapp.com/
 ## Initial loading
 ![](https://github.com/dannyYassine/jira-todo-list/blob/master/github/spinner.gif)
 
+## Login
+![](https://github.com/dannyYassine/jira-todo-list/blob/master/github/login_gif.gif)
+
 
 # `angular-seed` — the seed for AngularJS apps
 
