@@ -12,13 +12,18 @@ function LoginBackgroundController() {
 
     function _createBlocks() {
         let blocks = [];
-        let i = 1000;
+        let i = 250;
         while (i > 0) {
-            blocks.push(i);
+            blocks.push(new Box());
             --i;
         }
         return blocks;
     }
+}
+
+function Box() {
+    this.class = Math.random() <= 0.5 ? ['box-fade'] : [];
+    this.animationSpeed = Math.random() * 10 + 5 + 's';
 }
 
 export default LoginBackgroundComponent;

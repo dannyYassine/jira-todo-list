@@ -20,10 +20,10 @@ login-component {
 
 			.login-background {
 				position: relative;
-				top:-25%;
-				transform: rotate(45deg) scale(1.75);
-				width: 100vw;
-				height: 100vh;
+				left: 20%;
+				transform: rotate(45deg) scale(3.0);
+				width: 750px;
+				height: 1000px;
 			}
 			.box {
 				display: block;
@@ -32,15 +32,30 @@ login-component {
 				margin: 0 !important;
 				width: 50px;
 				height: 50px;
-				background-color: #262626;
+				background-color: #EBF2F9;
 				border: solid #d5d5d5 1px;
 				//transition: all 100s;
 				//transform: rotateY(10deg);
+				&.box-fade {
+					animation-name: box-anim;
+					animation-duration: 10s;
+					animation-iteration-count: infinite;
+					animation-direction: alternate;
+				}
+			}
+			@keyframes box-anim {
+				0% {
+					transform: rotate3d(0, 0, 0);
+					background-color: #EBF2F9;
+				}
+				100% {
+					transform: rotate3d(0.5, 0.5, 0, 180deg);
+					background-color: #0065AA;
+				}
 			}
 		}
 		.login-content {
 			width: 500px;
-
 			position: absolute;
 			top: 50%;
 			left: 50%;

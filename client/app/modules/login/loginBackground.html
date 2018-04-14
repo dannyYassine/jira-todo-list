@@ -1,4 +1,4 @@
 <div class="login-background">
-    <div class="box" ng-repeat="block in ::vm.blocks">
+    <div class="box" ng-repeat="block in vm.blocks" ng-class="block.class" ng-style="{'animation-duration': block.animationSpeed}">
     </div>
 </div>
